@@ -1,2 +1,2 @@
-# easyapi
+# EasyAPI
 API generator for humans
