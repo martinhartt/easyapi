@@ -1,0 +1,74 @@
+{
+  "name": "EasyAPI",
+  "version": "0.0.1",
+  "description": "Easy way to create APIs without any programming knowledge",
+  "main": "index.js",
+  "repository": "https://github.com/martinhartt/easyapi.git",
+  "author": "Martin Hartt <martinhartt1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "gulp",
+    "test": "gulp test"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-preset-flow": "^1.0.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "chai": "^3.5.0",
+    "del": "^2.2.2",
+    "eslint": "^3.14.0",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-flowtype": "^2.30.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-flowtype": "^1.0.0",
+    "gulp-mocha": "^3.0.1",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
+    "webpack-stream": "^3.2.0"
+  },
+  "babel": {
+    "presets": [
+      "latest",
+      "react",
+      "flow"
+    ],
+    "plugins": [
+      "transform-async-to-generator"
+    ]
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.22.0",
+    "body-parser": "^1.16.0",
+    "eslint-plugin-async-await": "^0.0.0",
+    "express": "^4.14.0",
+    "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
+    "natural": "^0.4.0",
+    "nlp_compromise": "^6.5.3",
+    "node-wordnet": "^0.1.12",
+    "pg": "^6.1.2",
+    "pos": "^0.4.2",
+    "radium": "^0.18.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-immutable": "^3.0.10",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1",
+    "sbd": "^1.0.12",
+    "sequelize": "^3.30.2",
+    "sequelize-cli": "^2.5.1",
+    "spacy-nlp": "^1.0.7",
+    "wndb-with-exceptions": "^3.0.1"
+  }
+}
