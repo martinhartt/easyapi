@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import 'babel-polyfill';
 import Natural from '../services/natural';
 
 /* eslint-disable new-cap */

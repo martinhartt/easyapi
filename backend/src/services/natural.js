@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import request from 'request-promise';
 import compromise from 'nlp_compromise';
 
@@ -15,16 +14,16 @@ const tokenizer = new WordTokenizer();
 const tagger = new Tagger();
 
 // Seperates a text into seperate sentences
-function seperateSentences(text: string) {
+function seperateSentences(text) {
   return sentenceTokenizer(text); // text.split(/\. ?/);
 }
 
 // Splits text into seperate tokens
-function tokenize(text: string) {
+function tokenize(text) {
   return tokenizer.tokenize(text);
 }
 
-function findPartsOfSpeech(tokens: [string]) {
+function findPartsOfSpeech(tokens) {
   return tagger.tag(tokens);
 }
 
@@ -68,7 +67,7 @@ function findPartsOfSpeech(tokens: [string]) {
 //   return result;
 // }
 
-function parse(text: string) {
+function parse(text) {
   return request.post('http://localhost:5000/parse', {
     form: {
       text: text.split(/\. ?/).join('<#SENT_SEPERATOR#>'),
@@ -77,7 +76,7 @@ function parse(text: string) {
   .then(res => JSON.parse(res));
 }
 
-function find(object: { modifiers: [any] }, condition: Function) {
+function find(object, condition) {
   if (condition(object)) return object;
 
   if (!object || !object.modifiers || object.modifiers.length === 0) return null;
@@ -88,7 +87,7 @@ function find(object: { modifiers: [any] }, condition: Function) {
   return null;
 }
 
-function findAll(object: { modifiers: [any] }, condition: Function) {
+function findAll(object, condition) {
   console.log(object);
   let found = [];
   if (condition(object)) found.push(object);
@@ -260,7 +259,7 @@ function postprocess(modelStructure, entities) {
   }
 }
 
-async function generateModelStructure(text: string) {
+async function generateModelStructure(text) {
   // Annotate raw text with POS and get dependency structure
   const parseResult = await parse(text);
   const modelStructure = [];
