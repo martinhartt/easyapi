@@ -10,3 +10,6 @@ export { SET_SERVICE_NAME } from './setup/setServiceName.js';
 export { SETUP_DEVICE_QUERY } from './setup/setupDeviceQuery.js';
 export { NEXT_SCREEN } from './setup/nextScreen.js';
 export { UPDATE_NATURAL_TEXT } from './setup/updateNaturalText.js';
+export { AUTH_USER } from './auth/authUser.js';
+export { UPDATE_USER } from './auth/updateUser.js';
+export { AUTH_USER_RESULT } from './auth/authUserResult.js';

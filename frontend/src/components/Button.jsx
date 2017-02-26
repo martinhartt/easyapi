@@ -33,8 +33,8 @@ const style = {
   }
 }
 
-const Button = ({ text, onClick, isDisabled }) => (
-  <button onClick={onClick} style={[style.base, isDisabled ? style.isDisabled : {}]}>
+const Button = ({ text, onClick, isDisabled, type }) => (
+  <button type={type} onClick={onClick} style={[style.base, isDisabled ? style.isDisabled : {}]}>
     {text}
   </button>
 )

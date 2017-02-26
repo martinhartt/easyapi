@@ -12,6 +12,8 @@ import {
   SETUP_DEVICE_QUERY,
   NEXT_SCREEN,
   UPDATE_NATURAL_TEXT,
+  UPDATE_USER,
+  AUTH_USER_RESULT
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
@@ -35,6 +37,9 @@ const NEW_ID = '-1';
 const defaultState = fromJS({
   user: {
     currentServiceId: 'first',
+    email: '',
+    password: '',
+    authenticated: false,
   },
   setup: {
     name: 'User',
@@ -152,6 +157,27 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
           attributes: action.attributes,
           interval: action.interval,
         }));
+    }
+    case UPDATE_USER: {
+      const { email, password } = action;
+
+      if (email && password) {
+        return state
+          .setIn(['user', 'email'], email)
+          .setIn(['user', 'password'], password);
+      } else if (email) {
+        return state
+          .setIn(['user', 'email'], email);
+      } else {
+        return state
+          .setIn(['user', 'password'], password);
+      }
+    }
+    case AUTH_USER_RESULT: {
+      return state
+        .setIn(['user', 'authenticated'], action.success)
+        .setIn(['user', 'errors'], action.errors)
+        .setIn(['user', 'token'], action.token);
     }
     default:
       return state;

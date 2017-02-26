@@ -4,78 +4,25 @@ import compromise from 'nlp_compromise';
 /**
  * Natural Service: A service for extracting information from natural speech.
  */
-import { sentences as sentenceTokenizer } from 'sbd';
+import { sentences as seperateSentences } from 'sbd';
 import { WordTokenizer } from 'natural';
-// import WordNet from 'node-wordnet';
 import { Tagger } from 'pos';
 
 const tokenizer = new WordTokenizer();
-// const wordNet = new WordNet();
 const tagger = new Tagger();
 
-// Seperates a text into seperate sentences
-function seperateSentences(text) {
-  return sentenceTokenizer(text); // text.split(/\. ?/);
-}
-
-// Splits text into seperate tokens
-function tokenize(text) {
-  return tokenizer.tokenize(text);
-}
-
-function findPartsOfSpeech(tokens) {
-  return tagger.tag(tokens);
-}
-
-// async function wordNetDefinition(word: string, pos: string, context: [string]) {
-//   const results = await wordNet.lookupAsync(word);
-//
-//   // Find most likely definition from context array and pos
-//   const simplePOS = pos[0].toLowerCase();
-//   const filteredResults = results
-//     .filter(r => r.pos === simplePOS)
-//     .filter(r => r.lemma === word);
-//
-//   if (context) {
-//     const documentSearch = new TfIdf();
-//
-//     // TODO Stem words from definition and context
-//     filteredResults.forEach(result => documentSearch.addDocument(result.gloss));
-//
-//     let highestMeasure = -1;
-//     let mostLikelyResult;
-//     documentSearch.tfidfs(context, (i, measure) => {
-//       if (measure > highestMeasure) {
-//         mostLikelyResult = filteredResults[i];
-//         highestMeasure = measure;
-//       }
-//     });
-//
-//     return mostLikelyResult;
-//   }
-//   return filteredResults[0];
-// }
-//
-// async function findHypernym(word: string, pos: string, context: [string]) {
-//   const definition = await wordNetDefinition(word, pos, context);
-//   if (definition == null) return null;
-//
-//   const pointer = definition.ptrs.filter(p => p.pointerSymbol === '@')[0];
-//
-//   const result = await wordNet.getAsync(pointer.synsetOffset, pointer.pos);
-//
-//   return result;
-// }
-
+// Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
+
   return request.post('http://localhost:5000/parse', {
     form: {
-      text: text.split(/\. ?/).join('<#SENT_SEPERATOR#>'),
+      text: seperateSentences(text).join('<#SENT_SEPERATOR#>'),
     },
   })
   .then(res => JSON.parse(res));
 }
 
+// In the dependency parse tree it finds first object which satisfies the condition
 function find(object, condition) {
   if (condition(object)) return object;
 
@@ -87,8 +34,8 @@ function find(object, condition) {
   return null;
 }
 
+// In the dependency parse tree it finds all objects which satisfy the condition
 function findAll(object, condition) {
-  console.log(object);
   let found = [];
   if (condition(object)) found.push(object);
 
@@ -98,7 +45,6 @@ function findAll(object, condition) {
     const result = findAll(child, condition);
     if (result.length) found = [...result, ...found];
   }
-  console.log(found);
   return found;
 }
 
@@ -106,17 +52,16 @@ function findAll(object, condition) {
 function decide(values) {
   if (values.length === 0) return null;
 
-  let average = 0;
+  let sum = 0;
   for (const value of values) {
-    average += Number(value);
+    sum += Number(value);
   }
-  return average / values.length >= 0.5;
+  return sum / values.length >= 0.5;
 }
 
 // Finds the existance of property. Returns string of 'required', 'optional', 'unknown'
-function findRequired(prop, context) {
-  // console.log(prop);
-  // https://en.wikipedia.org/wiki/Auxiliary_verb
+function findIfPropertyIsRequired(prop, context) {
+  //  https://en.wikipedia.org/wiki/Auxiliary_verb
   const optionalKeywords = ['may', 'might', 'could', 'should', 'maybe', 'possible', 'possibly', 'optionally', 'optional', 'ought'];
   const requiredKeywords = ['must', 'needs', 'need', 'shall', 'will'];
 
@@ -134,11 +79,11 @@ function findRequired(prop, context) {
     }
   }
 
-  return decide(allRequiredInformation);
+  return decide(allRequiredInformation) || false;
 }
 
-
-function findMultiple(prop) {
+// Finds if a property has multiple instances
+function findIfPropertyHasMultiple(prop) {
   const determiners = prop.modifiers.filter(o => o.arc === 'det');
   const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
   const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
@@ -151,6 +96,8 @@ function findMultiple(prop) {
     return true;
   }
 
+  if (combined.length === 0) return false;
+
   // Find all information related to upper bound
   const allCardinalityInfo = [];
   for (const modifier of combined) {
@@ -159,18 +106,8 @@ function findMultiple(prop) {
     // const singleNumbers = ['one', 'zero'];
 
     if (modifier.arc === 'nummod') {
-      const number = parseInt(modifier.lemma, 10);
-      if (!isNaN(number)) {
-        if (number > 1) {
-          allCardinalityInfo.push(true);
-        } else {
-          allCardinalityInfo.push(false);
-        }
-      } else if (modifier.lemma === 'one' || modifier.lemma === 'zero') {
-        allCardinalityInfo.push(false);
-      } else {
-        allCardinalityInfo.push(true);
-      }
+      // Parse value of number
+      allCardinalityInfo.push(compromise.value(modifier.lemma).number > 1)
     }
 
     if (singleKeywords.find(k => k === modifier.lemma)) {
@@ -180,7 +117,7 @@ function findMultiple(prop) {
     }
   }
 
-  return decide(allCardinalityInfo);
+  return decide(allCardinalityInfo) || false;
 }
 
 function propertyName(prop, relationship, multiple) {
@@ -221,13 +158,13 @@ function propertyType(prop, entities = []) {
 }
 
 function categoriseProp(prop, context, relationship, entities) {
-  const hasMultiple = findMultiple(prop);
+  const hasMultiple = findIfPropertyHasMultiple(prop);
   return {
     type: propertyType(prop, entities),
     name: propertyName(prop, relationship, hasMultiple),
     raw: prop.word,
     lemma: prop.lemma,
-    required: findRequired(prop, context),
+    required: findIfPropertyIsRequired(prop, context),
     multiple: hasMultiple,
   };
 }
@@ -254,7 +191,6 @@ function postprocess(modelStructure, entities) {
   for (const models of modelStructure) {
     for (const prop of models.properties) {
       prop.type = propertyType(prop, entities);
-      console.log('postprocess', propertyType(prop, entities));
     }
   }
 }
@@ -399,7 +335,7 @@ async function generateModelStructure(text) {
   //
   // const result = {};
   //
-  // function findRequired() {
+  // function findIfPropertyIsRequired() {
   //   // console.log(prop);
   //   return {
   //     lessThan: false,
@@ -409,7 +345,7 @@ async function generateModelStructure(text) {
   //   };
   // }
   //
-  // function findMultiple(prop) {
+  // function findIfPropertyHasMultiple(prop) {
   //   const determiners = prop.modifiers.filter(o => o.arc === 'det');
   //   const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
   //   const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
@@ -440,8 +376,8 @@ async function generateModelStructure(text) {
   //   return {
   //     type: 'string',
   //     name: prop.lemma,
-  //     lowerBound: findRequired(prop),
-  //     upperBound: findMultiple(prop),
+  //     lowerBound: findIfPropertyIsRequired(prop),
+  //     upperBound: findIfPropertyHasMultiple(prop),
   //   };
   // }
   //
@@ -524,10 +460,12 @@ async function generateModelStructure(text) {
 
 
 const Natural = {
+  _find: find,
+  _findAll: findAll,
+  _findIfPropertyIsRequired: findIfPropertyIsRequired,
+  _findIfPropertyHasMultiple: findIfPropertyHasMultiple,
   seperateSentences,
-  tokenize,
   generateModelStructure,
-  findPartsOfSpeech,
   parse,
 };
 

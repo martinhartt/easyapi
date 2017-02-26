@@ -28,18 +28,21 @@ const styles = {
   }
 };
 
-const TextInput = ({ text, placeholder, onChange, long = false }) => (
+const TextInput = ({ text, placeholder, onChange, long = false, name, type }) => (
   long ? (
     <textarea
       value={text}
       placeholder={placeholder}
       onChange={(e) => onChange(e.target.value)}
       style={[styles.base, styles.long]}
+      name={name}
     />
   ) : (
     <input
       type="text"
       value={text}
+      name={name}
+      type={type}
       placeholder={placeholder}
       onChange={(e) => onChange(e.target.value)}
       style={styles.base}

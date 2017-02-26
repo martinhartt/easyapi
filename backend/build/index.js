@@ -1,4 +1,4 @@
-require('/Users/martinkubat/Work/easyapi/newbackend/node_modules/source-map-support/source-map-support.js').install();
+require('/Users/martinkubat/Work/easyapi/backend/node_modules/source-map-support/source-map-support.js').install();
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -65,27 +65,30 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 34);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
-/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__device__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__endpoint__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__entry__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__issue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__value__ = __webpack_require__(16);
 
 
 
@@ -104,12 +107,37 @@ if (config.use_env_variable) {
   sequelize = new __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a(config.database, config.username, config.password, config);
 }
 
-console.log('?', __dirname);
 
-__WEBPACK_IMPORTED_MODULE_0_fs___default.a.readdirSync(__dirname).filter(file => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js').forEach(file => {
-  const model = sequelize.import(__WEBPACK_IMPORTED_MODULE_1_path___default.a.join(__dirname, file));
-  db[model.name] = model;
-});
+
+
+
+
+
+
+
+
+
+let models = {
+  attribute: __WEBPACK_IMPORTED_MODULE_4__attribute__["a" /* default */],
+  device: __WEBPACK_IMPORTED_MODULE_5__device__["a" /* default */],
+  endpoint: __WEBPACK_IMPORTED_MODULE_6__endpoint__["a" /* default */],
+  entry: __WEBPACK_IMPORTED_MODULE_7__entry__["a" /* default */],
+  issue: __WEBPACK_IMPORTED_MODULE_8__issue__["a" /* default */],
+  model: __WEBPACK_IMPORTED_MODULE_9__model__["a" /* default */],
+  service: __WEBPACK_IMPORTED_MODULE_10__service__["a" /* default */],
+  user: __WEBPACK_IMPORTED_MODULE_11__user__["a" /* default */],
+  value: __WEBPACK_IMPORTED_MODULE_12__value__["a" /* default */]
+};
+
+const capitalizeString = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+for (const modelName in models) {
+  if (!models.hasOwnProperty(modelName)) continue;
+
+  db[capitalizeString(modelName)] = models[modelName](sequelize, __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a);
+}
+
+console.log(db);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
@@ -123,19 +151,121 @@ db.Sequelize = __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a;
 /* harmony default export */ __webpack_exports__["a"] = db;
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_passport__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport_local__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+
+
+const { User } = __WEBPACK_IMPORTED_MODULE_2__models__["a" /* default */];
+
+__WEBPACK_IMPORTED_MODULE_0_passport___default.a.use(new __WEBPACK_IMPORTED_MODULE_1_passport_local__["Strategy"]({
+  usernameField: 'email',
+  passwordField: 'password',
+  session: false,
+  passReqToCallback: true
+}, (req, email, password, done) => {
+  return User.findOne({
+    where: {
+      email
+    }
+  }).then((() => {
+    var _ref = _asyncToGenerator(function* (foundUser) {
+      let user;
+      if (foundUser) {
+        // User exists
+        if (!(yield foundUser.validPassword(password))) {
+          console.log('Invalid password');
+          return done(null, false, {
+            message: 'Incorrect password.'
+          });
+        }
+        user = foundUser;
+      } else {
+        // New user
+        user = yield User.create({
+          email,
+          passwordHash: User.generateHash(password)
+        });
+      }
+
+      const payload = {
+        user: user.id
+      };
+
+      const token = __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken___default.a.sign(payload, 'secret');
+
+      return done(null, {
+        user: {
+          email: user.email
+        },
+        token
+      });
+    });
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  })()).catch(err => {
+    return done(err);
+  });
+}));
+
+__WEBPACK_IMPORTED_MODULE_0_passport___default.a.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+__WEBPACK_IMPORTED_MODULE_0_passport___default.a.deserializeUser(function (id, done) {
+  User.find({
+    where: { id }
+  }, function (err, [user]) {
+    done(err, user);
+  });
+});
+
+/* harmony default export */ __webpack_exports__["a"] = __WEBPACK_IMPORTED_MODULE_0_passport___default.a;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("jsonwebtoken");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_body_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes_index__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_service__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_bootstrap__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_bootstrap__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__middleware_authentication__ = __webpack_require__(7);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -145,17 +275,24 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__config_bootstrap__["a" /* default */])().then(_asyncToGenerator(function* () {
+
+
+
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__config_bootstrap__["a" /* default */])().then(_asyncToGenerator(function* () {
   /* eslint-disable new-cap */
   const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
   const port = 9001;
 
-  yield __WEBPACK_IMPORTED_MODULE_5__models__["a" /* default */].sequelize.sync();
+  yield __WEBPACK_IMPORTED_MODULE_7__models__["a" /* default */].sequelize.sync();
 
   app.use(__WEBPACK_IMPORTED_MODULE_1_body_parser___default.a.json());
 
-  app.use('/api', __WEBPACK_IMPORTED_MODULE_2__routes_index__["a" /* default */]);
-  app.use('/api/service', __WEBPACK_IMPORTED_MODULE_3__routes_service__["a" /* default */]);
+  app.use(__WEBPACK_IMPORTED_MODULE_2__config_passport__["a" /* default */].initialize());
+  app.use(__WEBPACK_IMPORTED_MODULE_8__middleware_authentication__["a" /* default */]);
+
+  app.use('/api', __WEBPACK_IMPORTED_MODULE_3__routes_index__["a" /* default */]);
+  app.use('/api/service', __WEBPACK_IMPORTED_MODULE_5__routes_service__["a" /* default */]);
+  app.use('/api/auth', __WEBPACK_IMPORTED_MODULE_4__routes_auth__["a" /* default */]);
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
@@ -181,7 +318,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__config_bootstrap__["a" /* def
 })).catch(err => console.error(err));
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -195,7 +332,7 @@ function bootstrap() {
 }
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -226,13 +363,352 @@ const connections = {
 /* harmony default export */ __webpack_exports__["a"] = connections;
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = function (req, res, next) {
+  if (req.originalUrl.startsWith('/api/auth/')) {
+    return next();
+  }
+
+  if (!req.headers.authorization) {
+    return res.status(401).end();
+  }
+
+  const token = req.headers.authentication.split(' ')[1];
+
+  return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, 'secret', (err, decoded) => {
+    if (err) return res.status(401).end();
+
+    const userId = decoded.id;
+
+    return __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */].findById(userId).then(user => user && res.next()).then(err => res.status(401).end());
+  });
+};;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Attribute = sequelize.define('Attribute', {
+    name: DataTypes.STRING,
+    type: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        Attribute.belongsTo(models.Service, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Attribute.hasMany(models.Value);
+      }
+    }
+  });
+
+  return Attribute;
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Device = sequelize.define('Device', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Device.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Device;
+};
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Endpoint = sequelize.define('Endpoint', {
+    instructions: DataTypes.STRING,
+    mode: DataTypes.STRING,
+    path: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        Endpoint.belongsTo(models.Service, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Endpoint;
+};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Entry = sequelize.define('Entry', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Entry.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Entry;
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Issue = sequelize.define('Issue', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Issue.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Issue;
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Model = sequelize.define('Model', {
+    name: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        Model.belongsTo(models.Service, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Model.hasMany(models.Attribute);
+      }
+    }
+  });
+
+  return Model;
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Service = sequelize.define('Service', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Service.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Service.hasMany(models.Endpoint);
+        Service.hasMany(models.Model);
+      }
+    }
+  });
+
+  return Service;
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const User = sequelize.define('User', {
+    email: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    passwordHash: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        User.hasMany(models.Service);
+      },
+      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null)
+    },
+    instanceMethods: {
+      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null),
+      validPassword: function (password) {
+        console.log(password, this.passwordHash);
+        return __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.compare(password, this.passwordHash);
+      }
+    }
+  });
+
+  return User;
+};
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Value = sequelize.define('Value', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Value.belongsTo(models.Attribute, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Value;
+};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
+
+
+
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+function validate(form) {
+  const errors = {};
+  let success = true;
+
+  if (!form || !form.email || !__WEBPACK_IMPORTED_MODULE_2_validator___default.a.isEmail(form.email)) {
+    success = false;
+    errors.email = 'This is not a valid email.';
+  }
+
+  if (!form || !form.password || form.password.length < 5) {
+    success = false;
+    errors.password = 'This password is too short.';
+  }
+
+  return {
+    success,
+    errors
+  };
+}
+
+/* GET index. */
+router.post('/login', (req, res, next) => {
+  const validation = validate({
+    email: req.param('email'),
+    password: req.param('password')
+  });
+
+  if (!validation.success) {
+    return res.status(400).json({
+      success: false,
+      errors: validation.errors
+    });
+  }
+
+  return __WEBPACK_IMPORTED_MODULE_1__config_passport__["a" /* default */].authenticate('local', (err, user) => {
+    console.log(err, user);
+    if (err || !user) {
+      return res.status(400).json({
+        success: false,
+        message: 'Incorrect details'
+      });
+    }
+
+    return res.status(200).json(Object.assign({
+      success: true,
+      errors: {}
+    }, user));
+  })(req, res, next);
+});
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
 
 
 
@@ -255,13 +731,13 @@ router.get('/models', (req, res) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 6 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_natural__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_natural__ = __webpack_require__(20);
 
 
 
@@ -279,19 +755,19 @@ router.post('/scratch', (req, res) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 7 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sbd__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_natural__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_pos__);
 let generateModelStructure = (() => {
   var _ref = _asyncToGenerator(function* (text) {
@@ -443,7 +919,7 @@ let generateModelStructure = (() => {
     //
     // const result = {};
     //
-    // function findRequired() {
+    // function findIfPropertyIsRequired() {
     //   // console.log(prop);
     //   return {
     //     lessThan: false,
@@ -453,7 +929,7 @@ let generateModelStructure = (() => {
     //   };
     // }
     //
-    // function findMultiple(prop) {
+    // function findIfPropertyHasMultiple(prop) {
     //   const determiners = prop.modifiers.filter(o => o.arc === 'det');
     //   const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
     //   const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
@@ -484,8 +960,8 @@ let generateModelStructure = (() => {
     //   return {
     //     type: 'string',
     //     name: prop.lemma,
-    //     lowerBound: findRequired(prop),
-    //     upperBound: findMultiple(prop),
+    //     lowerBound: findIfPropertyIsRequired(prop),
+    //     upperBound: findIfPropertyHasMultiple(prop),
     //   };
     // }
     //
@@ -581,75 +1057,22 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  */
 
 
-// import WordNet from 'node-wordnet';
 
 
 const tokenizer = new __WEBPACK_IMPORTED_MODULE_3_natural__["WordTokenizer"]();
-// const wordNet = new WordNet();
 const tagger = new __WEBPACK_IMPORTED_MODULE_4_pos__["Tagger"]();
 
-// Seperates a text into seperate sentences
-function seperateSentences(text) {
-  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_sbd__["sentences"])(text); // text.split(/\. ?/);
-}
-
-// Splits text into seperate tokens
-function tokenize(text) {
-  return tokenizer.tokenize(text);
-}
-
-function findPartsOfSpeech(tokens) {
-  return tagger.tag(tokens);
-}
-
-// async function wordNetDefinition(word: string, pos: string, context: [string]) {
-//   const results = await wordNet.lookupAsync(word);
-//
-//   // Find most likely definition from context array and pos
-//   const simplePOS = pos[0].toLowerCase();
-//   const filteredResults = results
-//     .filter(r => r.pos === simplePOS)
-//     .filter(r => r.lemma === word);
-//
-//   if (context) {
-//     const documentSearch = new TfIdf();
-//
-//     // TODO Stem words from definition and context
-//     filteredResults.forEach(result => documentSearch.addDocument(result.gloss));
-//
-//     let highestMeasure = -1;
-//     let mostLikelyResult;
-//     documentSearch.tfidfs(context, (i, measure) => {
-//       if (measure > highestMeasure) {
-//         mostLikelyResult = filteredResults[i];
-//         highestMeasure = measure;
-//       }
-//     });
-//
-//     return mostLikelyResult;
-//   }
-//   return filteredResults[0];
-// }
-//
-// async function findHypernym(word: string, pos: string, context: [string]) {
-//   const definition = await wordNetDefinition(word, pos, context);
-//   if (definition == null) return null;
-//
-//   const pointer = definition.ptrs.filter(p => p.pointerSymbol === '@')[0];
-//
-//   const result = await wordNet.getAsync(pointer.synsetOffset, pointer.pos);
-//
-//   return result;
-// }
-
+// Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
+
   return __WEBPACK_IMPORTED_MODULE_0_request_promise___default.a.post('http://localhost:5000/parse', {
     form: {
-      text: text.split(/\. ?/).join('<#SENT_SEPERATOR#>')
+      text: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_sbd__["sentences"])(text).join('<#SENT_SEPERATOR#>')
     }
   }).then(res => JSON.parse(res));
 }
 
+// In the dependency parse tree it finds first object which satisfies the condition
 function find(object, condition) {
   if (condition(object)) return object;
 
@@ -661,8 +1084,8 @@ function find(object, condition) {
   return null;
 }
 
+// In the dependency parse tree it finds all objects which satisfy the condition
 function findAll(object, condition) {
-  console.log(object);
   let found = [];
   if (condition(object)) found.push(object);
 
@@ -672,7 +1095,6 @@ function findAll(object, condition) {
     const result = findAll(child, condition);
     if (result.length) found = [...result, ...found];
   }
-  console.log(found);
   return found;
 }
 
@@ -680,17 +1102,16 @@ function findAll(object, condition) {
 function decide(values) {
   if (values.length === 0) return null;
 
-  let average = 0;
+  let sum = 0;
   for (const value of values) {
-    average += Number(value);
+    sum += Number(value);
   }
-  return average / values.length >= 0.5;
+  return sum / values.length >= 0.5;
 }
 
 // Finds the existance of property. Returns string of 'required', 'optional', 'unknown'
-function findRequired(prop, context) {
-  // console.log(prop);
-  // https://en.wikipedia.org/wiki/Auxiliary_verb
+function findIfPropertyIsRequired(prop, context) {
+  //  https://en.wikipedia.org/wiki/Auxiliary_verb
   const optionalKeywords = ['may', 'might', 'could', 'should', 'maybe', 'possible', 'possibly', 'optionally', 'optional', 'ought'];
   const requiredKeywords = ['must', 'needs', 'need', 'shall', 'will'];
 
@@ -708,10 +1129,11 @@ function findRequired(prop, context) {
     }
   }
 
-  return decide(allRequiredInformation);
+  return decide(allRequiredInformation) || false;
 }
 
-function findMultiple(prop) {
+// Finds if a property has multiple instances
+function findIfPropertyHasMultiple(prop) {
   const determiners = prop.modifiers.filter(o => o.arc === 'det');
   const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
   const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
@@ -724,6 +1146,8 @@ function findMultiple(prop) {
     return true;
   }
 
+  if (combined.length === 0) return false;
+
   // Find all information related to upper bound
   const allCardinalityInfo = [];
   for (const modifier of combined) {
@@ -732,18 +1156,8 @@ function findMultiple(prop) {
     // const singleNumbers = ['one', 'zero'];
 
     if (modifier.arc === 'nummod') {
-      const number = parseInt(modifier.lemma, 10);
-      if (!isNaN(number)) {
-        if (number > 1) {
-          allCardinalityInfo.push(true);
-        } else {
-          allCardinalityInfo.push(false);
-        }
-      } else if (modifier.lemma === 'one' || modifier.lemma === 'zero') {
-        allCardinalityInfo.push(false);
-      } else {
-        allCardinalityInfo.push(true);
-      }
+      // Parse value of number
+      allCardinalityInfo.push(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default.a.value(modifier.lemma).number > 1);
     }
 
     if (singleKeywords.find(k => k === modifier.lemma)) {
@@ -753,7 +1167,7 @@ function findMultiple(prop) {
     }
   }
 
-  return decide(allCardinalityInfo);
+  return decide(allCardinalityInfo) || false;
 }
 
 function propertyName(prop, relationship, multiple) {
@@ -791,13 +1205,13 @@ function propertyType(prop, entities = []) {
 }
 
 function categoriseProp(prop, context, relationship, entities) {
-  const hasMultiple = findMultiple(prop);
+  const hasMultiple = findIfPropertyHasMultiple(prop);
   return {
     type: propertyType(prop, entities),
     name: propertyName(prop, relationship, hasMultiple),
     raw: prop.word,
     lemma: prop.lemma,
-    required: findRequired(prop, context),
+    required: findIfPropertyIsRequired(prop, context),
     multiple: hasMultiple
   };
 }
@@ -821,80 +1235,105 @@ function postprocess(modelStructure, entities) {
   for (const models of modelStructure) {
     for (const prop of models.properties) {
       prop.type = propertyType(prop, entities);
-      console.log('postprocess', propertyType(prop, entities));
     }
   }
 }
 
 const Natural = {
-  seperateSentences,
-  tokenize,
+  _find: find,
+  _findAll: findAll,
+  _findIfPropertyIsRequired: findIfPropertyIsRequired,
+  _findIfPropertyHasMultiple: findIfPropertyHasMultiple,
+  seperateSentences: __WEBPACK_IMPORTED_MODULE_2_sbd__["sentences"],
   generateModelStructure,
-  findPartsOfSpeech,
   parse
 };
 
 /* harmony default export */ __webpack_exports__["a"] = Natural;
 
 /***/ }),
-/* 8 */
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("bcrypt");
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 9 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 10 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("natural");
 
 /***/ }),
-/* 11 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("nlp_compromise");
 
 /***/ }),
-/* 12 */
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-local");
+
+/***/ }),
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 13 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("pos");
 
 /***/ }),
-/* 14 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("request-promise");
 
 /***/ }),
-/* 15 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("sbd");
 
 /***/ }),
-/* 16 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("sequelize");
 
 /***/ }),
-/* 17 */
+/* 33 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(2);
+module.exports = __webpack_require__(4);
 
 
 /***/ })

@@ -1,9 +1,13 @@
 import Express from 'express';
 import bodyParser from 'body-parser';
+import passport from './config/passport';
 import index from './routes/index';
+import auth from './routes/auth';
 import service from './routes/service';
 import bootstrap from './config/bootstrap';
 import models from './models';
+import authentication from './middleware/authentication';
+
 
 bootstrap().then(async () => {
   /* eslint-disable new-cap */
@@ -14,8 +18,12 @@ bootstrap().then(async () => {
 
   app.use(bodyParser.json());
 
+  app.use(passport.initialize());
+  app.use(authentication);
+
   app.use('/api', index);
   app.use('/api/service', service);
+  app.use('/api/auth', auth);
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
