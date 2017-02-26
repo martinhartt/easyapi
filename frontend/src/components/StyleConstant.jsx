@@ -14,7 +14,7 @@ const Dimensions = {
   fieldHeight: 44,
   fieldWidth: 125,
   borderRadius: 3,
-  borderLength: 2.9,
+  borderWidth: 2.9,
   padding: 6,
   fontSize: {
     normal: 17,

@@ -19,7 +19,7 @@ const style = {
   base: {
     minWidth: 150,
     height: 170,
-    border: `${Dimensions.borderLength}px solid ${Color.grey}`,
+    border: `${Dimensions.borderWidth}px solid ${Color.grey}`,
     borderRadius: 10,
     backgroundColor: Color.whiteText,
     cursor: 'pointer',
@@ -28,15 +28,15 @@ const style = {
     fontSize: Dimensions.fontSize.normal,
     color: Color.black,
     ':hover': {
-      border: `${Dimensions.borderLength}px solid ${Color.greenLight}`,
+      border: `${Dimensions.borderWidth}px solid ${Color.greenLight}`,
     },
     ':active': activeStyle,
     ':focus': activeStyle,
   },
   selected: {
-    border: `${Dimensions.borderLength}px solid ${Color.greenDark}`,
+    border: `${Dimensions.borderWidth}px solid ${Color.greenDark}`,
     ':hover': {
-      border: `${Dimensions.borderLength}px solid ${Color.green}`,
+      border: `${Dimensions.borderWidth}px solid ${Color.green}`,
     },
   },
   image: {

@@ -40,6 +40,7 @@ const defaultState = fromJS({
     email: '',
     password: '',
     authenticated: false,
+    services: [1],
   },
   setup: {
     name: 'User',
@@ -47,8 +48,8 @@ const defaultState = fromJS({
     method: 'CREATE_METHOD_NATURAL_LANGUAGE',
   },
   serviceById: {
-    'first': {
-      name: 'Pets',
+    1: {
+      name: 'Cats',
     }
   },
   modelById: {},

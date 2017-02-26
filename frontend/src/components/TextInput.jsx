@@ -6,14 +6,14 @@ const Dimensions = StyleConstant.Dimensions;
 
 const activeStyle = {
   outline: 'none',
-  border: `${Dimensions.borderLength}px solid ${Color.green}`,
+  border: `${Dimensions.borderWidth}px solid ${Color.green}`,
 };
 
 const styles = {
   base: {
-    border: `${Dimensions.borderLength}px solid ${Color.grey}`,
+    border: `${Dimensions.borderWidth}px solid ${Color.grey}`,
     minWidth: Dimensions.fieldWidth,
-    height: Dimensions.fieldHeight - Dimensions.borderLength * 2,
+    height: Dimensions.fieldHeight - Dimensions.borderWidth * 2,
     borderRadius: Dimensions.borderRadius,
     fontSize: Dimensions.fontSize.normal,
     padding: `0 ${Dimensions.padding}px`,

@@ -13,13 +13,13 @@ const activeStyle = {
 const style = {
   base: {
     backgroundColor: Color.green,
-    minWidth: Dimensions.fieldWidth,
+    width: Dimensions.fieldHeight,
     height: Dimensions.fieldHeight,
     border: 'none',
-    borderRadius: Dimensions.borderRadius,
+    borderRadius: '50%',
     cursor: 'pointer',
     transition: `${Dimensions.transitionTime.normal} background-color`,
-    fontSize: Dimensions.fontSize.normal,
+    fontSize: 30,
     color: Color.whiteText,
     ':hover': {
       backgroundColor: Color.greenLight,

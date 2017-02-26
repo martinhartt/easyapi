@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
+import Frame from './Frame';
 import ServiceSetupNameContainer from '../containers/ServiceSetupNameContainer';
 import ServiceSetupMethodContainer from '../containers/ServiceSetupMethodContainer';
 import ServiceSetupNaturalContainer from '../containers/ServiceSetupNaturalContainer';
-import Logo from './Logo';
 import setupScreens from '../utils/setupScreens';
 
 const {
@@ -12,15 +12,6 @@ const {
   SERVICE_SETUP_SCREEN_NATURAL,
 } = setupScreens;
 
-const styles = {
-  logo: {
-    width: '90%',
-    maxWidth: 960,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 40,
-  },
-};
 
 const ServiceSetup = ({ screen }) => {
   let inner;
@@ -40,10 +31,9 @@ const ServiceSetup = ({ screen }) => {
   }
 
   return (
-    <div style={styles.logo}>
-      <Logo />
+    <Frame>
       {inner}
-    </div>
+    </Frame>
   );
 }
 
