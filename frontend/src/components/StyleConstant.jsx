@@ -1,4 +1,4 @@
-const Color = {
+export const Color = {
   green: '#50E39C',
   greenLight: '#54F0A5',
   greenDark: '#4BD793',
@@ -8,9 +8,11 @@ const Color = {
   whiteText: '#FFFFFF',
   black: '#000000',
   grey: '#C6C6C6',
+  lightGrey: '#E6E6E6',
+  lighterGrey: '#F8F9FB',
 };
 
-const Dimensions = {
+export const Dimensions = {
   fieldHeight: 44,
   fieldWidth: 125,
   borderRadius: 3,
@@ -24,9 +26,4 @@ const Dimensions = {
   }
 }
 
-const StyleConstant = {
-  Color,
-  Dimensions,
-};
-
-export default StyleConstant;
+export const lightBorder = `2px solid ${Color.lightGrey}`;

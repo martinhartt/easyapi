@@ -6,8 +6,10 @@ import easyAPI from './reducers';
 import App from './components/App';
 import './index.css';
 import Service from './components/Service';
+import Dashboard from './components/dashboard/Dashboard';
+import Structure from './components/dashboard/structure/Structure';
 import ServiceListContainer from './containers/ServiceListContainer';
-import HomePage from './components/HomePage';
+import HomePageContainer from './containers/HomePageContainer';
 import { Router, Route, browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer, routerMiddleware} from 'react-router-redux';
@@ -31,7 +33,7 @@ const r = () => render(
     <Router history={history}>
       <Route
         path="/"
-        component={HomePage}
+        component={HomePageContainer}
       />
       <Route
         path="/services"
@@ -41,6 +43,16 @@ const r = () => render(
         path="/service/setup"
         component={Service}
       />
+      <Route
+        path="/service/(:id)"
+        component={Dashboard}
+      >
+        <Route
+          path="structure"
+          component={Structure}
+          />
+      </Route>
+
     </Router>
   </Provider>,
   document.getElementById('root'),

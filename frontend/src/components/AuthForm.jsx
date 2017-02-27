@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import TextInput from './TextInput';
 import Button from './Button';
-import StyleConstant from './StyleConstant';
-const Color = StyleConstant.Color;
+import { Color } from './StyleConstant';
 
 const style = {
   width: 140,

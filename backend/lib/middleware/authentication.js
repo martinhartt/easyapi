@@ -3,7 +3,7 @@ import models from '../models';
 
 const { User } = models;
 
-export default function(req, res, next) {
+export default function (req, res, next) {
   if (req.originalUrl.startsWith('/api/auth/')) {
     return next();
   }
@@ -18,8 +18,6 @@ export default function(req, res, next) {
 
     const userId = decoded.user;
 
-    return User.findById(userId)
-      .then(user => user && next())
-      .catch(err => res.status(401).end());
+    return User.findById(userId).then(user => user && next()).catch(err => res.status(401).end());
   });
 };

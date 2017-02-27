@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import StyleConstant from './StyleConstant';
-
-const { Color, Dimensions } = StyleConstant;
+import { Color, Dimensions } from './StyleConstant';
 
 const style = {
   marginBottom: 20,

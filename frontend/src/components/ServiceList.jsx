@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import Frame from './Frame';
 import RoundButton from './RoundButton';
 import ServiceListItem from './ServiceListItem';
 
@@ -16,13 +15,13 @@ const style = {
 }
 
 const ServiceList = ({ services , onSelect, onCreate }) => (
-  <Frame>
+  <div>
     <p style={style.p}>Which API would you like to work on?</p>
     <div style={style.list}>
-      {services.map(service => <ServiceListItem service={service} />)}
-      <RoundButton text="+" onClick={onCreate} />
+    {services.map(service => <ServiceListItem service={service} />)}
+    <RoundButton text="+" onClick={onCreate} />
     </div>
-  </Frame>
+  </div>
 );
 
 ServiceList.propTypes = {

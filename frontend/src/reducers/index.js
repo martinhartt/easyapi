@@ -19,6 +19,7 @@ import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
 import setupScreens from '../utils/setupScreens';
 import createMethods from '../utils/createMethods';
+import { isAuthenticated, getToken } from '../utils/Auth';
 import {
   LOCATION_CHANGE
 } from 'react-router-redux';
@@ -37,6 +38,7 @@ const {
 
 const NEW_ID = '-1';
 
+
 const defaultState = fromJS({
   routing: {
     locationBeforeTransitions: null,
@@ -45,8 +47,9 @@ const defaultState = fromJS({
     currentServiceId: '1',
     email: '',
     password: '',
-    authenticated: false,
+    authenticated: isAuthenticated(),
     services: ['1'],
+    token: getToken(),
   },
   setup: {
     name: 'User',

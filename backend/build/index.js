@@ -373,6 +373,8 @@ const connections = {
 
 
 
+const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
 /* harmony default export */ __webpack_exports__["a"] = function (req, res, next) {
   if (req.originalUrl.startsWith('/api/auth/')) {
     return next();
@@ -382,14 +384,13 @@ const connections = {
     return res.status(401).end();
   }
 
-  const token = req.headers.authentication.split(' ')[1];
-
+  const token = req.headers.authorization.split(' ')[1];
   return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, 'secret', (err, decoded) => {
     if (err) return res.status(401).end();
 
-    const userId = decoded.id;
+    const userId = decoded.user;
 
-    return __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */].findById(userId).then(user => user && res.next()).then(err => res.status(401).end());
+    return User.findById(userId).then(user => user && next()).catch(err => res.status(401).end());
   });
 };;
 

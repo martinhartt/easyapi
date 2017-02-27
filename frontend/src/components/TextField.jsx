@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import ContentEditable from './ContentEditable';
-import StyleConstant from './StyleConstant';
-const Color = StyleConstant.Color;
-const Dimensions = StyleConstant.Dimensions;
+import { Color, Dimensions } from './StyleConstant';
 
 
 const activeStyle = {

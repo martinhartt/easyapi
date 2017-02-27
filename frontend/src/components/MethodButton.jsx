@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import StyleConstant from './StyleConstant';
-const Color = StyleConstant.Color;
-const Dimensions = StyleConstant.Dimensions;
+import { Color, Dimensions } from './StyleConstant';
 import createMethods from '../utils/createMethods';
 
 const {
