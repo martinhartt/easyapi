@@ -3,11 +3,7 @@ import Radium from 'radium';
 import ServiceSetupContainer from '../containers/ServiceSetupContainer';
 import { Router, Route, browserHistory } from 'react-router';
 
-const Service = ({ params: { page = 'setup' } }) => (
-  <Router history={browserHistory}>
-    <Route path="/service/setup" component={ServiceSetupContainer} />
-  </Router>
-);
+const Service = ({ params: { page = 'setup' } }) => <ServiceSetupContainer />;
 
 Service.propTypes = {
   params: PropTypes.any,

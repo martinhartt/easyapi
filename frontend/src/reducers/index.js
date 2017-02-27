@@ -19,6 +19,9 @@ import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
 import setupScreens from '../utils/setupScreens';
 import createMethods from '../utils/createMethods';
+import {
+  LOCATION_CHANGE
+} from 'react-router-redux';
 
 const {
   naturalLanguage,
@@ -35,12 +38,15 @@ const {
 const NEW_ID = '-1';
 
 const defaultState = fromJS({
+  routing: {
+    locationBeforeTransitions: null,
+  },
   user: {
-    currentServiceId: 'first',
+    currentServiceId: '1',
     email: '',
     password: '',
     authenticated: false,
-    services: [1],
+    services: ['1'],
   },
   setup: {
     name: 'User',
@@ -48,7 +54,7 @@ const defaultState = fromJS({
     method: 'CREATE_METHOD_NATURAL_LANGUAGE',
   },
   serviceById: {
-    1: {
+    '1': {
       name: 'Cats',
     }
   },
@@ -61,6 +67,9 @@ const defaultState = fromJS({
 
 function easyAPI(state: any = defaultState, action: {type: string}) {
   switch (action.type) {
+    case LOCATION_CHANGE: {
+      return state.setIn(['routing','locationBeforeTransitions'], action.payload);
+    }
     case NEW_SERVICE: {
       return state
         .setIn(['user', 'currentServiceId'], NEW_ID)

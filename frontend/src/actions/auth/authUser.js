@@ -1,5 +1,6 @@
 import { authUserResult } from './authUserResult';
 import { nextScreen } from '../setup/nextScreen';
+import { push } from 'react-router-redux';
 export const AUTH_USER = 'AUTH_USER';
 
 export function authUser(email, password) {
@@ -17,7 +18,9 @@ export function authUser(email, password) {
     })
     .then(res => res.json())
     .then(result => dispatch(authUserResult(result)))
-    .then(() => dispatch(nextScreen()))
+    .then((result) => {
+      result.success && dispatch(push('/services'))
+    })
     .catch(console.log);
   }
 }
