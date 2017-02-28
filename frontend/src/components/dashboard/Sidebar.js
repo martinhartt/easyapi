@@ -10,7 +10,7 @@ const itemsExample = [
 ]
 
 const Sidebar = ({ items = itemsExample, location }) => <div>
-  {items.map(item => <SidebarItem item={item} />)}
+  {items.map(item => <SidebarItem item={item} key={item.name} />)}
 </div>;
 
 export default Sidebar;

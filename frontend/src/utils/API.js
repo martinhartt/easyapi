@@ -22,6 +22,6 @@ function curryReq(path, useToken = true) {
 
 export const req = (path, params) => curryReq(path)(params);
 
-export const createServiceFromScratch = text => curryReq('/service/scratch')({ text });
+export const extractModelFromText = text => curryReq('/service/parseText')({ text });
 
 export const authenticateUser = (email, password) => curryReq('/auth/login', false)({ email, password });

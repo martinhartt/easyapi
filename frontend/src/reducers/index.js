@@ -1,7 +1,6 @@
 // @flow
 import { List, Map, fromJS } from 'immutable';
 import {
-  ANALYSE_NATURAL_TEXT,
   ANNOTATE_NATURAL_TEXT,
   NEW_SERVICE,
   RECEIVE_WEBHOOK_URL,
@@ -101,6 +100,8 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
             case device:
               return state.setIn(['setup', 'screen'], SERVICE_SETUP_SCREEN_NAME);
               break;
+            default:
+              return state;
           }
           break;
       }

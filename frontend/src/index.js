@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import easyAPI from './reducers';
-import App from './components/App';
 import './index.css';
 import Service from './components/Service';
 import Dashboard from './components/dashboard/Dashboard';
@@ -16,8 +15,7 @@ import ServiceListContainer from './containers/ServiceListContainer';
 import HomePageContainer from './containers/HomePageContainer';
 import { Router, Route, browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
-import { syncHistoryWithStore, routerReducer, routerMiddleware} from 'react-router-redux';
-import { combineReducers } from 'redux-immutable';
+import { syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 
 const middleware = routerMiddleware(browserHistory);
 const store = createStore(easyAPI,
@@ -27,8 +25,7 @@ const store = createStore(easyAPI,
 
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState (state) {
-      console.log('OK', state.get('routing'));
-      return state.get('routing').toJS();
+    return state.get('routing').toJS();
   }
 });
 

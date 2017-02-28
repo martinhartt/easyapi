@@ -31,8 +31,8 @@ const style = {
   }
 }
 
-const RoundButton = ({ text, onClick, isDisabled }) => (
-  <button onClick={onClick} style={[style.base, isDisabled ? style.isDisabled : {}]}>
+const RoundButton = ({ text, onClick, isDisabled, color = Color.green }) => (
+  <button onClick={onClick} style={[style.base, isDisabled && style.isDisabled, {backgroundColor: color}]}>
     {text}
   </button>
 )
