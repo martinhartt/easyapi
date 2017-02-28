@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import Model from './Model';
+import AttributeModal from './AttributeModal';
 import { lightBorder, Color } from '../../StyleConstant';
 
 const style = {
@@ -95,8 +96,16 @@ const exampleModels = [
   }
 ];
 
-const Structure = ({ params, models = exampleModels }) => <div style={style.base}>
+const exampleAttribute = {
+  name: 'attribute',
+  type: 'string',
+  required: true,
+  multiple: false,
+}
+
+const Structure = ({ params, models = exampleModels, selectedAttribute }) => <div style={style.base}>
   <div style={style.top}>Top</div>
+  {selectedAttribute && <AttributeModal attribute={selectedAttribute} />}
   <div style={style.main}>
     {models.map(model =>
       <Model model={model} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
+import Attribute from './Attribute';
 import { Color } from '../../StyleConstant';
 import capitalizeString from '../../../utils/capitalizeString';
 
@@ -11,6 +12,7 @@ const style = {
     borderRadius: 3,
     marginBottom: 10,
     width: 250,
+    padding: 5,
   },
   title: {
     margin: 0,
@@ -22,7 +24,7 @@ const style = {
 
 const Model = ({ model }) => <div style={style.base}>
   <h3 style={style.title}>{capitalizeString(model.name)}</h3>
-  {model.name}
+  {model.properties.map(attribute => <Attribute attribute={attribute} />)}
 </div>;
 
 export default Radium(Model);
