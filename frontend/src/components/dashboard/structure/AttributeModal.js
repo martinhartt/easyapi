@@ -28,7 +28,7 @@ const AttributeModal = ({ attribute, onChange, onClose }) => <div style={style}>
   <div style={style.close} onClick={onClose} />
   <h3>{capitalizeString(attribute.name)}</h3>
   <p>Name</p>
-  <TextInput text={attribute.name} />
+  <TextInput text={attribute.name} onChange={val => onChange({ name: 'name', val })} />
   <p>Example</p>
   <TextInput text={attribute.type} />
 </div>;

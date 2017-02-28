@@ -8,6 +8,10 @@ import './index.css';
 import Service from './components/Service';
 import Dashboard from './components/dashboard/Dashboard';
 import Structure from './components/dashboard/structure/Structure';
+import Entries from './components/dashboard/entries/Entries';
+import Pages from './components/dashboard/pages/Pages';
+import About from './components/dashboard/about/About';
+import Publish from './components/dashboard/publish/Publish';
 import ServiceListContainer from './containers/ServiceListContainer';
 import HomePageContainer from './containers/HomePageContainer';
 import { Router, Route, browserHistory } from 'react-router';
@@ -50,6 +54,22 @@ const r = () => render(
         <Route
           path="structure"
           component={Structure}
+          />
+        <Route
+          path="entries"
+          component={Entries}
+          />
+        <Route
+          path="pages"
+          component={Pages}
+          />
+        <Route
+          path="about"
+          component={About}
+          />
+        <Route
+          path="publish"
+          component={Publish}
           />
       </Route>
 

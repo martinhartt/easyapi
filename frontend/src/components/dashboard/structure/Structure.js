@@ -1,14 +1,11 @@
 import React from 'react';
 import Radium from 'radium';
 import Model from './Model';
+import TopBar from '../TopBar';
 import AttributeModal from './AttributeModal';
 import { lightBorder, Color } from '../../StyleConstant';
 
 const style = {
-  top: {
-    height: 77,
-    borderBottom: lightBorder,
-  },
   main: {
     backgroundColor: Color.lighterGrey,
     height: 'calc(100vh - 77px)',
@@ -104,7 +101,7 @@ const exampleAttribute = {
 }
 
 const Structure = ({ params, models = exampleModels, selectedAttribute }) => <div style={style.base}>
-  <div style={style.top}>Top</div>
+  <TopBar name="Pets" />
   {selectedAttribute && <AttributeModal attribute={selectedAttribute} />}
   <div style={style.main}>
     {models.map(model =>
