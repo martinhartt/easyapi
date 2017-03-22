@@ -19,7 +19,13 @@ export default function(req, res, next) {
     const userId = decoded.user;
 
     return User.findById(userId)
-      .then(user => user && next())
+      .then(user => {
+        if (user) {
+          req.user = user;
+          return next();
+        }
+        return res.status(401).end();
+      })
       .catch(err => res.status(401).end());
   });
 };

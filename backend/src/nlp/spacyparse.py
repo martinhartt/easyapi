@@ -36,7 +36,7 @@ def merge_ents(doc):
     return doc
 
 
-def format_POS(token, light=False, flat=False):
+def format_POS(token, light=False, flat=False, depth=0):
     '''helper: form the POS output for a token'''
     subtree = OrderedDict([
         ("word", token.text),
@@ -45,6 +45,9 @@ def format_POS(token, light=False, flat=False):
         ("POS_fine", token.tag_),
         ("POS_coarse", token.pos_),
         ("arc", token.dep_),
+        ("id", token.i),
+        ("start", token.idx),
+        ("depth", depth),
         ("modifiers", [])
     ])
     if light:
@@ -56,14 +59,14 @@ def format_POS(token, light=False, flat=False):
     return subtree
 
 
-def POS_tree_(root, light=False):
+def POS_tree_(root, light=False, depth=0):
     '''
     Helper: generate a POS tree for a root token.
     The doc must have merge_ents(doc) ran on it.
     '''
-    subtree = format_POS(root, light=light)
+    subtree = format_POS(root, light=light, depth=depth)
     for c in root.children:
-        subtree["modifiers"].append(POS_tree_(c))
+        subtree["modifiers"].append(POS_tree_(c, light=False, depth=depth+1))
     return subtree
 
 

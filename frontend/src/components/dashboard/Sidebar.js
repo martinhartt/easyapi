@@ -9,8 +9,8 @@ const itemsExample = [
   { name: 'Publish', path: '/service/X/publish' },
 ]
 
-const Sidebar = ({ items = itemsExample, location }) => <div>
-  {items.map(item => <SidebarItem item={item} key={item.name} />)}
+const Sidebar = ({ items = itemsExample, location, onSelect }) => <div>
+  {items.map((item, i) => <SidebarItem item={item} key={item.name} onClick={() => onSelect(i)}/>)}
 </div>;
 
 export default Sidebar;

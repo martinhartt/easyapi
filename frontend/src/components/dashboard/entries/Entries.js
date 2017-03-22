@@ -5,6 +5,7 @@ import RowHeader from './RowHeader';
 import Column from './Column';
 import Row from './Row';
 import capitalizeString from '../../../utils/capitalizeString';
+import { Color } from '../../StyleConstant';
 
 const entriesExample = {
   attributes: [
@@ -29,8 +30,25 @@ const entriesExample = {
   ]
 };
 
-const Entries = ({ entries = entriesExample, headers, onSelected, onDelete }) =>
-<div>
+const exampleHeaders = [
+  {
+    text: 'Pets',
+    selected: true,
+  },
+  {
+    text: 'Owners',
+  },
+]
+
+const style = {
+  base: {
+    backgroundColor: Color.lighterGrey,
+    height: '100vh',
+  }
+}
+
+const Entries = ({ entries = entriesExample, headers = exampleHeaders, onSelected, onDelete }) =>
+<div style={style.base}>
   <TopBar name="OK" />
   <Tabs headers={headers} onSelected={onSelected} />
   <RowHeader>

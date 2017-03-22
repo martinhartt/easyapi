@@ -24,9 +24,10 @@ const style = {
   }
 }
 
-const SidebarItem = ({ item }) =>
+const SidebarItem = ({ item, onClick }) =>
 <Link
-  style={{ textDecoration: 'none' }} to={item.path}>
+  style={{ textDecoration: 'none' }} to={item.path}
+  onClick={onClick}>
   <div style={[style.base, item.selected && style.selected]}>
     {item.name}
   </div>

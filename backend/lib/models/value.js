@@ -1,16 +1,16 @@
 export default function (sequelize, DataTypes) {
   const Value = sequelize.define('Value', {
-    name: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN
+    value: DataTypes.STRING
   }, {
     classMethods: {
       associate(models) {
-        Value.belongsTo(models.Attribute, {
+        Value.belongsTo(models.Entry, {
           onDelete: 'CASCADE',
           foreignKey: {
             allowNull: false
           }
         });
+        Value.belongsTo(models.Attribute);
       }
     }
   });

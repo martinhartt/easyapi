@@ -11,6 +11,7 @@ export default function (sequelize, DataTypes) {
           }
         });
         Model.hasMany(models.Attribute);
+        Model.hasMany(models.Entry);
       }
     }
   });

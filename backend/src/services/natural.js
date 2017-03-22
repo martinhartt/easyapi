@@ -5,11 +5,6 @@ import compromise from 'nlp_compromise';
  * Natural Service: A service for extracting information from natural speech.
  */
 import { sentences as seperateSentences } from 'sbd';
-import { WordTokenizer } from 'natural';
-import { Tagger } from 'pos';
-
-const tokenizer = new WordTokenizer();
-const tagger = new Tagger();
 
 // Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
@@ -84,9 +79,9 @@ function findIfPropertyIsRequired(prop, context) {
 
 // Finds if a property has multiple instances
 function findIfPropertyHasMultiple(prop) {
-  const determiners = prop.modifiers.filter(o => o.arc === 'det');
-  const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
-  const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
+  const determiners = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'det') : [];
+  const adjModifiers = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'amod') : [];
+  const numModifiers = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'nummod') : [];
 
   const combined = determiners.concat(adjModifiers).concat(numModifiers);
   // console.log(prop.lemma, ' findupper ', combined);
@@ -120,6 +115,19 @@ function findIfPropertyHasMultiple(prop) {
   return decide(allCardinalityInfo) || false;
 }
 
+function isContainment(relationship) {
+  const containmentWords = [
+    'have',
+    'include',
+    'incorporate',
+    'consist',
+    'comprise',
+    'contain',
+  ];
+
+  return containmentWords.find(w => w == relationship.lemma);
+}
+
 function propertyName(prop, relationship, multiple) {
   let entity = '';
 
@@ -136,7 +144,7 @@ function propertyName(prop, relationship, multiple) {
     entity = correctedNoun;
   }
 
-  if (relationship.lemma === 'have') {
+  if (isContainment(relationship)) {
     return entity;
   }
 
@@ -149,10 +157,30 @@ const capitalizeWord = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 function propertyType(prop, entities = []) {
   for (const entity of entities) {
-    if (entity.raw === prop.raw || entity.lemma === prop.lemma) {
+    if (entity.raw.toLowerCase() === prop.raw.toLowerCase() ||
+        entity.lemma.toLowerCase() === prop.lemma.toLowerCase()) {
       return capitalizeWord(entity.lemma);
     }
   }
+
+  const possibleTypes = [];
+
+  // Check criteria for date.
+  const dateKeywords = [
+    'date',
+    'day', // TODO Add more keywords
+  ]
+
+  // Check criteria for number.
+  const numberKeywords = [
+    'number',
+    'integer',
+    'float',
+    'double',
+    ''
+  ]
+
+  // Check for integer or float
 
   return 'string';
 }
@@ -195,6 +223,29 @@ function postprocess(modelStructure, entities) {
   }
 }
 
+function flatMap(array, lambda) {
+  if (!array) return [];
+  return Array.prototype.concat.apply([], array.map(lambda));
+};
+
+function filterTree(tree, condition) {
+  if (!tree) return;
+
+  let modifiers = flatMap(tree.modifiers, m => filterTree(m, condition));
+
+  if (condition(tree)) {
+    if (modifiers.length < 1) {
+      delete tree.modifiers;
+      return tree;
+    }
+    return Object.assign(tree, {
+      modifiers,
+    });
+  } else {
+    return modifiers;
+  }
+}
+
 async function generateModelStructure(text) {
   // Annotate raw text with POS and get dependency structure
   const parseResult = await parse(text);
@@ -211,25 +262,36 @@ async function generateModelStructure(text) {
 
     // Find relationships
     const potentialRelationships = sentenceResult.parse_list
-      .filter(word => word.POS_coarse === 'VERB');
+      .filter(word => word.POS_fine.startsWith('V'));
 
-    // Id each word
-
-    // TODO Fix duplicates
     // Build up tree of words to their place in parse tree
-    const tokens = sentenceResult.tokens;
+    const tokens = sentenceResult.parse_list;
+    const cleanTree = filterTree(sentenceResult.parse_tree[0], m => m.POS_fine.startsWith('V') || m.POS_fine.startsWith('N') || m.POS_fine === 'PRP');
+    console.log('cleanTree?', cleanTree)
     const treeIndex = {};
+    const cleanTreeIndex = {};
     tokens.forEach((token) => {
-      treeIndex[token] = find(sentenceResult.parse_tree[0], obj => obj.word === token);
+      treeIndex[token.id] = find(sentenceResult.parse_tree[0], obj => obj.id === token.id);
+      cleanTreeIndex[token.id] = find(cleanTree, obj => obj.id === token.id);
     });
+
+    // console.log(cleanTree, cleanTreeIndex)
 
     for (const relationship of potentialRelationships) {
       // First containment
-      const inTree = treeIndex[relationship.word];
+      let inTree = cleanTreeIndex[relationship.id];
 
+      let nounTree = filterTree(inTree, m => m.POS_fine.startsWith('N') || m.POS_fine === 'PRP')
+      const compareDepth = (a, b) => a.depth - b.depth;
+
+      if (!nounTree || nounTree.length < 1) continue;
       // Find subject and object
-      const [subject] = inTree.modifiers.filter(o => o.arc === 'nsubj');
-      const [object] = inTree.modifiers.filter(o => o.arc === 'dobj');
+      console.log('\n\n\nOK ',inTree, nounTree);
+      const [subject] = nounTree.filter(o => o.arc.includes('subj')).sort(compareDepth);
+      const [object] = nounTree.filter(o => o.arc.includes('obj')).sort(compareDepth);
+
+
+      console.log(subject, object);
 
       let properties = [];
       if (object) {
@@ -242,6 +304,9 @@ async function generateModelStructure(text) {
         entities = [subject, ...getConjuctions(subject)];
         allEntities = [...allEntities, ...entities];
       }
+
+
+      inTree = treeIndex[relationship.id];
 
       const propertiesWithTypes = [];
       for (const property of properties) {
@@ -464,6 +529,7 @@ const Natural = {
   _findAll: findAll,
   _findIfPropertyIsRequired: findIfPropertyIsRequired,
   _findIfPropertyHasMultiple: findIfPropertyHasMultiple,
+  _filterTree: filterTree,
   seperateSentences,
   generateModelStructure,
   parse,

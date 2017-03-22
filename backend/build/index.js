@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,11 +73,11 @@ module.exports =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(8);
@@ -161,9 +161,9 @@ module.exports = require("express");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport_local__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(3);
@@ -257,7 +257,7 @@ module.exports = require("jsonwebtoken");
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_body_parser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(18);
@@ -390,7 +390,13 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 
     const userId = decoded.user;
 
-    return User.findById(userId).then(user => user && next()).catch(err => res.status(401).end());
+    return User.findById(userId).then(user => {
+      if (user) {
+        req.user = user;
+        return next();
+      }
+      return res.status(401).end();
+    }).catch(err => res.status(401).end());
   });
 };;
 
@@ -406,13 +412,12 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   }, {
     classMethods: {
       associate(models) {
-        Attribute.belongsTo(models.Service, {
+        Attribute.belongsTo(models.Model, {
           onDelete: 'CASCADE',
           foreignKey: {
             allowNull: false
           }
         });
-        Attribute.hasMany(models.Value);
       }
     }
   });
@@ -478,17 +483,17 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Entry = sequelize.define('Entry', {
-    name: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN
+    index: DataTypes.INTEGER
   }, {
     classMethods: {
       associate(models) {
-        Entry.belongsTo(models.User, {
+        Entry.belongsTo(models.Model, {
           onDelete: 'CASCADE',
           foreignKey: {
             allowNull: false
           }
         });
+        Entry.hasMany(models.Value);
       }
     }
   });
@@ -539,6 +544,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
           }
         });
         Model.hasMany(models.Attribute);
+        Model.hasMany(models.Entry);
       }
     }
   });
@@ -578,7 +584,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
 
 
@@ -615,17 +621,17 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Value = sequelize.define('Value', {
-    name: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN
+    value: DataTypes.STRING
   }, {
     classMethods: {
       associate(models) {
-        Value.belongsTo(models.Attribute, {
+        Value.belongsTo(models.Entry, {
           onDelete: 'CASCADE',
           foreignKey: {
             allowNull: false
           }
         });
+        Value.belongsTo(models.Attribute);
       }
     }
   });
@@ -641,7 +647,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
 
 
@@ -738,20 +744,127 @@ router.get('/models', (req, res) => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_natural__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_parse__ = __webpack_require__(21);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 
 /* eslint-disable new-cap */
 const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
 
-/* POST scratch. */
-router.post('/scratch', (req, res) => {
+router.post('/parseText', (req, res) => {
   const text = req.param('text');
-  __WEBPACK_IMPORTED_MODULE_1__services_natural__["a" /* default */].generateModelStructure(text).then(result => {
-    res.send(result);
-  });
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__services_parse__["a" /* parseNaturalLanguage */])(text).then(result => res.send(result));
 });
+
+router.post('/parseSpreadsheet', (req, res) => {
+  const text = req.param('text');
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__services_parse__["a" /* parseNaturalLanguage */])(text);
+});
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const name = req.param('name');
+
+    console.log('name');
+    let service = yield Service.create({
+      name,
+      isPublic: false,
+      UserId: req.user.id
+    });
+
+    const modelDefinitions = req.param('models');
+    const models = [];
+
+    let response = {
+      service: service.toJSON(),
+      success: true
+    };
+
+    // TODO Validation
+
+    try {
+      for (const modelDefinition of modelDefinitions) {
+        const model = yield Model.create({
+          name: modelDefinition.name,
+          ServiceId: service.id
+        });
+
+        let modelJSON = model.toJSON();
+        const attributes = [];
+        const attributeByName = {};
+
+        for (const attributeDefinition of modelDefinition.attributes) {
+          const attribute = yield Attribute.create({
+            name: attributeDefinition.name,
+            type: attributeDefinition.type,
+            ModelId: model.id
+          });
+
+          attributeByName[attributeDefinition.name] = attribute;
+          attributes.push(attribute.toJSON());
+        }
+
+        modelJSON.attributes = attributes;
+
+        let entries = [];
+
+        let index = 1;
+        for (const entriesDefinition of modelDefinition.entries) {
+          const entry = yield Entry.create({
+            index,
+            ModelId: model.id
+          });
+          index++;
+
+          let entryJSON = entry.toJSON();
+          let values = [];
+
+          for (const attributeString of Object.keys(entriesDefinition)) {
+            if (!attributeByName[attributeString]) {
+              return res.status(400).json({
+                error: `Please only specify attributes which are defined in the model (${attributeString}).`,
+                success: false
+              });
+            }
+            const value = yield Value.create({
+              AttributeId: attributeByName[attributeString].id,
+              value: entriesDefinition[attributeString],
+              EntryId: entry.id
+            });
+
+            values.push(value.toJSON());
+          }
+
+          entryJSON.values = values;
+          entries.push(entryJSON);
+        }
+
+        modelJSON.entries = entries;
+        models.push(modelJSON);
+      }
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+
+    response.service.models = models;
+
+    res.json(service);
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
 
 /* harmony default export */ __webpack_exports__["a"] = router;
 
@@ -760,15 +873,15 @@ router.post('/scratch', (req, res) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sbd__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_natural__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_pos__);
 let generateModelStructure = (() => {
   var _ref = _asyncToGenerator(function* (text) {
@@ -787,32 +900,50 @@ let generateModelStructure = (() => {
 
       // Find relationships
       const potentialRelationships = sentenceResult.parse_list.filter(function (word) {
-        return word.POS_coarse === 'VERB';
+        return word.POS_fine.startsWith('V');
       });
 
-      // Id each word
-
-      // TODO Fix duplicates
       // Build up tree of words to their place in parse tree
-      const tokens = sentenceResult.tokens;
+      const tokens = sentenceResult.parse_list;
+      const cleanTree = filterTree(sentenceResult.parse_tree[0], function (m) {
+        return m.POS_fine.startsWith('V') || m.POS_fine.startsWith('N') || m.POS_fine === 'PRP';
+      });
+      console.log('cleanTree?', cleanTree);
       const treeIndex = {};
+      const cleanTreeIndex = {};
       tokens.forEach(function (token) {
-        treeIndex[token] = find(sentenceResult.parse_tree[0], function (obj) {
-          return obj.word === token;
+        treeIndex[token.id] = find(sentenceResult.parse_tree[0], function (obj) {
+          return obj.id === token.id;
+        });
+        cleanTreeIndex[token.id] = find(cleanTree, function (obj) {
+          return obj.id === token.id;
         });
       });
+
+      // console.log(cleanTree, cleanTreeIndex)
 
       for (const relationship of potentialRelationships) {
         // First containment
-        const inTree = treeIndex[relationship.word];
+        let inTree = cleanTreeIndex[relationship.id];
 
+        let nounTree = filterTree(inTree, function (m) {
+          return m.POS_fine.startsWith('N') || m.POS_fine === 'PRP';
+        });
+        const compareDepth = function (a, b) {
+          return a.depth - b.depth;
+        };
+
+        if (!nounTree || nounTree.length < 1) continue;
         // Find subject and object
-        const [subject] = inTree.modifiers.filter(function (o) {
-          return o.arc === 'nsubj';
-        });
-        const [object] = inTree.modifiers.filter(function (o) {
-          return o.arc === 'dobj';
-        });
+        console.log('\n\n\nOK ', inTree, nounTree);
+        const [subject] = nounTree.filter(function (o) {
+          return o.arc.includes('subj');
+        }).sort(compareDepth);
+        const [object] = nounTree.filter(function (o) {
+          return o.arc.includes('obj');
+        }).sort(compareDepth);
+
+        console.log(subject, object);
 
         let properties = [];
         if (object) {
@@ -825,6 +956,8 @@ let generateModelStructure = (() => {
           entities = [subject, ...getConjuctions(subject)];
           allEntities = [...allEntities, ...entities];
         }
+
+        inTree = treeIndex[relationship.id];
 
         const propertiesWithTypes = [];
         for (const property of properties) {
@@ -1135,9 +1268,9 @@ function findIfPropertyIsRequired(prop, context) {
 
 // Finds if a property has multiple instances
 function findIfPropertyHasMultiple(prop) {
-  const determiners = prop.modifiers.filter(o => o.arc === 'det');
-  const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
-  const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
+  const determiners = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'det') : [];
+  const adjModifiers = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'amod') : [];
+  const numModifiers = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'nummod') : [];
 
   const combined = determiners.concat(adjModifiers).concat(numModifiers);
   // console.log(prop.lemma, ' findupper ', combined);
@@ -1171,6 +1304,12 @@ function findIfPropertyHasMultiple(prop) {
   return decide(allCardinalityInfo) || false;
 }
 
+function isContainment(relationship) {
+  const containmentWords = ['have', 'include', 'incorporate', 'consist', 'comprise', 'contain'];
+
+  return containmentWords.find(w => w == relationship.lemma);
+}
+
 function propertyName(prop, relationship, multiple) {
   let entity = '';
 
@@ -1184,7 +1323,7 @@ function propertyName(prop, relationship, multiple) {
     entity = correctedNoun;
   }
 
-  if (relationship.lemma === 'have') {
+  if (isContainment(relationship)) {
     return entity;
   }
 
@@ -1197,10 +1336,20 @@ const capitalizeWord = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 function propertyType(prop, entities = []) {
   for (const entity of entities) {
-    if (entity.raw === prop.raw || entity.lemma === prop.lemma) {
+    if (entity.raw.toLowerCase() === prop.raw.toLowerCase() || entity.lemma.toLowerCase() === prop.lemma.toLowerCase()) {
       return capitalizeWord(entity.lemma);
     }
   }
+
+  const possibleTypes = [];
+
+  // Check criteria for date.
+  const dateKeywords = ['date', 'day'];
+
+  // Check criteria for number.
+  const numberKeywords = ['number', 'integer', 'float', 'double', ''];
+
+  // Check for integer or float
 
   return 'string';
 }
@@ -1240,11 +1389,35 @@ function postprocess(modelStructure, entities) {
   }
 }
 
+function flatMap(array, lambda) {
+  if (!array) return [];
+  return Array.prototype.concat.apply([], array.map(lambda));
+};
+
+function filterTree(tree, condition) {
+  if (!tree) return;
+
+  let modifiers = flatMap(tree.modifiers, m => filterTree(m, condition));
+
+  if (condition(tree)) {
+    if (modifiers.length < 1) {
+      delete tree.modifiers;
+      return tree;
+    }
+    return Object.assign(tree, {
+      modifiers
+    });
+  } else {
+    return modifiers;
+  }
+}
+
 const Natural = {
   _find: find,
   _findAll: findAll,
   _findIfPropertyIsRequired: findIfPropertyIsRequired,
   _findIfPropertyHasMultiple: findIfPropertyHasMultiple,
+  _filterTree: filterTree,
   seperateSentences: __WEBPACK_IMPORTED_MODULE_2_sbd__["sentences"],
   generateModelStructure,
   parse
@@ -1254,84 +1427,207 @@ const Natural = {
 
 /***/ }),
 /* 21 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = require("bcrypt");
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_natural__ = __webpack_require__(20);
+/* unused harmony export parseSpreadsheet */
+/* unused harmony export determineType */
+/* unused harmony export findType */
+/* harmony export (immutable) */ __webpack_exports__["a"] = parseNaturalLanguage;
+
+
+function parseSpreadsheet(spreadsheets) {
+  // Assume spreadsheet is array of csv's
+
+  const allModelDefinitions = [];
+
+  for (const csv of spreadsheets) {
+    let modelDefinition = {};
+    let [headingLine, ...rowLines] = csv.split('\n');
+    let headings = headingLine.split(',');
+    let rows = rowLines.map(r => r.split(','));
+
+    for (let i = 0; i < headings.length; i++) {
+      let name = headings[i];
+
+      let types = new Set(rows.map(row => determineType(row[i])));
+      console.log({ name, types });
+    }
+
+    allModelDefinitions.push(modelDefinition);
+  }
+}
+
+function mode(array) {
+  if (!array || array.length === 0) return null;
+  return array.reduce(array[0], (prev, value) => {
+    return value > prev ? value : prev;
+  });
+}
+
+// Given a array of type information, determines the type which encompases all values
+function determineType(information) {
+  let type;
+  let multiple = false;
+  let required = true;
+
+  for (const value of information) {
+    if (value === null || value === undefined) {
+      required = false;
+      continue;
+    }
+
+    if (value.type === 'string') {
+      type = 'string';
+    } else if (value.type === 'float') {
+      if (type !== 'string') {
+        type = 'float';
+      }
+    } else if (value.type === 'integer') {
+      if (type !== 'float' || type !== 'string') {
+        type = 'integer';
+      }
+    }
+
+    if (value.multiple = true) {
+      multiple = true;
+    }
+  }
+
+  return {
+    type,
+    multiple,
+    required
+  };
+}
+
+// Given a string, finds the most likely type
+function findType(string) {
+  // If there is no value assume null
+  if (string === null || string === undefined) return null;
+
+  let object = safeJSONParse(string);
+  let multiple = Array.isArray(object);
+  let type;
+
+  if (multiple) {
+    type = 'string';
+    type = determineType(object.map(findType)).type;
+    console.log(type);
+    if (type.multiple) {
+      throw new Error('Multidimensional arrays are not supported!');
+    }
+  } else {
+    // Check for floats
+    if (/^\-?((\d+\.\d*)|(\d+\.\d*))$/.test(string)) {
+      type = 'float';
+    } else if (/^\-?(\d+)$/.test(string)) {
+      type = 'integer';
+    } else {
+      type = 'string';
+    }
+  }
+
+  return {
+    type,
+    multiple,
+    example: string
+  };
+}
+
+function safeJSONParse(string) {
+  try {
+    return JSON.parse(string);
+  } catch (e) {
+    return null;
+  }
+}
+
+function parseNaturalLanguage(text) {
+  return __WEBPACK_IMPORTED_MODULE_0__services_natural__["a" /* default */].generateModelStructure(text);
+}
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = require("body-parser");
+module.exports = require("bcrypt");
 
 /***/ }),
 /* 23 */
 /***/ (function(module, exports) {
 
-module.exports = require("fs");
+module.exports = require("body-parser");
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
-module.exports = require("natural");
+module.exports = require("fs");
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = require("nlp_compromise");
+module.exports = require("natural");
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport");
+module.exports = require("nlp_compromise");
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("passport");
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("passport-local");
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = require("pos");
+module.exports = require("path");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = require("request-promise");
+module.exports = require("pos");
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = require("sbd");
+module.exports = require("request-promise");
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = require("sequelize");
+module.exports = require("sbd");
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = require("validator");
+module.exports = require("sequelize");
 
 /***/ }),
 /* 34 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(4);

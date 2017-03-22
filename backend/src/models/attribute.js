@@ -5,13 +5,12 @@ export default function (sequelize, DataTypes) {
   }, {
     classMethods: {
       associate(models) {
-        Attribute.belongsTo(models.Service, {
+        Attribute.belongsTo(models.Model, {
           onDelete: 'CASCADE',
           foreignKey: {
             allowNull: false,
           },
         });
-        Attribute.hasMany(models.Value);
       },
     },
   });

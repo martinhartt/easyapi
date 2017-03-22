@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from '../Logo';
-import Sidebar from './Sidebar';
+import SidebarContainer from '../../containers/dashboard/SidebarContainer';
 import { Color, lightBorder } from '../StyleConstant';
 
 
@@ -28,7 +28,7 @@ const Dashboard = ({ params, children }) => <div style={style.base}>
     <div style={style.logo}>
       <Logo />
     </div>
-    <Sidebar />
+    <SidebarContainer />
   </div>
   <div style={style.main}>
     {children}

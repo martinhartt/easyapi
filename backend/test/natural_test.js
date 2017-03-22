@@ -66,6 +66,76 @@ describe('Natural Service', () => {
     })
   });
 
+  describe('filterTree', () => {
+    it('should remove nodes which don\'t match a condition', () => {
+      const tree = {
+        pos: 'VBZ',
+        modifiers: [
+          {
+            pos: 'JJ',
+          },
+          {
+            pos: 'NN',
+          }
+        ]
+      };
+
+      const result = Natural._filterTree(tree, o => o.pos != 'JJ');
+      console.log(result);
+      const expected = {
+        pos: 'VBZ',
+        modifiers: [
+          {
+            pos: 'NN',
+          }
+        ]
+      };
+      expect(result).to.deep.equal(expected);
+    });
+
+    it('should keep child nodes which match the condition', () => {
+      const tree = {
+        pos: 'VBZ',
+        word: 'store',
+        modifiers: [
+          {
+            pos: 'IN',
+            word: 'about',
+            modifiers: [
+              {
+                pos: 'NN',
+                word: 'movies',
+              }
+            ]
+          },
+          {
+            pos: 'NN',
+            word: 'information',
+          }
+        ]
+      };
+
+      const result = Natural._filterTree(tree, o => o.pos != 'IN');
+      const expected = {
+        pos: 'VBZ',
+        word: 'store',
+        modifiers: [
+          {
+            pos: 'NN',
+            word: 'movies',
+          },
+          {
+            pos: 'NN',
+            word: 'information',
+          }
+        ]
+      };
+      expect(result).to.deep.equal(expected);
+    });
+
+
+  });
+
   describe('findAll', () => {
     it('should find all modifiers in tree which satisfy a condition', () => {
       const tree = {
@@ -345,7 +415,7 @@ describe('Natural Service', () => {
         },
         {
           "name": "owner",
-          "raw": "Owner",
+          "raw": "owner",
           "properties": [
             {
               "type": "string",

@@ -20,7 +20,7 @@ const exampleModels = [
   {
     "name": "pet",
     "raw": "pet",
-    "properties": [
+    "attributes": [
       {
         "type": "string",
         "name": "name",
@@ -58,7 +58,7 @@ const exampleModels = [
   {
     "name": "owner",
     "raw": "Owner",
-    "properties": [
+    "attributes": [
       {
         "type": "string",
         "name": "name",
@@ -80,7 +80,7 @@ const exampleModels = [
   {
     "name": "toy",
     "raw": "Toy",
-    "properties": [
+    "attributes": [
       {
         "type": "string",
         "name": "name",

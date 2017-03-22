@@ -6,7 +6,7 @@ import easyAPI from './reducers';
 import './index.css';
 import Service from './components/Service';
 import Dashboard from './components/dashboard/Dashboard';
-import Structure from './components/dashboard/structure/Structure';
+import StructureContainer from './containers/dashboard/StructureContainer';
 import Entries from './components/dashboard/entries/Entries';
 import Pages from './components/dashboard/pages/Pages';
 import About from './components/dashboard/about/About';
@@ -50,7 +50,7 @@ const r = () => render(
       >
         <Route
           path="structure"
-          component={Structure}
+          component={StructureContainer}
           />
         <Route
           path="entries"

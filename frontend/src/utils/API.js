@@ -1,4 +1,8 @@
 import { isAuthenticated, getToken } from './Auth';
+import store from '../index';
+import { logoutUser } from '../actions/auth';
+
+console.log('?', store);
 
 function curryReq(path, useToken = true) {
   return async function(params) {
@@ -15,6 +19,10 @@ function curryReq(path, useToken = true) {
       headers,
       body: JSON.stringify(params),
     });
+
+    if (response.status === 401) {
+      store.dispatch(logoutUser());
+    }
 
     return await response.json();
   }

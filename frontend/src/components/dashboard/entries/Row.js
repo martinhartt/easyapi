@@ -10,7 +10,7 @@ const style = {
 
 const Row = ({ children, highlighted, onHover }) => <div style={style.base}>
 {children}
-  <RoundButton text="X" color={Color.red}></RoundButton>
+  <RoundButton text="-" color={Color.red}></RoundButton>
 
 </div>
 

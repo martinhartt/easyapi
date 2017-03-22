@@ -12,7 +12,9 @@ import {
   NEXT_SCREEN,
   UPDATE_NATURAL_TEXT,
   UPDATE_USER,
-  AUTH_USER_RESULT
+  AUTH_USER_RESULT,
+  LOGOUT_USER,
+  CHANGE_SIDEBAR_ITEM,
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
@@ -50,6 +52,29 @@ const defaultState = fromJS({
     services: ['1'],
     token: getToken(),
   },
+  structure: {
+    items: [
+      {
+        name: 'Structure',
+        path: '/service/X/structure', selected: true
+      },
+      {
+        name: 'Entries',
+        path: '/service/X/entries'
+      },
+      {
+        name: 'Pages',
+        path: '/service/X/pages'
+      },
+      {
+        name: 'About',
+        path: '/service/X/about'
+      },
+    ],
+    selectedAttribute: {
+
+    }
+  },
   setup: {
     name: 'User',
     screen: SERVICE_SETUP_SCREEN_NAME,
@@ -58,10 +83,29 @@ const defaultState = fromJS({
   serviceById: {
     '1': {
       name: 'Cats',
+      models: ['4','3']
     }
   },
-  modelById: {},
-  attributeById: {},
+  modelById: {
+    '4': {
+      name: 'Pet',
+      attributes: ['1','2'],
+    },
+    '3': {
+      name: 'Toy',
+      attributes: ['2'],
+    }
+  },
+  attributeById: {
+    '1': {
+      name: 'name',
+      type: 'string',
+    },
+    '2': {
+      name: 'age',
+      type: 'integer',
+    }
+  },
   entryById: {},
   valueById: {},
   endpointById: {},
@@ -192,6 +236,20 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         .setIn(['user', 'authenticated'], action.success)
         .setIn(['user', 'errors'], action.errors)
         .setIn(['user', 'token'], action.token);
+    }
+    case LOGOUT_USER: {
+      return state
+        .setIn(['user', 'authenticated'], false)
+        .setIn(['user', 'errors'], null)
+        .setIn(['user', 'token'], null);
+    }
+    case CHANGE_SIDEBAR_ITEM: {
+      console.log('CHANGE_SIDEBAR_ITEM', state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index)).toJS());
+      return state
+        .setIn(
+          ['dashboard', 'items'],
+          state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index))
+      )
     }
     default:
       return state;

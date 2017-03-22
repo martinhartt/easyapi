@@ -17,7 +17,7 @@ const style = {
   }
 }
 
-const prettify = string => capitalizeString(string.replace('_', ' '));
+const prettify = string => string.replace('_', ' ');
 
 const Attribute = ({ attribute, onClick }) => <div style={style.base}>
   {prettify(attribute.name)}
