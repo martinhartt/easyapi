@@ -5,11 +5,6 @@ import compromise from 'nlp_compromise';
  * Natural Service: A service for extracting information from natural speech.
  */
 import { sentences as seperateSentences } from 'sbd';
-import { WordTokenizer } from 'natural';
-import { Tagger } from 'pos';
-
-const tokenizer = new WordTokenizer();
-const tagger = new Tagger();
 
 // Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
@@ -151,7 +146,7 @@ const capitalizeWord = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 function propertyType(prop, entities = []) {
   for (const entity of entities) {
-    if (entity.raw.toLowerCase() === prop.raw.toLowerCase() || entity.lemma.toLowerCase() === prop.lemma.toLowerCase()) {
+    if (entity.raw === prop.raw || entity.lemma === prop.lemma) {
       return capitalizeWord(entity.lemma);
     }
   }
@@ -170,28 +165,37 @@ function propertyType(prop, entities = []) {
 }
 
 function categoriseProp(prop, context, relationship, entities) {
-  const hasMultiple = findIfPropertyHasMultiple(prop);
+  const multiple = findIfPropertyHasMultiple(prop);
+
+  const type = propertyType(prop, entities);
+  const name = propertyName(prop, relationship, multiple);
+  const required = findIfPropertyIsRequired(prop, context);
+
   return {
-    type: propertyType(prop, entities),
-    name: propertyName(prop, relationship, hasMultiple),
+    type,
+    name,
     raw: prop.word,
     lemma: prop.lemma,
-    required: findIfPropertyIsRequired(prop, context),
-    multiple: hasMultiple
+    required,
+    multiple
   };
 }
 
 function getConjuctions(object) {
-  if (!object || !object.modifiers || object.modifiers.length === 0) return [];
+  return followModifiers(object, o => o.arc === 'conj');
+}
 
-  const [conjunction] = object.modifiers.filter(o => o.arc === 'conj');
-  const deeperConjuctions = getConjuctions(conjunction);
+function followModifiers(tree, condition) {
+  if (!tree || !tree.modifiers || tree.modifiers.length === 0) return [];
+
+  const [modifier] = tree.modifiers.filter(condition);
+  const deeperConjuctions = followModifiers(modifier, condition);
 
   if (deeperConjuctions.length) {
-    return [conjunction, ...deeperConjuctions];
+    return [modifier, ...deeperConjuctions];
   }
-  if (conjunction) {
-    return [conjunction];
+  if (modifier) {
+    return [modifier];
   }
   return [];
 }
@@ -209,15 +213,29 @@ function flatMap(array, lambda) {
   return Array.prototype.concat.apply([], array.map(lambda));
 };
 
-function filterTree(tree, condition) {
-  if (!tree) return;
+function filterTreeByTagSeq(tree, firstTag, secondTag, startAtZero = false) {
+  let counter = 0;
+  const condition = (obj, depth, parent) => {
+    if (depth !== 1) return false;
 
-  let modifiers = flatMap(tree.modifiers, m => filterTree(m, condition));
+    return obj.POS_fine === secondTag && parent.POS_fine === firstTag;
+  };
+
+  return filterTree(tree, condition);
+}
+
+function filterTree(tree, condition, depth = 0) {
+  if (!tree) return;
+  if (depth === 0) tree = JSON.parse(JSON.stringify(tree)); // Clone the tree
+
+  let modifiers = flatMap(tree.modifiers, m => filterTree(m, e => condition(e, depth, tree), depth + 1));
 
   if (condition(tree)) {
     if (modifiers.length < 1) {
-      delete tree.modifiers;
-      return tree;
+      // delete tree.modifiers;
+      return Object.assign(tree, {
+        modifiers: undefined
+      });
     }
     return Object.assign(tree, {
       modifiers
@@ -247,7 +265,8 @@ async function generateModelStructure(text) {
     // Build up tree of words to their place in parse tree
     const tokens = sentenceResult.parse_list;
     const cleanTree = filterTree(sentenceResult.parse_tree[0], m => m.POS_fine.startsWith('V') || m.POS_fine.startsWith('N') || m.POS_fine === 'PRP');
-    console.log('cleanTree?', cleanTree);
+
+    console.log(JSON.stringify(sentenceResult.parse_tree[0], true, '  '));
     const treeIndex = {};
     const cleanTreeIndex = {};
     tokens.forEach(token => {
@@ -266,16 +285,27 @@ async function generateModelStructure(text) {
 
       if (!nounTree || nounTree.length < 1) continue;
       // Find subject and object
-      console.log('\n\n\nOK ', inTree, nounTree);
+      // console.log('\n\n\nOK ',inTree, nounTree);
       const [subject] = nounTree.filter(o => o.arc.includes('subj')).sort(compareDepth);
       const [object] = nounTree.filter(o => o.arc.includes('obj')).sort(compareDepth);
-
-      console.log(subject, object);
 
       let properties = [];
       if (object) {
         // This is the properties
-        properties = [object, ...getConjuctions(object)];
+        const fullObject = treeIndex[object.id];
+        properties = [fullObject, ...getConjuctions(fullObject)];
+
+        properties = properties.map(p => {
+          const posToFollow = ['prep'];
+          const otherWords = followModifiers(p, o => posToFollow.includes(o.arc));
+          const fullPhrase = [p.word, ...otherWords];
+
+          p.phrase = fullPhrase.join(' '); // TODO: Sort based on x
+
+          console.log(otherWords);
+
+          return p;
+        });
       }
       let entities = [];
       if (subject) {
@@ -309,196 +339,6 @@ async function generateModelStructure(text) {
 
   postprocess(modelStructure, allEntities);
   return modelStructure;
-
-  // return;
-  //
-  // // TODO Spellcheck
-  // const sentences = seperateSentences(text);
-  // // const structure = {};
-  // //
-  // for (const [, sentence] of sentences.entries()) {
-  //   tokenize(sentence);
-  // }
-  //
-  // // Find entities (nouns)
-  // const sentenceA = parse('A pet has a name, two breeds, multiple toys,
-  //  less than five friends, and many owners.');
-  // console.log(sentenceA);
-  // console.log(`Analysing "${sentenceA.text}"`);
-  // console.log('Finding entities');
-  // const potentialEntities = sentenceA.parse_list
-  //   .filter(word => word.POS_coarse === 'NOUN');
-  // console.log(potentialEntities);
-  //
-  // // Find relationships between entities (verbs) and properties of relationships
-  // console.log('Finding relationships');
-  // console.log('Finding verbs');
-  // const potentialRelationship = sentenceA.parse_list
-  //   .filter(word => word.POS_coarse === 'VERB');
-  // console.log(potentialRelationship);
-  //
-  // // Id each word
-  // function find(object: { modifiers: [any] }, condition: Function) {
-  //   if (condition(object)) return object;
-  //
-  //   if (!object.modifiers || object.modifiers.length === 0) return null;
-  //   for (const child of object.modifiers) {
-  //     const result = find(child, condition);
-  //     if (result) return result;
-  //   }
-  //   return null;
-  // }
-  // // TODO Fix duplicates
-  // console.log('Build up tree');
-  // const tokens = sentenceA.tokens;
-  // const treeIndex = {};
-  // tokens.forEach((token) => {
-  //   treeIndex[token] = find(sentenceA.parse_tree[0], obj => obj.word === token);
-  // });
-  //
-  // console.log(treeIndex);
-  //
-  // function getConjuctions(object) {
-  //   if (!object || !object.modifiers || object.modifiers.length === 0) return [];
-  //
-  //   const [conjunction] = object.modifiers.filter(o => o.arc === 'conj');
-  //   const deeperConjuctions = getConjuctions(conjunction);
-  //
-  //   if (deeperConjuctions.length) {
-  //     return [
-  //       conjunction,
-  //       ...deeperConjuctions,
-  //     ];
-  //   }
-  //   if (conjunction) {
-  //     return [conjunction];
-  //   }
-  //   return [];
-  // }
-  //
-  // const result = {};
-  //
-  // function findIfPropertyIsRequired() {
-  //   // console.log(prop);
-  //   return {
-  //     lessThan: false,
-  //     equal: false,
-  //     moreThan: true,
-  //     quantity: 1,
-  //   };
-  // }
-  //
-  // function findIfPropertyHasMultiple(prop) {
-  //   const determiners = prop.modifiers.filter(o => o.arc === 'det');
-  //   const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
-  //   const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
-  //
-  //   const combined = determiners.concat(adjModifiers).concat(numModifiers);
-  //   console.log(prop.lemma, ' findupper ', combined);
-  //
-  //   // Find all information related to upper bound
-  //   // const allCardinalityInfo = [];
-  //   // for (const modifier of combined) {
-  //   //   const singleKeywords = ['a', 'single', 'one'];
-  //   //   const multipleKeywords = ['many', 'multiple'];
-  //   //
-  //   //   if (o.arc === 'nummud') {
-  //   //
-  //   //   }
-  //   // }
-  //
-  //   return {
-  //     lessThan: true,
-  //     equal: false,
-  //     moreThan: false,
-  //     quantity: 1,
-  //   };
-  // }
-  //
-  // function categoriseProp(prop) {
-  //   return {
-  //     type: 'string',
-  //     name: prop.lemma,
-  //     lowerBound: findIfPropertyIsRequired(prop),
-  //     upperBound: findIfPropertyHasMultiple(prop),
-  //   };
-  // }
-  //
-  // potentialRelationship.forEach((rel) => {
-  //   // TODO Broaden scope of 'have'
-  //   if (rel.lemma === 'have') {
-  //     const inTree = treeIndex[rel.word];
-  //     console.log(inTree);
-  //
-  //     // Find subject
-  //     const [subject] = inTree.modifiers.filter(o => o.arc === 'nsubj');
-  //     const [object] = inTree.modifiers.filter(o => o.arc === 'dobj');
-  //
-  //     let properties = [];
-  //     if (object) {
-  //       // This is properties
-  //       properties = [object, ...getConjuctions(object)].map(w => w);
-  //     }
-  //     let entities = [];
-  //     if (subject) {
-  //       // This is entities
-  //       entities = [subject, ...getConjuctions(subject)].map(w => w.lemma);
-  //     }
-  //
-  //     const propertiesWithTypes = {};
-  //
-  //     properties.forEach((prop) => {
-  //       propertiesWithTypes[prop.lemma] = categoriseProp(prop);
-  //     });
-  //
-  //     for (const entity of entities) {
-  //       if (result[entity]) {
-  //         result[entity] = result[entity].concat(propertiesWithTypes);
-  //       } else {
-  //         result[entity] = propertiesWithTypes;
-  //       }
-  //     }
-  //   }
-  // });
-  //
-  // console.log('\n\n', result, '\n\n');
-
-  // check if relationship is containment
-
-
-  // Look through entity types if there are instances involved (Use wordnet hypernyms for this)
-
-  // Find quantities of each relationship from multiple and existance
-
-  // Get facts from information
-
-  // Combine facts
-
-  // Construct structure in the form
-  // {
-  //   entity: {
-  //     attribute: {
-  //       name: string,
-  //       type: string,
-  //       lowerBound: {
-  //         lessThan: boolean,
-  //         equal: boolean,
-  //         moreThan: boolean,
-  //         quantity: 1,
-  //       },
-  //       upperBound: {
-  //         lessThan: boolean,
-  //         equal: boolean,
-  //         moreThan: boolean,
-  //         quantity: 1,
-  //       },
-  //     },
-  //   },
-  // }
-
-  // return Promise.resolve({
-  //   raw: text,
-  // });
 }
 
 const Natural = {

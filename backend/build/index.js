@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 35);
+/******/ 	return __webpack_require__(__webpack_require__.s = 33);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -75,9 +75,9 @@ module.exports =
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(8);
@@ -161,9 +161,9 @@ module.exports = require("express");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport_local__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(3);
@@ -647,7 +647,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
 
 
@@ -873,16 +873,12 @@ router.post('/', (() => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sbd__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_natural___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_natural__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pos___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_pos__);
 let generateModelStructure = (() => {
   var _ref = _asyncToGenerator(function* (text) {
     // Annotate raw text with POS and get dependency structure
@@ -908,7 +904,7 @@ let generateModelStructure = (() => {
       const cleanTree = filterTree(sentenceResult.parse_tree[0], function (m) {
         return m.POS_fine.startsWith('V') || m.POS_fine.startsWith('N') || m.POS_fine === 'PRP';
       });
-      console.log('cleanTree?', cleanTree);
+
       const treeIndex = {};
       const cleanTreeIndex = {};
       tokens.forEach(function (token) {
@@ -935,7 +931,7 @@ let generateModelStructure = (() => {
 
         if (!nounTree || nounTree.length < 1) continue;
         // Find subject and object
-        console.log('\n\n\nOK ', inTree, nounTree);
+        // console.log('\n\n\nOK ',inTree, nounTree);
         const [subject] = nounTree.filter(function (o) {
           return o.arc.includes('subj');
         }).sort(compareDepth);
@@ -943,18 +939,21 @@ let generateModelStructure = (() => {
           return o.arc.includes('obj');
         }).sort(compareDepth);
 
-        console.log(subject, object);
-
         let properties = [];
         if (object) {
           // This is the properties
-          properties = [object, ...getConjuctions(object)];
+          const fullObject = treeIndex[object.id];
+          properties = [fullObject, ...getConjuctions(fullObject)];
+
+          properties = properties.map(assignNounPhrase);
         }
         let entities = [];
         if (subject) {
           // This is entities
-          entities = [subject, ...getConjuctions(subject)];
+          const fullSubject = treeIndex[subject.id];
+          entities = [fullSubject, ...getConjuctions(fullSubject)];
           allEntities = [...allEntities, ...entities];
+          allEntities = allEntities.map(assignNounPhrase);
         }
 
         inTree = treeIndex[relationship.id];
@@ -973,7 +972,9 @@ let generateModelStructure = (() => {
             existingEntity.properties = existingEntity.properties.concat(propertiesWithTypes);
           } else {
             modelStructure.push({
-              name: entity.lemma,
+              name: buildPhrase(entity, function (w) {
+                return capitalizeWord(w);
+              }, ' '),
               raw: entity.word,
               properties: propertiesWithTypes
             });
@@ -984,196 +985,6 @@ let generateModelStructure = (() => {
 
     postprocess(modelStructure, allEntities);
     return modelStructure;
-
-    // return;
-    //
-    // // TODO Spellcheck
-    // const sentences = seperateSentences(text);
-    // // const structure = {};
-    // //
-    // for (const [, sentence] of sentences.entries()) {
-    //   tokenize(sentence);
-    // }
-    //
-    // // Find entities (nouns)
-    // const sentenceA = parse('A pet has a name, two breeds, multiple toys,
-    //  less than five friends, and many owners.');
-    // console.log(sentenceA);
-    // console.log(`Analysing "${sentenceA.text}"`);
-    // console.log('Finding entities');
-    // const potentialEntities = sentenceA.parse_list
-    //   .filter(word => word.POS_coarse === 'NOUN');
-    // console.log(potentialEntities);
-    //
-    // // Find relationships between entities (verbs) and properties of relationships
-    // console.log('Finding relationships');
-    // console.log('Finding verbs');
-    // const potentialRelationship = sentenceA.parse_list
-    //   .filter(word => word.POS_coarse === 'VERB');
-    // console.log(potentialRelationship);
-    //
-    // // Id each word
-    // function find(object: { modifiers: [any] }, condition: Function) {
-    //   if (condition(object)) return object;
-    //
-    //   if (!object.modifiers || object.modifiers.length === 0) return null;
-    //   for (const child of object.modifiers) {
-    //     const result = find(child, condition);
-    //     if (result) return result;
-    //   }
-    //   return null;
-    // }
-    // // TODO Fix duplicates
-    // console.log('Build up tree');
-    // const tokens = sentenceA.tokens;
-    // const treeIndex = {};
-    // tokens.forEach((token) => {
-    //   treeIndex[token] = find(sentenceA.parse_tree[0], obj => obj.word === token);
-    // });
-    //
-    // console.log(treeIndex);
-    //
-    // function getConjuctions(object) {
-    //   if (!object || !object.modifiers || object.modifiers.length === 0) return [];
-    //
-    //   const [conjunction] = object.modifiers.filter(o => o.arc === 'conj');
-    //   const deeperConjuctions = getConjuctions(conjunction);
-    //
-    //   if (deeperConjuctions.length) {
-    //     return [
-    //       conjunction,
-    //       ...deeperConjuctions,
-    //     ];
-    //   }
-    //   if (conjunction) {
-    //     return [conjunction];
-    //   }
-    //   return [];
-    // }
-    //
-    // const result = {};
-    //
-    // function findIfPropertyIsRequired() {
-    //   // console.log(prop);
-    //   return {
-    //     lessThan: false,
-    //     equal: false,
-    //     moreThan: true,
-    //     quantity: 1,
-    //   };
-    // }
-    //
-    // function findIfPropertyHasMultiple(prop) {
-    //   const determiners = prop.modifiers.filter(o => o.arc === 'det');
-    //   const adjModifiers = prop.modifiers.filter(o => o.arc === 'amod');
-    //   const numModifiers = prop.modifiers.filter(o => o.arc === 'nummod');
-    //
-    //   const combined = determiners.concat(adjModifiers).concat(numModifiers);
-    //   console.log(prop.lemma, ' findupper ', combined);
-    //
-    //   // Find all information related to upper bound
-    //   // const allCardinalityInfo = [];
-    //   // for (const modifier of combined) {
-    //   //   const singleKeywords = ['a', 'single', 'one'];
-    //   //   const multipleKeywords = ['many', 'multiple'];
-    //   //
-    //   //   if (o.arc === 'nummud') {
-    //   //
-    //   //   }
-    //   // }
-    //
-    //   return {
-    //     lessThan: true,
-    //     equal: false,
-    //     moreThan: false,
-    //     quantity: 1,
-    //   };
-    // }
-    //
-    // function categoriseProp(prop) {
-    //   return {
-    //     type: 'string',
-    //     name: prop.lemma,
-    //     lowerBound: findIfPropertyIsRequired(prop),
-    //     upperBound: findIfPropertyHasMultiple(prop),
-    //   };
-    // }
-    //
-    // potentialRelationship.forEach((rel) => {
-    //   // TODO Broaden scope of 'have'
-    //   if (rel.lemma === 'have') {
-    //     const inTree = treeIndex[rel.word];
-    //     console.log(inTree);
-    //
-    //     // Find subject
-    //     const [subject] = inTree.modifiers.filter(o => o.arc === 'nsubj');
-    //     const [object] = inTree.modifiers.filter(o => o.arc === 'dobj');
-    //
-    //     let properties = [];
-    //     if (object) {
-    //       // This is properties
-    //       properties = [object, ...getConjuctions(object)].map(w => w);
-    //     }
-    //     let entities = [];
-    //     if (subject) {
-    //       // This is entities
-    //       entities = [subject, ...getConjuctions(subject)].map(w => w.lemma);
-    //     }
-    //
-    //     const propertiesWithTypes = {};
-    //
-    //     properties.forEach((prop) => {
-    //       propertiesWithTypes[prop.lemma] = categoriseProp(prop);
-    //     });
-    //
-    //     for (const entity of entities) {
-    //       if (result[entity]) {
-    //         result[entity] = result[entity].concat(propertiesWithTypes);
-    //       } else {
-    //         result[entity] = propertiesWithTypes;
-    //       }
-    //     }
-    //   }
-    // });
-    //
-    // console.log('\n\n', result, '\n\n');
-
-    // check if relationship is containment
-
-
-    // Look through entity types if there are instances involved (Use wordnet hypernyms for this)
-
-    // Find quantities of each relationship from multiple and existance
-
-    // Get facts from information
-
-    // Combine facts
-
-    // Construct structure in the form
-    // {
-    //   entity: {
-    //     attribute: {
-    //       name: string,
-    //       type: string,
-    //       lowerBound: {
-    //         lessThan: boolean,
-    //         equal: boolean,
-    //         moreThan: boolean,
-    //         quantity: 1,
-    //       },
-    //       upperBound: {
-    //         lessThan: boolean,
-    //         equal: boolean,
-    //         moreThan: boolean,
-    //         quantity: 1,
-    //       },
-    //     },
-    //   },
-    // }
-
-    // return Promise.resolve({
-    //   raw: text,
-    // });
   });
 
   return function generateModelStructure(_x) {
@@ -1190,11 +1001,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  * Natural Service: A service for extracting information from natural speech.
  */
 
-
-
-
-const tokenizer = new __WEBPACK_IMPORTED_MODULE_3_natural__["WordTokenizer"]();
-const tagger = new __WEBPACK_IMPORTED_MODULE_4_pos__["Tagger"]();
 
 // Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
@@ -1310,18 +1116,24 @@ function isContainment(relationship) {
   return containmentWords.find(w => w == relationship.lemma);
 }
 
+function buildPhrase(tree, transform = w => w, space = '_') {
+  const othersInPhrase = tree.othersInPhrase;
+
+  if (othersInPhrase.length) {
+    return [tree, ...othersInPhrase].sort((a, b) => a.start - b.start).map(o => o.word).map(transform).join(space);
+  } else {
+    return tree.word;
+  }
+}
+
 function propertyName(prop, relationship, multiple) {
   let entity = '';
 
   const correctedNoun = multiple ? __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default.a.noun(prop.lemma).pluralize() : __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default.a.noun(prop.lemma).singularize();
 
-  const compounds = findAll(prop, m => m.arc === 'compound');
+  const othersInPhrase = prop.othersInPhrase;
 
-  if (compounds.length) {
-    entity = `${compounds.map(c => c.lemma).join('_')}_${correctedNoun}`;
-  } else {
-    entity = correctedNoun;
-  }
+  entity = buildPhrase(prop);
 
   if (isContainment(relationship)) {
     return entity;
@@ -1336,7 +1148,7 @@ const capitalizeWord = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 function propertyType(prop, entities = []) {
   for (const entity of entities) {
-    if (entity.raw.toLowerCase() === prop.raw.toLowerCase() || entity.lemma.toLowerCase() === prop.lemma.toLowerCase()) {
+    if (entity.raw === prop.raw || entity.lemma === prop.lemma) {
       return capitalizeWord(entity.lemma);
     }
   }
@@ -1355,28 +1167,37 @@ function propertyType(prop, entities = []) {
 }
 
 function categoriseProp(prop, context, relationship, entities) {
-  const hasMultiple = findIfPropertyHasMultiple(prop);
+  const multiple = findIfPropertyHasMultiple(prop);
+
+  const type = propertyType(prop, entities);
+  const name = propertyName(prop, relationship, multiple);
+  const required = findIfPropertyIsRequired(prop, context);
+
   return {
-    type: propertyType(prop, entities),
-    name: propertyName(prop, relationship, hasMultiple),
+    type,
+    name,
     raw: prop.word,
     lemma: prop.lemma,
-    required: findIfPropertyIsRequired(prop, context),
-    multiple: hasMultiple
+    required,
+    multiple
   };
 }
 
 function getConjuctions(object) {
-  if (!object || !object.modifiers || object.modifiers.length === 0) return [];
+  return followModifiers(object, o => o.arc === 'conj');
+}
 
-  const [conjunction] = object.modifiers.filter(o => o.arc === 'conj');
-  const deeperConjuctions = getConjuctions(conjunction);
+function followModifiers(tree, condition) {
+  if (!tree || !tree.modifiers || tree.modifiers.length === 0) return [];
+
+  const [modifier] = tree.modifiers.filter(condition);
+  const deeperConjuctions = followModifiers(modifier, condition);
 
   if (deeperConjuctions.length) {
-    return [conjunction, ...deeperConjuctions];
+    return [modifier, ...deeperConjuctions];
   }
-  if (conjunction) {
-    return [conjunction];
+  if (modifier) {
+    return [modifier];
   }
   return [];
 }
@@ -1394,15 +1215,23 @@ function flatMap(array, lambda) {
   return Array.prototype.concat.apply([], array.map(lambda));
 };
 
-function filterTree(tree, condition) {
-  if (!tree) return;
+function flatten(array) {
+  if (!array) return [];
+  return Array.prototype.concat.apply([], array);
+};
 
-  let modifiers = flatMap(tree.modifiers, m => filterTree(m, condition));
+function filterTree(tree, condition, depth = 0) {
+  if (!tree) return;
+  if (depth === 0) tree = JSON.parse(JSON.stringify(tree)); // Clone the tree
+
+  let modifiers = flatMap(tree.modifiers, m => filterTree(m, e => condition(e, depth, tree), depth + 1));
 
   if (condition(tree)) {
     if (modifiers.length < 1) {
-      delete tree.modifiers;
-      return tree;
+      // delete tree.modifiers;
+      return Object.assign(tree, {
+        modifiers: undefined
+      });
     }
     return Object.assign(tree, {
       modifiers
@@ -1410,6 +1239,18 @@ function filterTree(tree, condition) {
   } else {
     return modifiers;
   }
+}
+
+function assignNounPhrase(p) {
+  const preps = findAll(p, o => o.arc === 'prep');
+  const prepPhrases = preps.map(o => [o, ...o.modifiers.filter(m => m.arc === 'pobj')]);
+
+  const tags = ['compound', 'amod'];
+  const more = findAll(p, m => tags.includes(m.arc));
+
+  p.othersInPhrase = [...flatten(prepPhrases), ...more].sort((a, b) => a.start - b.start);
+
+  return p;
 }
 
 const Natural = {
@@ -1570,64 +1411,52 @@ module.exports = require("fs");
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = require("natural");
+module.exports = require("nlp_compromise");
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = require("nlp_compromise");
+module.exports = require("passport");
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport");
+module.exports = require("passport-local");
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("path");
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("request-promise");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = require("pos");
+module.exports = require("sbd");
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = require("request-promise");
+module.exports = require("sequelize");
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = require("sbd");
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports) {
-
-module.exports = require("sequelize");
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
 module.exports = require("validator");
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(4);

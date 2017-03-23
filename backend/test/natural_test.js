@@ -86,6 +86,7 @@ describe('Natural Service', () => {
         pos: 'VBZ',
         modifiers: [
           {
+            modifiers: undefined,
             pos: 'NN',
           }
         ]
@@ -123,6 +124,32 @@ describe('Natural Service', () => {
           {
             pos: 'NN',
             word: 'movies',
+            modifiers: undefined,
+          },
+          {
+            pos: 'NN',
+            word: 'information',
+            modifiers: undefined,
+          }
+        ]
+      };
+      expect(result).to.deep.equal(expected);
+    });
+
+    it('should not alter the original tree', () => {
+      const tree = {
+        pos: 'VBZ',
+        word: 'store',
+        modifiers: [
+          {
+            pos: 'IN',
+            word: 'about',
+            modifiers: [
+              {
+                pos: 'NN',
+                word: 'movies',
+              }
+            ]
           },
           {
             pos: 'NN',
@@ -130,7 +157,10 @@ describe('Natural Service', () => {
           }
         ]
       };
-      expect(result).to.deep.equal(expected);
+
+      const copy = JSON.parse(JSON.stringify(tree));
+      const result = Natural._filterTree(tree, o => o.pos != 'IN');
+      expect(tree).to.deep.equal(copy);
     });
 
 
@@ -415,7 +445,7 @@ describe('Natural Service', () => {
         },
         {
           "name": "owner",
-          "raw": "owner",
+          "raw": "Owner",
           "properties": [
             {
               "type": "string",
