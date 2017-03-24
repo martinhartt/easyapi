@@ -4,6 +4,10 @@ import passport from './config/passport';
 import index from './routes/index';
 import auth from './routes/auth';
 import service from './routes/service';
+import model from './routes/model';
+import entry from './routes/entry';
+import attribute from './routes/attribute';
+import value from './routes/value';
 import bootstrap from './config/bootstrap';
 import models from './models';
 import authentication from './middleware/authentication';
@@ -24,6 +28,10 @@ bootstrap().then(async () => {
   app.use('/api', index);
   app.use('/api/service', service);
   app.use('/api/auth', auth);
+  app.use('/api/model', model);
+  app.use('/api/attribute', attribute);
+  app.use('/api/entry', entry);
+  app.use('/api/value', value);
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {

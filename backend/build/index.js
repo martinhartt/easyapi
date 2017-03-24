@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,11 +73,11 @@ module.exports =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(8);
@@ -161,9 +161,9 @@ module.exports = require("express");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport_local__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(3);
@@ -257,15 +257,19 @@ module.exports = require("jsonwebtoken");
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_body_parser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_bootstrap__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__middleware_authentication__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes_model__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routes_entry__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__routes_attribute__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes_value__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config_bootstrap__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__middleware_authentication__ = __webpack_require__(7);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -278,21 +282,29 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__config_bootstrap__["a" /* default */])().then(_asyncToGenerator(function* () {
+
+
+
+
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__config_bootstrap__["a" /* default */])().then(_asyncToGenerator(function* () {
   /* eslint-disable new-cap */
   const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
   const port = 9001;
 
-  yield __WEBPACK_IMPORTED_MODULE_7__models__["a" /* default */].sequelize.sync();
+  yield __WEBPACK_IMPORTED_MODULE_11__models__["a" /* default */].sequelize.sync();
 
   app.use(__WEBPACK_IMPORTED_MODULE_1_body_parser___default.a.json());
 
   app.use(__WEBPACK_IMPORTED_MODULE_2__config_passport__["a" /* default */].initialize());
-  app.use(__WEBPACK_IMPORTED_MODULE_8__middleware_authentication__["a" /* default */]);
+  app.use(__WEBPACK_IMPORTED_MODULE_12__middleware_authentication__["a" /* default */]);
 
   app.use('/api', __WEBPACK_IMPORTED_MODULE_3__routes_index__["a" /* default */]);
   app.use('/api/service', __WEBPACK_IMPORTED_MODULE_5__routes_service__["a" /* default */]);
   app.use('/api/auth', __WEBPACK_IMPORTED_MODULE_4__routes_auth__["a" /* default */]);
+  app.use('/api/model', __WEBPACK_IMPORTED_MODULE_6__routes_model__["a" /* default */]);
+  app.use('/api/attribute', __WEBPACK_IMPORTED_MODULE_8__routes_attribute__["a" /* default */]);
+  app.use('/api/entry', __WEBPACK_IMPORTED_MODULE_7__routes_entry__["a" /* default */]);
+  app.use('/api/value', __WEBPACK_IMPORTED_MODULE_9__routes_value__["a" /* default */]);
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
@@ -584,7 +596,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
 
 
@@ -646,8 +658,120 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const modelId = req.param('model');
+    const name = req.param('name');
+    const type = req.param('type');
+
+    try {
+      const attribute = yield Attribute.create({
+        name,
+        type,
+        ModelId: modelId
+      });
+
+      const response = {
+        attribute,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.patch('/:id', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    const attributeId = req.param('id');
+
+    const toUpdate = {};
+
+    if (req.param('name')) {
+      toUpdate.name = req.param('name');
+    }
+    if (req.param('type')) {
+      toUpdate.type = req.param('type');
+    }
+
+    try {
+      const attribute = yield Attribute.update(toUpdate, { where: { id: attributeId } });
+
+      return res.json({
+        attribute,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const modelId = req.param('model');
+      const attributes = yield Attribute.findAll({
+        where: {
+          ModelId: modelId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        attributes,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
 
 
@@ -709,7 +833,91 @@ router.post('/login', (req, res, next) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 18 */
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const modelId = req.param('model');
+
+    try {
+      const newestEntry = yield Entry.findOne({
+        where: {
+          ModelId: modelId
+        },
+        order: 'index DESC'
+      });
+      const index = newestEntry.index + 1;
+
+      const entry = yield Entry.create({
+        index,
+        ModelId: modelId
+      });
+
+      const response = {
+        entry,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    try {
+      const modelId = req.param('model');
+      const entries = yield Entry.findAll({
+        where: {
+          ModelId: modelId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        entries,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -738,16 +946,14 @@ router.get('/models', (req, res) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_parse__ = __webpack_require__(21);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
 
 
 
@@ -757,108 +963,29 @@ const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1_
 /* eslint-disable new-cap */
 const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
 
-router.post('/parseText', (req, res) => {
-  const text = req.param('text');
-  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__services_parse__["a" /* parseNaturalLanguage */])(text).then(result => res.send(result));
-});
-
-router.post('/parseSpreadsheet', (req, res) => {
-  const text = req.param('text');
-  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__services_parse__["a" /* parseNaturalLanguage */])(text);
-});
-
 /* POST scratch. */
 router.post('/', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
+    const serviceId = req.param('service');
     const name = req.param('name');
 
-    console.log('name');
-    let service = yield Service.create({
-      name,
-      isPublic: false,
-      UserId: req.user.id
-    });
-
-    const modelDefinitions = req.param('models');
-    const models = [];
-
-    let response = {
-      service: service.toJSON(),
-      success: true
-    };
-
-    // TODO Validation
-
     try {
-      for (const modelDefinition of modelDefinitions) {
-        const model = yield Model.create({
-          name: modelDefinition.name,
-          ServiceId: service.id
-        });
+      const model = yield Model.create({
+        name,
+        ServiceId: serviceId
+      });
 
-        let modelJSON = model.toJSON();
-        const attributes = [];
-        const attributeByName = {};
-
-        for (const attributeDefinition of modelDefinition.attributes) {
-          const attribute = yield Attribute.create({
-            name: attributeDefinition.name,
-            type: attributeDefinition.type,
-            ModelId: model.id
-          });
-
-          attributeByName[attributeDefinition.name] = attribute;
-          attributes.push(attribute.toJSON());
-        }
-
-        modelJSON.attributes = attributes;
-
-        let entries = [];
-
-        let index = 1;
-        for (const entriesDefinition of modelDefinition.entries) {
-          const entry = yield Entry.create({
-            index,
-            ModelId: model.id
-          });
-          index++;
-
-          let entryJSON = entry.toJSON();
-          let values = [];
-
-          for (const attributeString of Object.keys(entriesDefinition)) {
-            if (!attributeByName[attributeString]) {
-              return res.status(400).json({
-                error: `Please only specify attributes which are defined in the model (${attributeString}).`,
-                success: false
-              });
-            }
-            const value = yield Value.create({
-              AttributeId: attributeByName[attributeString].id,
-              value: entriesDefinition[attributeString],
-              EntryId: entry.id
-            });
-
-            values.push(value.toJSON());
-          }
-
-          entryJSON.values = values;
-          entries.push(entryJSON);
-        }
-
-        modelJSON.entries = entries;
-        models.push(modelJSON);
-      }
+      const response = {
+        model,
+        success: true
+      };
+      return res.json(response);
     } catch (e) {
       return res.status(501).json({
         error: e,
         success: false
       });
     }
-
-    response.service.models = models;
-
-    res.json(service);
   });
 
   return function (_x, _x2) {
@@ -866,18 +993,331 @@ router.post('/', (() => {
   };
 })());
 
+router.patch('/:id', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    const newName = req.param('name');
+    const modelId = req.param('id');
+
+    try {
+      const model = yield Model.update({ name: newName }, { where: { id: modelId } });
+
+      return res.json({
+        model,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const serviceId = req.param('service');
+      const model = yield Model.findAll({
+        where: {
+          ServiceId: serviceId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        model,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_parse__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_service__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_3__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+router.post('/parseText', (req, res) => {
+  const text = req.param('text');
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__services_parse__["a" /* parseNaturalLanguage */])(text).then(result => res.send(result));
+});
+
+router.post('/parseSpreadsheet', (req, res) => {
+  const text = req.param('text');
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__services_parse__["b" /* parseSpreadsheet */])(text).then(result => res.send(result));
+});
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const name = req.param('name');
+    const modelDefinitions = req.param('models');
+
+    // TODO Validation
+
+    try {
+      const service = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__services_service__["a" /* createService */])(name, modelDefinitions, req.user.id);
+
+      const response = {
+        service,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      console.error(e);
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    try {
+      const services = yield Service.findAll({
+        where: {
+          UserId: req.user.id
+        }
+      });
+      return res.json({
+        services,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+router.get('/:id', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const serviceId = req.param('id');
+      const service = yield Service.findOne({
+        where: {
+          id: serviceId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        service,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
+router.patch('/:id', (() => {
+  var _ref4 = _asyncToGenerator(function* (req, res) {
+    try {
+      const serviceId = req.param('id');
+      const toUpdate = {};
+
+      if (req.param('name')) {
+        toUpdate.name = req.param('name');
+      }
+      if (req.param('isPublic')) {
+        toUpdate.isPublic = req.param('isPublic');
+      }
+
+      const service = yield Service.update(toUpdate, { where: { id: serviceId } });
+      return res.json({
+        service,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+router.patch('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const entryId = req.param('entry');
+    const attributeId = req.param('attribute');
+    const newValue = req.param('value');
+
+    try {
+      const [foundValue] = yield Value.findOrCreate({
+        where: {
+          EntryId: entryId,
+          AttributeId: attributeId
+        }
+      });
+
+      const [value] = yield Value.update({ value: newValue }, { where: { id: foundValue.id } });
+
+      const response = {
+        value,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.patch('/:id', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    const attributeId = req.param('id');
+
+    const toUpdate = {};
+
+    if (req.param('name')) {
+      toUpdate.name = req.param('name');
+    }
+    if (req.param('type')) {
+      toUpdate.type = req.param('type');
+    }
+
+    try {
+      const attribute = yield Attribute.update(toUpdate, { where: { id: attributeId } });
+
+      return res.json({
+        attribute,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const modelId = req.param('model');
+      const attributes = yield Attribute.findAll({
+        where: {
+          ModelId: modelId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        attributes,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sbd__);
 let generateModelStructure = (() => {
   var _ref = _asyncToGenerator(function* (text) {
@@ -1267,12 +1707,12 @@ const Natural = {
 /* harmony default export */ __webpack_exports__["a"] = Natural;
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_natural__ = __webpack_require__(20);
-/* unused harmony export parseSpreadsheet */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_natural__ = __webpack_require__(24);
+/* harmony export (immutable) */ __webpack_exports__["b"] = parseSpreadsheet;
 /* unused harmony export determineType */
 /* unused harmony export findType */
 /* harmony export (immutable) */ __webpack_exports__["a"] = parseNaturalLanguage;
@@ -1390,73 +1830,165 @@ function parseNaturalLanguage(text) {
 }
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = require("bcrypt");
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = require("body-parser");
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-module.exports = require("nlp_compromise");
-
-/***/ }),
 /* 26 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = require("passport");
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createService; });
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_0__models__["a" /* default */];
+
+let createService = (() => {
+  var _ref = _asyncToGenerator(function* (name, modelDefinitions, userId) {
+    let service = yield Service.create({
+      name,
+      isPublic: false,
+      UserId: userId
+    });
+
+    service = service.toJSON();
+
+    const models = [];
+
+    for (const modelDefinition of modelDefinitions) {
+      const model = yield Model.create({
+        name: modelDefinition.name,
+        ServiceId: service.id
+      });
+
+      const modelJSON = model.toJSON();
+      const attributes = [];
+      const attributeByName = {};
+
+      for (const attributeDefinition of modelDefinition.attributes) {
+        const attribute = yield Attribute.create({
+          name: attributeDefinition.name,
+          type: attributeDefinition.type,
+          ModelId: model.id
+        });
+
+        attributeByName[attributeDefinition.name] = attribute;
+        attributes.push(attribute.toJSON());
+      }
+
+      modelJSON.attributes = attributes;
+
+      const entries = [];
+
+      let index = 1;
+      for (const entriesDefinition of modelDefinition.entries) {
+        const entry = yield Entry.create({
+          index,
+          ModelId: model.id
+        });
+        index++;
+
+        const entryJSON = entry.toJSON();
+        const values = [];
+
+        for (const attributeString of Object.keys(entriesDefinition)) {
+          if (!attributeByName[attributeString]) {
+            throw new Error(`Please only specify attributes which are defined in the model (${attributeString}).`);
+          }
+          const value = yield Value.create({
+            AttributeId: attributeByName[attributeString].id,
+            value: entriesDefinition[attributeString],
+            EntryId: entry.id
+          });
+
+          values.push(value.toJSON());
+        }
+
+        entryJSON.values = values;
+        entries.push(entryJSON);
+      }
+
+      modelJSON.entries = entries;
+      models.push(modelJSON);
+    }
+
+    service.models = models;
+
+    return service;
+  });
+
+  return function createService(_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+})();
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("bcrypt");
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("body-parser");
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = require("request-promise");
+module.exports = require("fs");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = require("sbd");
+module.exports = require("nlp_compromise");
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = require("sequelize");
+module.exports = require("passport");
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = require("validator");
+module.exports = require("passport-local");
 
 /***/ }),
 /* 33 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+module.exports = require("request-promise");
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+module.exports = require("sbd");
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+module.exports = require("sequelize");
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(4);

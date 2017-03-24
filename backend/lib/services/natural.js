@@ -120,18 +120,24 @@ function isContainment(relationship) {
   return containmentWords.find(w => w == relationship.lemma);
 }
 
+function buildPhrase(tree, transform = w => w, space = '_') {
+  const othersInPhrase = tree.othersInPhrase;
+
+  if (othersInPhrase.length) {
+    return [tree, ...othersInPhrase].sort((a, b) => a.start - b.start).map(o => o.word).map(transform).join(space);
+  } else {
+    return tree.word;
+  }
+}
+
 function propertyName(prop, relationship, multiple) {
   let entity = '';
 
   const correctedNoun = multiple ? compromise.noun(prop.lemma).pluralize() : compromise.noun(prop.lemma).singularize();
 
-  const compounds = findAll(prop, m => m.arc === 'compound');
+  const othersInPhrase = prop.othersInPhrase;
 
-  if (compounds.length) {
-    entity = `${compounds.map(c => c.lemma).join('_')}_${correctedNoun}`;
-  } else {
-    entity = correctedNoun;
-  }
+  entity = buildPhrase(prop);
 
   if (isContainment(relationship)) {
     return entity;
@@ -213,16 +219,10 @@ function flatMap(array, lambda) {
   return Array.prototype.concat.apply([], array.map(lambda));
 };
 
-function filterTreeByTagSeq(tree, firstTag, secondTag, startAtZero = false) {
-  let counter = 0;
-  const condition = (obj, depth, parent) => {
-    if (depth !== 1) return false;
-
-    return obj.POS_fine === secondTag && parent.POS_fine === firstTag;
-  };
-
-  return filterTree(tree, condition);
-}
+function flatten(array) {
+  if (!array) return [];
+  return Array.prototype.concat.apply([], array);
+};
 
 function filterTree(tree, condition, depth = 0) {
   if (!tree) return;
@@ -243,6 +243,18 @@ function filterTree(tree, condition, depth = 0) {
   } else {
     return modifiers;
   }
+}
+
+function assignNounPhrase(p) {
+  const preps = findAll(p, o => o.arc === 'prep');
+  const prepPhrases = preps.map(o => [o, ...o.modifiers.filter(m => m.arc === 'pobj')]);
+
+  const tags = ['compound', 'amod'];
+  const more = findAll(p, m => tags.includes(m.arc));
+
+  p.othersInPhrase = [...flatten(prepPhrases), ...more].sort((a, b) => a.start - b.start);
+
+  return p;
 }
 
 async function generateModelStructure(text) {
@@ -266,7 +278,6 @@ async function generateModelStructure(text) {
     const tokens = sentenceResult.parse_list;
     const cleanTree = filterTree(sentenceResult.parse_tree[0], m => m.POS_fine.startsWith('V') || m.POS_fine.startsWith('N') || m.POS_fine === 'PRP');
 
-    console.log(JSON.stringify(sentenceResult.parse_tree[0], true, '  '));
     const treeIndex = {};
     const cleanTreeIndex = {};
     tokens.forEach(token => {
@@ -295,23 +306,15 @@ async function generateModelStructure(text) {
         const fullObject = treeIndex[object.id];
         properties = [fullObject, ...getConjuctions(fullObject)];
 
-        properties = properties.map(p => {
-          const posToFollow = ['prep'];
-          const otherWords = followModifiers(p, o => posToFollow.includes(o.arc));
-          const fullPhrase = [p.word, ...otherWords];
-
-          p.phrase = fullPhrase.join(' '); // TODO: Sort based on x
-
-          console.log(otherWords);
-
-          return p;
-        });
+        properties = properties.map(assignNounPhrase);
       }
       let entities = [];
       if (subject) {
         // This is entities
-        entities = [subject, ...getConjuctions(subject)];
+        const fullSubject = treeIndex[subject.id];
+        entities = [fullSubject, ...getConjuctions(fullSubject)];
         allEntities = [...allEntities, ...entities];
+        allEntities = allEntities.map(assignNounPhrase);
       }
 
       inTree = treeIndex[relationship.id];
@@ -328,7 +331,7 @@ async function generateModelStructure(text) {
           existingEntity.properties = existingEntity.properties.concat(propertiesWithTypes);
         } else {
           modelStructure.push({
-            name: entity.lemma,
+            name: buildPhrase(entity, w => capitalizeWord(w), ' '),
             raw: entity.word,
             properties: propertiesWithTypes
           });
