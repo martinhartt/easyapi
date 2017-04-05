@@ -79,16 +79,16 @@ module.exports =
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__device__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__endpoint__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__entry__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__issue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__value__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__device__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__endpoint__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__entry__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__issue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__value__ = __webpack_require__(19);
 
 
 
@@ -260,16 +260,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_body_parser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes_model__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routes_entry__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__routes_attribute__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes_value__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config_bootstrap__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes_model__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routes_entry__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__routes_attribute__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes_value__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config_bootstrap__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__middleware_authentication__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__middleware_authentication__ = __webpack_require__(10);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -334,985 +334,6 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__config_bootstrap__["a" /* de
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = bootstrap;
-/**
- * Bootstrap: All scripts that should be executed before server starts running
- */
-
-function bootstrap() {
-  return Promise.resolve();
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const connections = {
-  development: {
-    username: 'martinkubat',
-    password: '',
-    database: 'martinkubat',
-    host: 'localhost',
-    dialect: 'postgres'
-  },
-  test: {
-    username: 'root',
-    password: null,
-    database: 'database_test',
-    host: '127.0.0.1',
-    dialect: 'mysql'
-  },
-  production: {
-    username: 'root',
-    password: null,
-    database: 'database_production',
-    host: '127.0.0.1',
-    dialect: 'mysql'
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = connections;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-
-
-
-const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
-
-/* harmony default export */ __webpack_exports__["a"] = function (req, res, next) {
-  if (req.originalUrl.startsWith('/api/auth/')) {
-    return next();
-  }
-
-  if (!req.headers.authorization) {
-    return res.status(401).end();
-  }
-
-  const token = req.headers.authorization.split(' ')[1];
-  return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, 'secret', (err, decoded) => {
-    if (err) return res.status(401).end();
-
-    const userId = decoded.user;
-
-    return User.findById(userId).then(user => {
-      if (user) {
-        req.user = user;
-        return next();
-      }
-      return res.status(401).end();
-    }).catch(err => res.status(401).end());
-  });
-};;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Attribute = sequelize.define('Attribute', {
-    name: DataTypes.STRING,
-    type: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate(models) {
-        Attribute.belongsTo(models.Model, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-      }
-    }
-  });
-
-  return Attribute;
-};
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Device = sequelize.define('Device', {
-    name: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN
-  }, {
-    classMethods: {
-      associate(models) {
-        Device.belongsTo(models.User, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-      }
-    }
-  });
-
-  return Device;
-};
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Endpoint = sequelize.define('Endpoint', {
-    instructions: DataTypes.STRING,
-    mode: DataTypes.STRING,
-    path: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate(models) {
-        Endpoint.belongsTo(models.Service, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-      }
-    }
-  });
-
-  return Endpoint;
-};
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Entry = sequelize.define('Entry', {
-    index: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate(models) {
-        Entry.belongsTo(models.Model, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-        Entry.hasMany(models.Value);
-      }
-    }
-  });
-
-  return Entry;
-};
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Issue = sequelize.define('Issue', {
-    name: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN
-  }, {
-    classMethods: {
-      associate(models) {
-        Issue.belongsTo(models.User, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-      }
-    }
-  });
-
-  return Issue;
-};
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Model = sequelize.define('Model', {
-    name: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate(models) {
-        Model.belongsTo(models.Service, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-        Model.hasMany(models.Attribute);
-        Model.hasMany(models.Entry);
-      }
-    }
-  });
-
-  return Model;
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Service = sequelize.define('Service', {
-    name: DataTypes.STRING,
-    isPublic: DataTypes.BOOLEAN
-  }, {
-    classMethods: {
-      associate(models) {
-        Service.belongsTo(models.User, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-        Service.hasMany(models.Endpoint);
-        Service.hasMany(models.Model);
-      }
-    }
-  });
-
-  return Service;
-};
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
-
-
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const User = sequelize.define('User', {
-    email: {
-      type: DataTypes.STRING,
-      unique: true
-    },
-    passwordHash: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate(models) {
-        User.hasMany(models.Service);
-      },
-      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null)
-    },
-    instanceMethods: {
-      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null),
-      validPassword: function (password) {
-        console.log(password, this.passwordHash);
-        return __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.compare(password, this.passwordHash);
-      }
-    }
-  });
-
-  return User;
-};
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
-  const Value = sequelize.define('Value', {
-    value: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate(models) {
-        Value.belongsTo(models.Entry, {
-          onDelete: 'CASCADE',
-          foreignKey: {
-            allowNull: false
-          }
-        });
-        Value.belongsTo(models.Attribute);
-      }
-    }
-  });
-
-  return Value;
-};
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-
-
-
-const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
-
-/* eslint-disable new-cap */
-const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-/* POST scratch. */
-router.post('/', (() => {
-  var _ref = _asyncToGenerator(function* (req, res) {
-    const modelId = req.param('model');
-    const name = req.param('name');
-    const type = req.param('type');
-
-    try {
-      const attribute = yield Attribute.create({
-        name,
-        type,
-        ModelId: modelId
-      });
-
-      const response = {
-        attribute,
-        success: true
-      };
-      return res.json(response);
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-router.patch('/:id', (() => {
-  var _ref2 = _asyncToGenerator(function* (req, res) {
-    const attributeId = req.param('id');
-
-    const toUpdate = {};
-
-    if (req.param('name')) {
-      toUpdate.name = req.param('name');
-    }
-    if (req.param('type')) {
-      toUpdate.type = req.param('type');
-    }
-
-    try {
-      const attribute = yield Attribute.update(toUpdate, { where: { id: attributeId } });
-
-      return res.json({
-        attribute,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-})());
-
-router.get('/', (() => {
-  var _ref3 = _asyncToGenerator(function* (req, res) {
-    try {
-      const modelId = req.param('model');
-      const attributes = yield Attribute.findAll({
-        where: {
-          ModelId: modelId
-        },
-        include: [{ all: true }]
-      });
-      return res.json({
-        attributes,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x5, _x6) {
-    return _ref3.apply(this, arguments);
-  };
-})());
-
-/* harmony default export */ __webpack_exports__["a"] = router;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
-
-
-
-
-/* eslint-disable new-cap */
-const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-function validate(form) {
-  const errors = {};
-  let success = true;
-
-  if (!form || !form.email || !__WEBPACK_IMPORTED_MODULE_2_validator___default.a.isEmail(form.email)) {
-    success = false;
-    errors.email = 'This is not a valid email.';
-  }
-
-  if (!form || !form.password || form.password.length < 5) {
-    success = false;
-    errors.password = 'This password is too short.';
-  }
-
-  return {
-    success,
-    errors
-  };
-}
-
-/* GET index. */
-router.post('/login', (req, res, next) => {
-  const validation = validate({
-    email: req.param('email'),
-    password: req.param('password')
-  });
-
-  if (!validation.success) {
-    return res.status(400).json({
-      success: false,
-      errors: validation.errors
-    });
-  }
-
-  return __WEBPACK_IMPORTED_MODULE_1__config_passport__["a" /* default */].authenticate('local', (err, user) => {
-    console.log(err, user);
-    if (err || !user) {
-      return res.status(400).json({
-        success: false,
-        message: 'Incorrect details'
-      });
-    }
-
-    return res.status(200).json(Object.assign({
-      success: true,
-      errors: {}
-    }, user));
-  })(req, res, next);
-});
-
-/* harmony default export */ __webpack_exports__["a"] = router;
-
-/***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-
-
-
-const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
-
-/* eslint-disable new-cap */
-const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-/* POST scratch. */
-router.post('/', (() => {
-  var _ref = _asyncToGenerator(function* (req, res) {
-    const modelId = req.param('model');
-
-    try {
-      const newestEntry = yield Entry.findOne({
-        where: {
-          ModelId: modelId
-        },
-        order: 'index DESC'
-      });
-      const index = newestEntry.index + 1;
-
-      const entry = yield Entry.create({
-        index,
-        ModelId: modelId
-      });
-
-      const response = {
-        entry,
-        success: true
-      };
-      return res.json(response);
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-router.get('/', (() => {
-  var _ref2 = _asyncToGenerator(function* (req, res) {
-    try {
-      const modelId = req.param('model');
-      const entries = yield Entry.findAll({
-        where: {
-          ModelId: modelId
-        },
-        include: [{ all: true }]
-      });
-      return res.json({
-        entries,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-})());
-
-/* harmony default export */ __webpack_exports__["a"] = router;
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-
-
-
-/* eslint-disable new-cap */
-const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-/* GET index. */
-router.get('/', (req, res) => {
-  res.send('Hello ok yep!');
-});
-
-router.get('/models', (req, res) => {
-  __WEBPACK_IMPORTED_MODULE_1__models__["User"].findAll({
-    include: [__WEBPACK_IMPORTED_MODULE_1__models__["Service"]]
-  }).then(users => {
-    res.send(users);
-  });
-});
-
-/* harmony default export */ __webpack_exports__["a"] = router;
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-
-
-
-const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
-
-/* eslint-disable new-cap */
-const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-/* POST scratch. */
-router.post('/', (() => {
-  var _ref = _asyncToGenerator(function* (req, res) {
-    const serviceId = req.param('service');
-    const name = req.param('name');
-
-    try {
-      const model = yield Model.create({
-        name,
-        ServiceId: serviceId
-      });
-
-      const response = {
-        model,
-        success: true
-      };
-      return res.json(response);
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-router.patch('/:id', (() => {
-  var _ref2 = _asyncToGenerator(function* (req, res) {
-    const newName = req.param('name');
-    const modelId = req.param('id');
-
-    try {
-      const model = yield Model.update({ name: newName }, { where: { id: modelId } });
-
-      return res.json({
-        model,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-})());
-
-router.get('/', (() => {
-  var _ref3 = _asyncToGenerator(function* (req, res) {
-    try {
-      const serviceId = req.param('service');
-      const model = yield Model.findAll({
-        where: {
-          ServiceId: serviceId
-        },
-        include: [{ all: true }]
-      });
-      return res.json({
-        model,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x5, _x6) {
-    return _ref3.apply(this, arguments);
-  };
-})());
-
-/* harmony default export */ __webpack_exports__["a"] = router;
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_parse__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_service__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models__ = __webpack_require__(0);
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-
-
-
-
-
-const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_3__models__["a" /* default */];
-
-/* eslint-disable new-cap */
-const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-router.post('/parseText', (req, res) => {
-  const text = req.param('text');
-  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__services_parse__["a" /* parseNaturalLanguage */])(text).then(result => res.send(result));
-});
-
-router.post('/parseSpreadsheet', (req, res) => {
-  const text = req.param('text');
-  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__services_parse__["b" /* parseSpreadsheet */])(text).then(result => res.send(result));
-});
-
-/* POST scratch. */
-router.post('/', (() => {
-  var _ref = _asyncToGenerator(function* (req, res) {
-    const name = req.param('name');
-    const modelDefinitions = req.param('models');
-
-    // TODO Validation
-
-    try {
-      const service = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__services_service__["a" /* createService */])(name, modelDefinitions, req.user.id);
-
-      const response = {
-        service,
-        success: true
-      };
-      return res.json(response);
-    } catch (e) {
-      console.error(e);
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-router.get('/', (() => {
-  var _ref2 = _asyncToGenerator(function* (req, res) {
-    try {
-      const services = yield Service.findAll({
-        where: {
-          UserId: req.user.id
-        }
-      });
-      return res.json({
-        services,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-})());
-
-router.get('/:id', (() => {
-  var _ref3 = _asyncToGenerator(function* (req, res) {
-    try {
-      const serviceId = req.param('id');
-      const service = yield Service.findOne({
-        where: {
-          id: serviceId
-        },
-        include: [{ all: true }]
-      });
-      return res.json({
-        service,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x5, _x6) {
-    return _ref3.apply(this, arguments);
-  };
-})());
-
-router.patch('/:id', (() => {
-  var _ref4 = _asyncToGenerator(function* (req, res) {
-    try {
-      const serviceId = req.param('id');
-      const toUpdate = {};
-
-      if (req.param('name')) {
-        toUpdate.name = req.param('name');
-      }
-      if (req.param('isPublic')) {
-        toUpdate.isPublic = req.param('isPublic');
-      }
-
-      const service = yield Service.update(toUpdate, { where: { id: serviceId } });
-      return res.json({
-        service,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x7, _x8) {
-    return _ref4.apply(this, arguments);
-  };
-})());
-
-/* harmony default export */ __webpack_exports__["a"] = router;
-
-/***/ }),
-/* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-
-
-
-const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
-
-/* eslint-disable new-cap */
-const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-router.patch('/', (() => {
-  var _ref = _asyncToGenerator(function* (req, res) {
-    const entryId = req.param('entry');
-    const attributeId = req.param('attribute');
-    const newValue = req.param('value');
-
-    try {
-      const [foundValue] = yield Value.findOrCreate({
-        where: {
-          EntryId: entryId,
-          AttributeId: attributeId
-        }
-      });
-
-      const [value] = yield Value.update({ value: newValue }, { where: { id: foundValue.id } });
-
-      const response = {
-        value,
-        success: true
-      };
-      return res.json(response);
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-router.patch('/:id', (() => {
-  var _ref2 = _asyncToGenerator(function* (req, res) {
-    const attributeId = req.param('id');
-
-    const toUpdate = {};
-
-    if (req.param('name')) {
-      toUpdate.name = req.param('name');
-    }
-    if (req.param('type')) {
-      toUpdate.type = req.param('type');
-    }
-
-    try {
-      const attribute = yield Attribute.update(toUpdate, { where: { id: attributeId } });
-
-      return res.json({
-        attribute,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-})());
-
-router.get('/', (() => {
-  var _ref3 = _asyncToGenerator(function* (req, res) {
-    try {
-      const modelId = req.param('model');
-      const attributes = yield Attribute.findAll({
-        where: {
-          ModelId: modelId
-        },
-        include: [{ all: true }]
-      });
-      return res.json({
-        attributes,
-        success: true
-      });
-    } catch (e) {
-      return res.status(501).json({
-        error: e,
-        success: false
-      });
-    }
-  });
-
-  return function (_x5, _x6) {
-    return _ref3.apply(this, arguments);
-  };
-})());
-
-/* harmony default export */ __webpack_exports__["a"] = router;
-
-/***/ }),
-/* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(30);
@@ -1362,7 +383,7 @@ let generateModelStructure = (() => {
         // First containment
         let inTree = cleanTreeIndex[relationship.id];
 
-        let nounTree = filterTree(inTree, function (m) {
+        const nounTree = filterTree(inTree, function (m) {
           return m.POS_fine.startsWith('N') || m.POS_fine === 'PRP';
         });
         const compareDepth = function (a, b) {
@@ -1379,13 +400,13 @@ let generateModelStructure = (() => {
           return o.arc.includes('obj');
         }).sort(compareDepth);
 
-        let properties = [];
+        let attributes = [];
         if (object) {
-          // This is the properties
+          // This is the attributes
           const fullObject = treeIndex[object.id];
-          properties = [fullObject, ...getConjuctions(fullObject)];
+          attributes = [fullObject, ...getConjuctions(fullObject)];
 
-          properties = properties.map(assignNounPhrase);
+          attributes = attributes.map(assignNounPhrase);
         }
         let entities = [];
         if (subject) {
@@ -1398,9 +419,9 @@ let generateModelStructure = (() => {
 
         inTree = treeIndex[relationship.id];
 
-        const propertiesWithTypes = [];
-        for (const property of properties) {
-          propertiesWithTypes.push(categoriseProp(property, inTree, relationship, entities));
+        const attributesWithTypes = [];
+        for (const property of attributes) {
+          attributesWithTypes.push(categoriseProp(property, inTree, relationship, entities));
         }
 
         for (const entity of entities) {
@@ -1409,14 +430,14 @@ let generateModelStructure = (() => {
           });
 
           if (existingEntity) {
-            existingEntity.properties = existingEntity.properties.concat(propertiesWithTypes);
+            existingEntity.attributes = existingEntity.attributes.concat(attributesWithTypes);
           } else {
             modelStructure.push({
               name: buildPhrase(entity, function (w) {
                 return capitalizeWord(w);
               }, ' '),
               raw: entity.word,
-              properties: propertiesWithTypes
+              attributes: attributesWithTypes
             });
           }
         }
@@ -1444,7 +465,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 // Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
-
   return __WEBPACK_IMPORTED_MODULE_0_request_promise___default.a.post('http://localhost:5000/parse', {
     form: {
       text: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_sbd__["sentences"])(text).join('<#SENT_SEPERATOR#>')
@@ -1561,9 +581,8 @@ function buildPhrase(tree, transform = w => w, space = '_') {
 
   if (othersInPhrase.length) {
     return [tree, ...othersInPhrase].sort((a, b) => a.start - b.start).map(o => o.word).map(transform).join(space);
-  } else {
-    return tree.word;
   }
+  return tree.word;
 }
 
 function propertyName(prop, relationship, multiple) {
@@ -1644,7 +663,7 @@ function followModifiers(tree, condition) {
 
 function postprocess(modelStructure, entities) {
   for (const models of modelStructure) {
-    for (const prop of models.properties) {
+    for (const prop of models.attributes) {
       prop.type = propertyType(prop, entities);
     }
   }
@@ -1653,18 +672,18 @@ function postprocess(modelStructure, entities) {
 function flatMap(array, lambda) {
   if (!array) return [];
   return Array.prototype.concat.apply([], array.map(lambda));
-};
+}
 
 function flatten(array) {
   if (!array) return [];
   return Array.prototype.concat.apply([], array);
-};
+}
 
 function filterTree(tree, condition, depth = 0) {
   if (!tree) return;
   if (depth === 0) tree = JSON.parse(JSON.stringify(tree)); // Clone the tree
 
-  let modifiers = flatMap(tree.modifiers, m => filterTree(m, e => condition(e, depth, tree), depth + 1));
+  const modifiers = flatMap(tree.modifiers, m => filterTree(m, e => condition(e, depth, tree), depth + 1));
 
   if (condition(tree)) {
     if (modifiers.length < 1) {
@@ -1676,9 +695,8 @@ function filterTree(tree, condition, depth = 0) {
     return Object.assign(tree, {
       modifiers
     });
-  } else {
-    return modifiers;
   }
+  return modifiers;
 }
 
 function assignNounPhrase(p) {
@@ -1707,11 +725,11 @@ const Natural = {
 /* harmony default export */ __webpack_exports__["a"] = Natural;
 
 /***/ }),
-/* 25 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_natural__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_natural__ = __webpack_require__(5);
 /* harmony export (immutable) */ __webpack_exports__["b"] = parseSpreadsheet;
 /* unused harmony export determineType */
 /* unused harmony export findType */
@@ -1826,11 +844,11 @@ function safeJSONParse(string) {
 }
 
 function parseNaturalLanguage(text) {
-  return __WEBPACK_IMPORTED_MODULE_0__services_natural__["a" /* default */].generateModelStructure(text);
+  return __WEBPACK_IMPORTED_MODULE_0__components_natural__["a" /* default */].generateModelStructure(text);
 }
 
 /***/ }),
-/* 26 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1841,6 +859,31 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_0__models__["a" /* default */];
+
+/* Model definition format
+
+{
+  name: string,
+  modelDefinitions: [
+    {
+      name: string,
+      attributes: [
+        {
+          name: string,
+          type: string,
+          required: boolean,
+          multiple: boolean,
+        }
+      ],
+      entries: [
+        {
+          [key]: value,
+        }
+      ]
+    }
+  ]
+}
+*/
 
 let createService = (() => {
   var _ref = _asyncToGenerator(function* (name, modelDefinitions, userId) {
@@ -1876,6 +919,10 @@ let createService = (() => {
       }
 
       modelJSON.attributes = attributes;
+
+      if (!modelDefinition.entries || modelDefinition.entries.length === 0) {
+        continue;
+      }
 
       const entries = [];
 
@@ -1920,6 +967,924 @@ let createService = (() => {
     return _ref.apply(this, arguments);
   };
 })();
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = bootstrap;
+/**
+ * Bootstrap: All scripts that should be executed before server starts running
+ */
+
+function bootstrap() {
+  return Promise.resolve();
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const connections = {
+  development: {
+    username: 'martinkubat',
+    password: '',
+    database: 'martinkubat',
+    host: 'localhost',
+    dialect: 'postgres'
+  },
+  test: {
+    username: 'root',
+    password: null,
+    database: 'database_test',
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  },
+  production: {
+    username: 'root',
+    password: null,
+    database: 'database_production',
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = connections;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+
+
+
+const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* harmony default export */ __webpack_exports__["a"] = function (req, res, next) {
+  if (req.originalUrl.startsWith('/api/auth/')) {
+    return next();
+  }
+
+  if (!req.headers.authorization) {
+    return res.status(401).end();
+  }
+
+  const token = req.headers.authorization.split(' ')[1];
+  return __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default.a.verify(token, 'secret', (err, decoded) => {
+    if (err) return res.status(401).end();
+
+    const userId = decoded.user;
+
+    return User.findById(userId).then(user => {
+      if (user) {
+        req.user = user;
+        return next();
+      }
+      return res.status(401).end();
+    }).catch(err => res.status(401).end());
+  });
+};;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Attribute = sequelize.define('Attribute', {
+    name: DataTypes.STRING,
+    type: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        Attribute.belongsTo(models.Model, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Attribute;
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Device = sequelize.define('Device', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Device.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Device;
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Endpoint = sequelize.define('Endpoint', {
+    instructions: DataTypes.STRING,
+    mode: DataTypes.STRING,
+    path: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        Endpoint.belongsTo(models.Service, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Endpoint;
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Entry = sequelize.define('Entry', {
+    index: DataTypes.INTEGER
+  }, {
+    classMethods: {
+      associate(models) {
+        Entry.belongsTo(models.Model, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Entry.hasMany(models.Value);
+      }
+    }
+  });
+
+  return Entry;
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Issue = sequelize.define('Issue', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Issue.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
+
+  return Issue;
+};
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Model = sequelize.define('Model', {
+    name: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        Model.belongsTo(models.Service, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Model.hasMany(models.Attribute);
+        Model.hasMany(models.Entry);
+      }
+    }
+  });
+
+  return Model;
+};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Service = sequelize.define('Service', {
+    name: DataTypes.STRING,
+    isPublic: DataTypes.BOOLEAN
+  }, {
+    classMethods: {
+      associate(models) {
+        Service.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Service.hasMany(models.Endpoint);
+        Service.hasMany(models.Model);
+      }
+    }
+  });
+
+  return Service;
+};
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const User = sequelize.define('User', {
+    email: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    passwordHash: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        User.hasMany(models.Service);
+      },
+      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null)
+    },
+    instanceMethods: {
+      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null),
+      validPassword: function (password) {
+        console.log(password, this.passwordHash);
+        return __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.compare(password, this.passwordHash);
+      }
+    }
+  });
+
+  return User;
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+  const Value = sequelize.define('Value', {
+    value: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate(models) {
+        Value.belongsTo(models.Entry, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Value.belongsTo(models.Attribute);
+      }
+    }
+  });
+
+  return Value;
+};
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const modelId = req.param('model');
+    const name = req.param('name');
+    const type = req.param('type');
+
+    try {
+      const attribute = yield Attribute.create({
+        name,
+        type,
+        ModelId: modelId
+      });
+
+      const response = {
+        attribute,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.patch('/:id', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    const attributeId = req.param('id');
+
+    const toUpdate = {};
+
+    if (req.param('name')) {
+      toUpdate.name = req.param('name');
+    }
+    if (req.param('type')) {
+      toUpdate.type = req.param('type');
+    }
+
+    try {
+      const attribute = yield Attribute.update(toUpdate, { where: { id: attributeId } });
+
+      return res.json({
+        attribute,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const modelId = req.param('model');
+      const attributes = yield Attribute.findAll({
+        where: {
+          ModelId: modelId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        attributes,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
+
+
+
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+function validate(form) {
+  const errors = {};
+  let success = true;
+
+  if (!form || !form.email || !__WEBPACK_IMPORTED_MODULE_2_validator___default.a.isEmail(form.email)) {
+    success = false;
+    errors.email = 'This is not a valid email.';
+  }
+
+  if (!form || !form.password || form.password.length < 5) {
+    success = false;
+    errors.password = 'This password is too short.';
+  }
+
+  return {
+    success,
+    errors
+  };
+}
+
+/* GET index. */
+router.post('/login', (req, res, next) => {
+  const validation = validate({
+    email: req.param('email'),
+    password: req.param('password')
+  });
+
+  if (!validation.success) {
+    return res.status(400).json({
+      success: false,
+      errors: validation.errors
+    });
+  }
+
+  return __WEBPACK_IMPORTED_MODULE_1__config_passport__["a" /* default */].authenticate('local', (err, user) => {
+    console.log(err, user);
+    if (err || !user) {
+      return res.status(400).json({
+        success: false,
+        message: 'Incorrect details'
+      });
+    }
+
+    return res.status(200).json(Object.assign({
+      success: true,
+      errors: {}
+    }, user));
+  })(req, res, next);
+});
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const modelId = req.param('model');
+
+    try {
+      const newestEntry = yield Entry.findOne({
+        where: {
+          ModelId: modelId
+        },
+        order: 'index DESC'
+      });
+      const index = newestEntry.index + 1;
+
+      const entry = yield Entry.create({
+        index,
+        ModelId: modelId
+      });
+
+      const response = {
+        entry,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    try {
+      const modelId = req.param('model');
+      const entries = yield Entry.findAll({
+        where: {
+          ModelId: modelId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        entries,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+
+
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+router.get('/models', (req, res) => {
+  __WEBPACK_IMPORTED_MODULE_1__models__["User"].findAll({
+    include: [__WEBPACK_IMPORTED_MODULE_1__models__["Service"]]
+  }).then(users => {
+    res.send(users);
+  });
+});
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const serviceId = req.param('service');
+    const name = req.param('name');
+
+    try {
+      const model = yield Model.create({
+        name,
+        ServiceId: serviceId
+      });
+
+      const response = {
+        model,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.patch('/:id', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    const newName = req.param('name');
+    const modelId = req.param('id');
+
+    try {
+      const model = yield Model.update({ name: newName }, { where: { id: modelId } });
+
+      return res.json({
+        model,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const serviceId = req.param('service');
+      const model = yield Model.findAll({
+        where: {
+          ServiceId: serviceId
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        model,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_parse__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_service__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_3__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+router.post('/parseText', (req, res) => {
+  const text = req.param('text');
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__components_parse__["a" /* parseNaturalLanguage */])(text).then(result => res.send(result));
+});
+
+router.post('/parseSpreadsheet', (req, res) => {
+  const text = req.param('text');
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__components_parse__["b" /* parseSpreadsheet */])(text).then(result => res.send(result));
+});
+
+/* POST scratch. */
+router.post('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    console.log(req.param('models'));
+    const name = req.param('name');
+    const modelDefinitions = req.param('models');
+
+    try {
+      const service = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_service__["a" /* createService */])(name, modelDefinitions, req.user.id);
+
+      const response = {
+        service,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      console.error(e);
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+router.get('/', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    try {
+      const services = yield Service.findAll({
+        where: {
+          UserId: req.user.id
+        },
+        include: [{ all: true }]
+      });
+      return res.json({
+        services,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
+router.get('/:id', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const serviceId = req.param('id');
+      const service = yield Service.findOne({
+        where: {
+          id: serviceId,
+          UserId: req.user.id
+        },
+        include: [{ all: true, nested: true }]
+      });
+      return res.json({
+        service,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
+router.patch('/:id', (() => {
+  var _ref4 = _asyncToGenerator(function* (req, res) {
+    try {
+      const serviceId = req.param('id');
+      const toUpdate = {};
+
+      if (req.param('name')) {
+        toUpdate.name = req.param('name');
+      }
+      if (req.param('isPublic')) {
+        toUpdate.isPublic = req.param('isPublic');
+      }
+
+      const service = yield Service.update(toUpdate, { where: { id: serviceId } });
+      return res.json({
+        service,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+router.patch('/', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const entryId = req.param('entry');
+    const attributeId = req.param('attribute');
+    const newValue = req.param('value');
+
+    try {
+      const [foundValue] = yield Value.findOrCreate({
+        where: {
+          EntryId: entryId,
+          AttributeId: attributeId
+        },
+        include: [{ all: true }]
+      });
+
+      // TODO Validate new value
+
+      const [value] = yield Value.update({ value: newValue }, { where: { id: foundValue.id } });
+
+      const response = {
+        value,
+        success: true
+      };
+      return res.json(response);
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 27 */

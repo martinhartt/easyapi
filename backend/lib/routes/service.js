@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { parseSpreadsheet, parseNaturalLanguage } from '../services/parse';
-import { createService, findServices } from '../services/service';
+import { parseSpreadsheet, parseNaturalLanguage } from '../components/parse';
+import { createService, findServices } from '../components/service';
 
 /* eslint-disable new-cap */
 const router = Router();

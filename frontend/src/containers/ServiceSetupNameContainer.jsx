@@ -1,25 +1,20 @@
 import { connect } from 'react-redux';
+import 'immutable';
 import {
   setServiceName,
   nextScreen,
 } from '../actions/setup';
 import ServiceSetupName from '../components/ServiceSetupName';
-import 'immutable';
 
-const mapStateToProps = (state, ownProps) => {
-
-  console.log(state.get('serviceById').get(state.get('user').get('currentServiceId')).get('name'));
-  return {
-    name: state
-      .get('serviceById')
-      .get(state.get('user').get('currentServiceId'))
+const mapStateToProps = state => ({
+  name: state
+      .get('setup')
       .get('name'),
-  }
-};
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   onDone: () => dispatch(nextScreen()),
-  onChange: (name) =>  dispatch(setServiceName(name)),
+  onChange: name => dispatch(setServiceName(name)),
 
 });
 

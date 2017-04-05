@@ -1,21 +1,19 @@
 import { connect } from 'react-redux';
+import 'immutable';
 import {
   analyseNaturalText,
-  nextScreen,
+  createService,
 } from '../actions/setup';
 import ServiceSetupNatural from '../components/ServiceSetupNatural';
-import 'immutable';
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    text: state.getIn(['setup', 'naturalText']),
-    annotations: state.getIn(['setup', 'naturalTextAnnotations']),
-  }
-};
+const mapStateToProps = state => ({
+  text: state.getIn(['setup', 'naturalText']),
+  annotations: state.getIn(['setup', 'naturalTextAnnotations']),
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onDone: () => dispatch(nextScreen()),
-  onChange: (text) =>  dispatch(analyseNaturalText(text)),
+const mapDispatchToProps = dispatch => ({
+  onDone: () => dispatch(createService()),
+  onChange: text => dispatch(analyseNaturalText(text)),
 
 });
 

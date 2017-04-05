@@ -1,4 +1,4 @@
-import Natural from '../services/natural';
+import Natural from '../components/natural';
 
 export function parseSpreadsheet(spreadsheets) {
   // Assume spreadsheet is array of csv's

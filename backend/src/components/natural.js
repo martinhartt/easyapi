@@ -8,7 +8,6 @@ import { sentences as seperateSentences } from 'sbd';
 
 // Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
-
   return request.post('http://localhost:5000/parse', {
     form: {
       text: seperateSentences(text).join('<#SENT_SEPERATOR#>'),
@@ -102,7 +101,7 @@ function findIfPropertyHasMultiple(prop) {
 
     if (modifier.arc === 'nummod') {
       // Parse value of number
-      allCardinalityInfo.push(compromise.value(modifier.lemma).number > 1)
+      allCardinalityInfo.push(compromise.value(modifier.lemma).number > 1);
     }
 
     if (singleKeywords.find(k => k === modifier.lemma)) {
@@ -132,10 +131,9 @@ function buildPhrase(tree, transform = w => w, space = '_') {
   const othersInPhrase = tree.othersInPhrase;
 
   if (othersInPhrase.length) {
-    return [tree, ...othersInPhrase].sort((a,b) => a.start - b.start).map(o => o.word).map(transform).join(space);
-  } else {
-    return tree.word;
+    return [tree, ...othersInPhrase].sort((a, b) => a.start - b.start).map(o => o.word).map(transform).join(space);
   }
+  return tree.word;
 }
 
 function propertyName(prop, relationship, multiple) {
@@ -170,14 +168,13 @@ function propertyType(prop, entities = []) {
   }
 
 
-
   const possibleTypes = [];
 
   // Check criteria for date.
   const dateKeywords = [
     'date',
     'day', // TODO Add more keywords
-  ]
+  ];
 
   // Check criteria for number.
   const numberKeywords = [
@@ -185,8 +182,8 @@ function propertyType(prop, entities = []) {
     'integer',
     'float',
     'double',
-    ''
-  ]
+    '',
+  ];
 
   // Check for integer or float
 
@@ -234,7 +231,7 @@ function followModifiers(tree, condition) {
 
 function postprocess(modelStructure, entities) {
   for (const models of modelStructure) {
-    for (const prop of models.properties) {
+    for (const prop of models.attributes) {
       prop.type = propertyType(prop, entities);
     }
   }
@@ -243,20 +240,20 @@ function postprocess(modelStructure, entities) {
 function flatMap(array, lambda) {
   if (!array) return [];
   return Array.prototype.concat.apply([], array.map(lambda));
-};
+}
 
 function flatten(array) {
   if (!array) return [];
   return Array.prototype.concat.apply([], array);
-};
+}
 
 function filterTree(tree, condition, depth = 0) {
   if (!tree) return;
   if (depth === 0) tree = JSON.parse(JSON.stringify(tree)); // Clone the tree
 
-  let modifiers = flatMap(
+  const modifiers = flatMap(
     tree.modifiers,
-    m => filterTree(m, e => condition(e, depth, tree), depth+1)
+    m => filterTree(m, e => condition(e, depth, tree), depth + 1),
   );
 
   if (condition(tree)) {
@@ -269,15 +266,14 @@ function filterTree(tree, condition, depth = 0) {
     return Object.assign(tree, {
       modifiers,
     });
-  } else {
-    return modifiers;
   }
+  return modifiers;
 }
 
 function assignNounPhrase(p) {
   const preps = findAll(p, o => o.arc === 'prep');
   const prepPhrases = preps.map(
-    o => [o, ...(o.modifiers.filter(m => m.arc === 'pobj'))]
+    o => [o, ...(o.modifiers.filter(m => m.arc === 'pobj'))],
   );
 
   const tags = ['compound', 'amod'];
@@ -324,7 +320,7 @@ async function generateModelStructure(text) {
       // First containment
       let inTree = cleanTreeIndex[relationship.id];
 
-      let nounTree = filterTree(inTree, m => m.POS_fine.startsWith('N') || m.POS_fine === 'PRP')
+      const nounTree = filterTree(inTree, m => m.POS_fine.startsWith('N') || m.POS_fine === 'PRP');
       const compareDepth = (a, b) => a.depth - b.depth;
 
       if (!nounTree || nounTree.length < 1) continue;
@@ -333,13 +329,13 @@ async function generateModelStructure(text) {
       const [subject] = nounTree.filter(o => o.arc.includes('subj')).sort(compareDepth);
       const [object] = nounTree.filter(o => o.arc.includes('obj')).sort(compareDepth);
 
-      let properties = [];
+      let attributes = [];
       if (object) {
-        // This is the properties
+        // This is the attributes
         const fullObject = treeIndex[object.id];
-        properties = [fullObject, ...getConjuctions(fullObject)];
+        attributes = [fullObject, ...getConjuctions(fullObject)];
 
-        properties = properties.map(assignNounPhrase);
+        attributes = attributes.map(assignNounPhrase);
       }
       let entities = [];
       if (subject) {
@@ -353,21 +349,21 @@ async function generateModelStructure(text) {
 
       inTree = treeIndex[relationship.id];
 
-      const propertiesWithTypes = [];
-      for (const property of properties) {
-        propertiesWithTypes.push(categoriseProp(property, inTree, relationship, entities));
+      const attributesWithTypes = [];
+      for (const property of attributes) {
+        attributesWithTypes.push(categoriseProp(property, inTree, relationship, entities));
       }
 
       for (const entity of entities) {
         const existingEntity = modelStructure.find(s => s.name === entity.lemma);
 
         if (existingEntity) {
-          existingEntity.properties = existingEntity.properties.concat(propertiesWithTypes);
+          existingEntity.attributes = existingEntity.attributes.concat(attributesWithTypes);
         } else {
           modelStructure.push({
             name: buildPhrase(entity, w => capitalizeWord(w), ' '),
             raw: entity.word,
-            properties: propertiesWithTypes,
+            attributes: attributesWithTypes,
           });
         }
       }

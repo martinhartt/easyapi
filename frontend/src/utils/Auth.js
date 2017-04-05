@@ -1,13 +1,18 @@
+let savedToken;
 
 export function saveToken(token) {
-    localStorage.setItem('token', token);
+  savedToken = token;
+  // localStorage.setItem('token', token);
 }
 export function isAuthenticated() {
-  return localStorage.getItem('token') != null;
+  return savedToken != null;
+  // return localStorage.getItem('token') != null;
 }
 export function removeToken() {
-  localStorage.removeItem('token');
+  savedToken = undefined;
+  // localStorage.removeItem('token');
 }
 export function getToken() {
-  return localStorage.getItem('token');
+  return savedToken;
+  // return localStorage.getItem('token');
 }

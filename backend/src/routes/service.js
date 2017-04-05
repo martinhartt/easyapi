@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { parseSpreadsheet, parseNaturalLanguage } from '../services/parse';
-import { createService, findServices } from '../services/service';
+import { parseSpreadsheet, parseNaturalLanguage } from '../components/parse';
+import { createService, findServices } from '../components/service';
 import databaseModels from '../models';
 
 const { Service, Model, Attribute, Entry, Value } = databaseModels;
@@ -23,10 +23,9 @@ router.post('/parseSpreadsheet', (req, res) => {
 
 /* POST scratch. */
 router.post('/', async (req, res) => {
+  console.log(req.param('models'));
   const name = req.param('name');
   const modelDefinitions = req.param('models');
-
-  // TODO Validation
 
   try {
     const service = await createService(
@@ -55,6 +54,7 @@ router.get('/', async (req, res) => {
       where: {
         UserId: req.user.id,
       },
+      include: [{ all: true }],
     });
     return res.json({
       services,
@@ -75,8 +75,9 @@ router.get('/:id', async (req, res) => {
     const service = await Service.findOne({
       where: {
         id: serviceId,
+        UserId: req.user.id,
       },
-      include: [{ all: true }],
+      include: [{ all: true, nested: true }],
     });
     return res.json({
       service,

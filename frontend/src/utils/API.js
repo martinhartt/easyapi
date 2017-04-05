@@ -1,12 +1,10 @@
-import { isAuthenticated, getToken } from './Auth';
+import { getToken } from './Auth';
 import store from '../index';
 import { logoutUser } from '../actions/auth';
 
-console.log('?', store);
-
-function curryReq(path, useToken = true) {
-  return async function(params) {
-    let headers = {
+function curryReq(path, useToken = true, method = 'POST') {
+  return async (params) => {
+    const headers = {
       'Content-Type': 'application/json',
     };
 
@@ -15,7 +13,7 @@ function curryReq(path, useToken = true) {
     }
 
     const response = await fetch(`/api${path}`, {
-      method: 'POST',
+      method,
       headers,
       body: JSON.stringify(params),
     });
@@ -24,8 +22,8 @@ function curryReq(path, useToken = true) {
       store.dispatch(logoutUser());
     }
 
-    return await response.json();
-  }
+    return response.json();
+  };
 }
 
 export const req = (path, params) => curryReq(path)(params);
@@ -33,3 +31,9 @@ export const req = (path, params) => curryReq(path)(params);
 export const extractModelFromText = text => curryReq('/service/parseText')({ text });
 
 export const authenticateUser = (email, password) => curryReq('/auth/login', false)({ email, password });
+
+export const getService = id => curryReq(`/service/${id}`, true, 'GET')({});
+
+export const getServiceList = () => curryReq('/service', true, 'GET')();
+
+export const postService = (name, models) => curryReq('/service', true, 'POST')({ name, models });

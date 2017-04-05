@@ -2,6 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { Router, Route, browserHistory } from 'react-router';
+import thunk from 'redux-thunk';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import easyAPI from './reducers';
 import './index.css';
 import Service from './components/Service';
@@ -13,9 +16,6 @@ import About from './components/dashboard/about/About';
 import Publish from './components/dashboard/publish/Publish';
 import ServiceListContainer from './containers/ServiceListContainer';
 import HomePageContainer from './containers/HomePageContainer';
-import { Router, Route, browserHistory } from 'react-router';
-import thunk from 'redux-thunk';
-import { syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 
 const middleware = routerMiddleware(browserHistory);
 const store = createStore(easyAPI,
@@ -24,10 +24,12 @@ const store = createStore(easyAPI,
 );
 
 const history = syncHistoryWithStore(browserHistory, store, {
-  selectLocationState (state) {
+  selectLocationState(state) {
     return state.get('routing').toJS();
-  }
+  },
 });
+
+history.listen(console.log);
 
 const r = () => render(
   <Provider store={store}>
@@ -51,23 +53,23 @@ const r = () => render(
         <Route
           path="structure"
           component={StructureContainer}
-          />
+        />
         <Route
           path="entries"
           component={Entries}
-          />
+        />
         <Route
           path="pages"
           component={Pages}
-          />
+        />
         <Route
           path="about"
           component={About}
-          />
+        />
         <Route
           path="publish"
           component={Publish}
-          />
+        />
       </Route>
 
     </Router>

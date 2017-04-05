@@ -15,12 +15,15 @@ import {
   AUTH_USER_RESULT,
   LOGOUT_USER,
   CHANGE_SIDEBAR_ITEM,
+  RECEIVE_SERVICE_LIST,
+  SELECT_SERVICE,
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
 import setupScreens from '../utils/setupScreens';
 import createMethods from '../utils/createMethods';
 import { isAuthenticated, getToken } from '../utils/Auth';
+import { normalizeServices } from '../utils/normalizr';
 import {
   LOCATION_CHANGE
 } from 'react-router-redux';
@@ -76,7 +79,7 @@ const defaultState = fromJS({
     }
   },
   setup: {
-    name: 'User',
+    name: '',
     screen: SERVICE_SETUP_SCREEN_NAME,
     method: 'CREATE_METHOD_NATURAL_LANGUAGE',
   },
@@ -156,8 +159,7 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
       console.log('capitalizeString', capitalizeString('ok'));
       return state
         .setIn([
-          'serviceById',
-          state.getIn(['user', 'currentServiceId']),
+          'setup',
           'name',
         ], capitalizeString(action.name));
     }
@@ -249,6 +251,29 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         .setIn(
           ['dashboard', 'items'],
           state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index))
+      )
+    }
+    case RECEIVE_SERVICE_LIST: {
+      const services = action.services;
+
+      const normalized = normalizeServices({ services }).entities;
+
+      const serviceIds = normalized.services.undefined.services;
+
+      const serviceById = normalized.service;
+      const modelById = normalized.model;
+
+      return state
+        .setIn(['user', 'services'], fromJS(serviceIds))
+        .set('serviceById', fromJS(serviceById))
+        .set('modelById', fromJS(modelById));
+    }
+    case SELECT_SERVICE: {
+      return state.setIn(
+        [
+          'user', 'currentServiceId'
+        ],
+        action.id,
       )
     }
     default:

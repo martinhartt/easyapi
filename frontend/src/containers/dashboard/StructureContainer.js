@@ -7,37 +7,35 @@ import 'immutable';
 const mapStateToProps = (state) => {
   const service = state.getIn([
     'serviceById',
-    state.getIn(['user', 'currentServiceId'])
+    state.getIn(['user', 'currentServiceId']),
   ]);
 
   const models = service.get('models')
     .map(i => state.getIn(['modelById', i]))
     .map(model => model.set(
       'attributes', model.get('attributes').map(i =>
-        state.getIn(['attributeById', i])
-      )
+        state.getIn(['attributeById', i]),
+      ),
     )).toJS();
 
   const selectedAttribute = state.getIn([
     'attributeById',
-    state.getIn(['structure', 'selectedAttribute'])
+    state.getIn(['structure', 'selectedAttribute']),
   ]);
-
-  console.log(models, selectedAttribute)
 
   return {
     models,
     selectedAttribute,
-  }
+  };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-})
+const mapDispatchToProps = dispatch => ({
+});
 
 
 const StructureContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Structure);
 
 export default StructureContainer;

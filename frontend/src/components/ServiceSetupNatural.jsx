@@ -15,23 +15,23 @@ const styles = {
     marginRight: 'auto',
     textAlign: 'center',
     marginTop: 100,
-  }
-}
+  },
+};
 
 function formatAnnotations(annotations = []) {
   let html = '';
   for (const entity of annotations) {
     html += `${capitalizeString(entity.name)}(`;
     const props = [];
-    for (const property of entity.properties) {
+    for (const property of entity.attributes) {
       const required = (property.required !== true) ? '?' : '';
       const multiple = property.multiple;
       props.push(`${property.name}: ${multiple ? '[' : ''}${property.type}${multiple ? ']' : ''}${required}`);
     }
     html += props.join(', ');
-    html += ')<br />'
+    html += ')<br />';
   }
-  return { '__html': html };
+  return { __html: html };
 }
 
 const ServiceSetupNatural = ({ text, onChange, onDone, annotations }) => (
@@ -42,10 +42,10 @@ const ServiceSetupNatural = ({ text, onChange, onDone, annotations }) => (
         <TextInput
           text={text}
           onChange={onChange}
-          long={true}
-          />
+          long
+        />
       </div>
-      <p dangerouslySetInnerHTML={formatAnnotations(annotations)}></p>
+      <p dangerouslySetInnerHTML={formatAnnotations(annotations)} />
     </div>
     <div style={styles.nextButton} >
       <Button isDisabled={!text || !text.length} onClick={onDone} text="Next" />

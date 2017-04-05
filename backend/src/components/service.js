@@ -2,6 +2,31 @@ import databaseModels from '../models';
 
 const { Service, Model, Attribute, Entry, Value } = databaseModels;
 
+/* Model definition format
+
+{
+  name: string,
+  modelDefinitions: [
+    {
+      name: string,
+      attributes: [
+        {
+          name: string,
+          type: string,
+          required: boolean,
+          multiple: boolean,
+        }
+      ],
+      entries: [
+        {
+          [key]: value,
+        }
+      ]
+    }
+  ]
+}
+*/
+
 export async function createService(name, modelDefinitions, userId) {
   let service = await Service.create({
     name,
@@ -35,6 +60,10 @@ export async function createService(name, modelDefinitions, userId) {
     }
 
     modelJSON.attributes = attributes;
+
+    if (!modelDefinition.entries || modelDefinition.entries.length === 0) {
+      continue;
+    }
 
     const entries = [];
 

@@ -11,15 +11,15 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  }
-}
+  },
+};
 
-const ServiceList = ({ services , onSelect, onCreate }) => (
+const ServiceList = ({ services, onSelect, onCreate }) => (
   <div>
     <p style={style.p}>Which API would you like to work on?</p>
     <div style={style.list}>
-    {services.map(service => <ServiceListItem service={service} />)}
-    <RoundButton text="+" onClick={onCreate} />
+      {services.map(service => <ServiceListItem onClick={() => onSelect(service.id)} service={service} />)}
+      <RoundButton text="+" onClick={onCreate} />
     </div>
   </div>
 );

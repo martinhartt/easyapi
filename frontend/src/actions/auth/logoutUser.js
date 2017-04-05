@@ -5,5 +5,5 @@ export function logoutUser() {
   removeToken();
   return {
     type: LOGOUT_USER,
-  }
+  };
 }

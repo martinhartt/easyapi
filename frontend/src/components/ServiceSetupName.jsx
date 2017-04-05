@@ -14,7 +14,7 @@ const styles = {
     textAlign: 'center',
     marginTop: 100,
   },
-}
+};
 
 const ServiceSetupName = ({ name, onChange, onDone }) => (
   <div>
