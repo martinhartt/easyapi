@@ -7,10 +7,12 @@ const itemsExample = [
   { name: 'Pages', path: '/service/X/pages' },
   { name: 'About', path: '/service/X/about' },
   { name: 'Publish', path: '/service/X/publish' },
-]
+];
 
 const Sidebar = ({ items = itemsExample, location, onSelect }) => <div>
-  {items.map((item, i) => <SidebarItem item={item} key={item.name} onClick={() => onSelect(i)}/>)}
+  {items.map(
+    (item, i) => <SidebarItem item={item} key={item.name} onClick={() => onSelect(i, items[i])} />,
+  )}
 </div>;
 
 export default Sidebar;

@@ -14,23 +14,24 @@ const style = {
     transition: '0.3s all',
     ':hover': {
       background: Color.lighterGrey,
-    }
+    },
   },
   selected: {
     background: Color.lightGrey,
     ':hover': {
       background: Color.lightGrey,
-    }
-  }
-}
+    },
+  },
+};
 
 const SidebarItem = ({ item, onClick }) =>
-<Link
-  style={{ textDecoration: 'none' }} to={item.path}
-  onClick={onClick}>
-  <div style={[style.base, item.selected && style.selected]}>
-    {item.name}
-  </div>
-</Link>
+  <div
+    style={{ textDecoration: 'none', cursor: 'pointer' }}
+    onClick={onClick}
+  >
+    <div style={[style.base, item.selected && style.selected]}>
+      {item.name}
+    </div>
+  </div>;
 
 export default Radium(SidebarItem);

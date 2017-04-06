@@ -17,13 +17,14 @@ import {
   CHANGE_SIDEBAR_ITEM,
   RECEIVE_SERVICE_LIST,
   SELECT_SERVICE,
+  RECEIVE_SERVICE,
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
 import setupScreens from '../utils/setupScreens';
 import createMethods from '../utils/createMethods';
 import { isAuthenticated, getToken } from '../utils/Auth';
-import { normalizeServices } from '../utils/normalizr';
+import { normalizeServices, normalizeService } from '../utils/normalizr';
 import {
   LOCATION_CHANGE
 } from 'react-router-redux';
@@ -55,23 +56,23 @@ const defaultState = fromJS({
     services: ['1'],
     token: getToken(),
   },
-  structure: {
+  dashboard: {
     items: [
       {
         name: 'Structure',
-        path: '/service/X/structure', selected: true
+        path: '/service/dashboard/structure', selected: true
       },
       {
         name: 'Entries',
-        path: '/service/X/entries'
+        path: '/service/dashboard/entries'
       },
       {
         name: 'Pages',
-        path: '/service/X/pages'
+        path: '/service/dashboard/pages'
       },
       {
         name: 'About',
-        path: '/service/X/about'
+        path: '/service/dashboard/about'
       },
     ],
     selectedAttribute: {
@@ -246,7 +247,7 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         .setIn(['user', 'token'], null);
     }
     case CHANGE_SIDEBAR_ITEM: {
-      console.log('CHANGE_SIDEBAR_ITEM', state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index)).toJS());
+      // console.log('CHANGE_SIDEBAR_ITEM', state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index)).toJS());
       return state
         .setIn(
           ['dashboard', 'items'],
@@ -267,6 +268,24 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         .setIn(['user', 'services'], fromJS(serviceIds))
         .set('serviceById', fromJS(serviceById))
         .set('modelById', fromJS(modelById));
+    }
+    case RECEIVE_SERVICE: {
+      // TODO
+      console.log(JSON.stringify(action.service));
+
+      const entities = normalizeService(action.service).entities;
+
+      const serviceById = entities.service;
+      const modelById = entities.model;
+      const attributeById = entities.attribute;
+      const entryById = entities.entry;
+
+      return state
+        .setIn(['user', 'currentServiceId'], action.service.id)
+        .set('serviceById', state.get('serviceById').merge(fromJS(serviceById)))
+        .set('modelById', state.get('modelById').merge(fromJS(modelById)))
+        .set('attributeById', state.get('attributeById').merge(fromJS(attributeById)))
+        .set('entryById', state.get('entryById').merge(fromJS(entryById)));
     }
     case SELECT_SERVICE: {
       return state.setIn(

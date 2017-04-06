@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, IndexRedirect, Route, browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import easyAPI from './reducers';
@@ -47,7 +47,7 @@ const r = () => render(
         component={Service}
       />
       <Route
-        path="/service/(:id)"
+        path="/service/dashboard"
         component={Dashboard}
       >
         <Route
@@ -70,6 +70,7 @@ const r = () => render(
           path="publish"
           component={Publish}
         />
+        <IndexRedirect to="structure" />
       </Route>
 
     </Router>

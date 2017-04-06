@@ -13,10 +13,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSelect: (id) => {
-    dispatch(selectService(id));
-    dispatch(push(`/service/${id}/structure`));
-  },
+  onSelect: id =>
+    dispatch(selectService(id)),
   onCreate: () => dispatch(newService()),
 });
 

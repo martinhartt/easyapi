@@ -918,9 +918,10 @@ let createService = (() => {
         attributes.push(attribute.toJSON());
       }
 
-      modelJSON.attributes = attributes;
+      modelJSON.Attributes = attributes;
 
       if (!modelDefinition.entries || modelDefinition.entries.length === 0) {
+        models.push(modelJSON);
         continue;
       }
 
@@ -954,11 +955,11 @@ let createService = (() => {
         entries.push(entryJSON);
       }
 
-      modelJSON.entries = entries;
+      modelJSON.Entries = entries;
       models.push(modelJSON);
     }
 
-    service.models = models;
+    service.Models = models;
 
     return service;
   });

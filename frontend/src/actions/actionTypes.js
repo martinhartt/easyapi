@@ -17,3 +17,4 @@ export { LOGOUT_USER } from './auth/logoutUser.js';
 export { CHANGE_SIDEBAR_ITEM } from './dashboard/changeSidebarItem.js';
 export { RECEIVE_SERVICE_LIST } from './auth/receiveServiceList.js';
 export { SELECT_SERVICE } from './setup/selectService.js';
+export { RECEIVE_SERVICE } from './setup/receiveService.js';

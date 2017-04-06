@@ -6,7 +6,7 @@ export async function createService(name, modelDefinitions, userId) {
   let service = await Service.create({
     name,
     isPublic: false,
-    UserId: userId
+    UserId: userId,
   });
 
   service = service.toJSON();
@@ -16,7 +16,7 @@ export async function createService(name, modelDefinitions, userId) {
   for (const modelDefinition of modelDefinitions) {
     const model = await Model.create({
       name: modelDefinition.name,
-      ServiceId: service.id
+      ServiceId: service.id,
     });
 
     const modelJSON = model.toJSON();
@@ -27,7 +27,7 @@ export async function createService(name, modelDefinitions, userId) {
       const attribute = await Attribute.create({
         name: attributeDefinition.name,
         type: attributeDefinition.type,
-        ModelId: model.id
+        ModelId: model.id,
       });
 
       attributeByName[attributeDefinition.name] = attribute;
@@ -42,7 +42,7 @@ export async function createService(name, modelDefinitions, userId) {
     for (const entriesDefinition of modelDefinition.entries) {
       const entry = await Entry.create({
         index,
-        ModelId: model.id
+        ModelId: model.id,
       });
       index++;
 
@@ -56,7 +56,7 @@ export async function createService(name, modelDefinitions, userId) {
         const value = await Value.create({
           AttributeId: attributeByName[attributeString].id,
           value: entriesDefinition[attributeString],
-          EntryId: entry.id
+          EntryId: entry.id,
         });
 
         values.push(value.toJSON());
@@ -77,6 +77,6 @@ export async function createService(name, modelDefinitions, userId) {
 
 export async function findServices(userId) {
   await Service.find({
-    UserId: userId
+    UserId: userId,
   });
 }

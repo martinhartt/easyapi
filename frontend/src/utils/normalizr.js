@@ -27,3 +27,4 @@ const services = new schema.Entity('services', {
 });
 
 export const normalizeServices = data => normalize(data, services);
+export const normalizeService = data => normalize(data, service);
