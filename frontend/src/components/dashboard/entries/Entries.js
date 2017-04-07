@@ -47,7 +47,7 @@ const Entries = ({ entries = [], attributes = [], headers = [], onSelected, onDe
       {attributes.map(attr => <Column value={capitalizeString(attr)} key={attr} />)}
     </RowHeader>
     {entries.map(entry =>
-      <Row key={entry.id}>
+      <Row key={entry.id} onDelete={() => onDelete(entry.realId)}>
         {attributes.map(attr => <Column key={entry.id + attr} value={entry[attr]} />)}
       </Row>,
   )}

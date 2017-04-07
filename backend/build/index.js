@@ -1556,6 +1556,31 @@ router.get('/', (() => {
   };
 })());
 
+router.delete('/', (() => {
+  var _ref3 = _asyncToGenerator(function* (req, res) {
+    try {
+      const id = req.param('id');
+      yield Entry.destroy({
+        where: {
+          id
+        }
+      });
+      return res.json({
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),

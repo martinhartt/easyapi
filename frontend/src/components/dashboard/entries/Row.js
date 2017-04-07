@@ -5,13 +5,13 @@ import { Color } from '../../StyleConstant';
 
 
 const style = {
-  base: rowStyle
+  base: rowStyle,
 };
 
-const Row = ({ children, highlighted, onHover }) => <div style={style.base}>
-{children}
-  <RoundButton text="-" color={Color.red}></RoundButton>
+const Row = ({ children, highlighted, onHover, onDelete }) => <div style={style.base}>
+  {children}
+  <RoundButton onClick={onDelete} text="-" color={Color.red} />
 
-</div>
+</div>;
 
 export default Row;

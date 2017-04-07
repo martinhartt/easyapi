@@ -19,7 +19,8 @@ import {
   SELECT_SERVICE,
   RECEIVE_SERVICE,
   CHANGE_SELECTED_MODEL,
-  RECEIVE_ENTRY
+  RECEIVE_ENTRY,
+  DELETE_ENTRY_LOCALLY
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
@@ -307,6 +308,12 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         ],
         action.id
       )
+    }
+    case DELETE_ENTRY_LOCALLY: {
+      const entries = ['modelById', `${action.entry.ModelId}`, 'Entries'];
+      return state
+        .deleteIn(['entryById', `${action.entry.id}`])
+        .setIn(entries, state.getIn(entries).filter(i => i !== action.entry.id));
     }
     default:
       return state;

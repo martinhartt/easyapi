@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { changeSelectedModel } from '../../actions/dashboard/changeSelectedModel';
 import { createEntry } from '../../actions/dashboard/createEntry';
+import { deleteEntry } from '../../actions/dashboard/deleteEntry';
 import Entries from '../../components/dashboard/entries/Entries';
 
 const mapStateToProps = (immutableState) => {
@@ -27,7 +28,7 @@ const mapStateToProps = (immutableState) => {
 
   const entries = [];
   for (const entry of model.entries) {
-    const obj = { id: entry.index };
+    const obj = { id: entry.index, realId: entry.id };
 
     const values = entry.Values ? entry.Values.map(i => state.valueById[i]) : [];
 
@@ -102,8 +103,8 @@ entryById: {
 const mapDispatchToProps = dispatch => ({
   onSelected: id => dispatch(changeSelectedModel(id)),
   onCreate: () => dispatch(createEntry()),
+  onDelete: id => dispatch(deleteEntry(id)),
 });
-
 
 const EntriesContainer = connect(
   mapStateToProps,

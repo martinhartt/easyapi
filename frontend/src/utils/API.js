@@ -39,3 +39,4 @@ export const getServiceList = () => curryReq('/service', true, 'GET')();
 export const postService = (name, models) => curryReq('/service', true, 'POST')({ name, models });
 
 export const postEntry = model => curryReq('/entry', true, 'POST')({ model });
+export const deleteEntry = id => curryReq('/entry', true, 'DELETE')({ id });
