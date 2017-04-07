@@ -9,9 +9,9 @@ function validate(form) {
   const errors = {};
   let success = true;
 
-  if (!form || !form.email || !validator.isEmail(form.email)) {
+  if (!form || !form.username || !validator.isUsername(form.username)) {
     success = false;
-    errors.email = 'This is not a valid email.';
+    errors.username = 'This is not a valid username.';
   }
 
   if (!form || !form.password || form.password.length < 5) {
@@ -28,7 +28,7 @@ function validate(form) {
 /* GET index. */
 router.post('/login', (req, res, next) => {
   const validation = validate({
-    email: req.param('email'),
+    username: req.param('username'),
     password: req.param('password')
   });
 

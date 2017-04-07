@@ -53,7 +53,7 @@ const defaultState = fromJS({
   },
   user: {
     currentServiceId: '1',
-    email: '',
+    username: '',
     password: '',
     authenticated: isAuthenticated(),
     services: ['1'],
@@ -202,15 +202,15 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         }));
     }
     case UPDATE_USER: {
-      const { email, password } = action;
+      const { username, password } = action;
 
-      if (email && password) {
+      if (username && password) {
         return state
-          .setIn(['user', 'email'], email)
+          .setIn(['user', 'username'], username)
           .setIn(['user', 'password'], password);
-      } else if (email) {
+      } else if (username) {
         return state
-          .setIn(['user', 'email'], email);
+          .setIn(['user', 'username'], username);
       } else {
         return state
           .setIn(['user', 'password'], password);

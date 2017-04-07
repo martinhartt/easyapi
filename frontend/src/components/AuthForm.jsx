@@ -19,23 +19,23 @@ const AuthForm = ({
   onSubmit,
   onChange,
   errors = {},
-  email,
+  username,
   password,
 }) => (
   <div>
     <h1>Login</h1>
     <form action="/" onSubmit={(e) => {
       e.preventDefault();
-      onSubmit({email, password});
+      onSubmit({username, password});
     }} method="post">
       <div style={style.field}>
         <TextInput
           name="username"
-          placeholder="Email"
-          onChange={email => onChange({email})}
-          text={email}
+          placeholder="Username"
+          onChange={username => onChange({username})}
+          text={username}
         />
-        <p style={style.error}>{errors.email}</p>
+        <p style={style.error}>{errors.username}</p>
       </div>
       <div style={style.field}>
         <TextInput
@@ -57,7 +57,7 @@ AuthForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   errors: PropTypes.array,
-  email: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired
 };
 

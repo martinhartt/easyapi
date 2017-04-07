@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 39);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,22 +73,22 @@ module.exports =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__device__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__endpoint__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__entry__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__issue__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__value__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__device__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__endpoint__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__entry__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__issue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__model__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__value__ = __webpack_require__(20);
 
 
 
@@ -161,12 +161,24 @@ module.exports = require("express");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(32);
+/* harmony export (immutable) */ __webpack_exports__["a"] = stringToHandle;
+
+
+function stringToHandle(string) {
+  return string.toLowerCase().replace(/\W/g, '');
+}
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport_local__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -178,65 +190,61 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 const { User } = __WEBPACK_IMPORTED_MODULE_2__models__["a" /* default */];
 
 __WEBPACK_IMPORTED_MODULE_0_passport___default.a.use(new __WEBPACK_IMPORTED_MODULE_1_passport_local__["Strategy"]({
-  usernameField: 'email',
+  usernameField: 'username',
   passwordField: 'password',
   session: false,
   passReqToCallback: true
-}, (req, email, password, done) => {
-  return User.findOne({
-    where: {
-      email
-    }
-  }).then((() => {
-    var _ref = _asyncToGenerator(function* (foundUser) {
-      let user;
-      if (foundUser) {
-        // User exists
-        if (!(yield foundUser.validPassword(password))) {
-          console.log('Invalid password');
-          return done(null, false, {
-            message: 'Incorrect password.'
-          });
-        }
-        user = foundUser;
-      } else {
-        // New user
-        user = yield User.create({
-          email,
-          passwordHash: User.generateHash(password)
+}, (req, username, password, done) => User.findOne({
+  where: {
+    username
+  }
+}).then((() => {
+  var _ref = _asyncToGenerator(function* (foundUser) {
+    let user;
+    if (foundUser) {
+      // User exists
+      if (!(yield foundUser.validPassword(password))) {
+        console.log('Invalid password');
+        return done(null, false, {
+          message: 'Incorrect password.'
         });
       }
-
-      const payload = {
-        user: user.id
-      };
-
-      const token = __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken___default.a.sign(payload, 'secret');
-
-      return done(null, {
-        user: {
-          email: user.email
-        },
-        token
+      user = foundUser;
+    } else {
+      // New user
+      user = yield User.create({
+        username,
+        passwordHash: User.generateHash(password)
       });
-    });
+    }
 
-    return function (_x) {
-      return _ref.apply(this, arguments);
+    const payload = {
+      user: user.id
     };
-  })()).catch(err => {
-    return done(err);
-  });
-}));
 
-__WEBPACK_IMPORTED_MODULE_0_passport___default.a.serializeUser(function (user, done) {
+    const token = __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken___default.a.sign(payload, 'secret');
+
+    return done(null, {
+      user: {
+        username: user.username
+      },
+      token
+    });
+  });
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})()).catch(err => done(err))));
+
+__WEBPACK_IMPORTED_MODULE_0_passport___default.a.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-__WEBPACK_IMPORTED_MODULE_0_passport___default.a.deserializeUser(function (id, done) {
+__WEBPACK_IMPORTED_MODULE_0_passport___default.a.deserializeUser((id, done) => {
   User.find({
     where: { id }
-  }, function (err, [user]) {
+  }, (err, [user]) => {
     done(err, user);
   });
 });
@@ -244,33 +252,33 @@ __WEBPACK_IMPORTED_MODULE_0_passport___default.a.deserializeUser(function (id, d
 /* harmony default export */ __webpack_exports__["a"] = __WEBPACK_IMPORTED_MODULE_0_passport___default.a;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_body_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes_model__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routes_entry__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__routes_attribute__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes_value__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__routes_api__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__config_bootstrap__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes_model__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routes_entry__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__routes_attribute__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes_value__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__routes_api__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__config_bootstrap__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__middleware_authentication__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__middleware_authentication__ = __webpack_require__(11);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -333,15 +341,15 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__config_bootstrap__["a" /* de
 })).catch(err => console.error(err));
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sbd__);
 let generateModelStructure = (() => {
   var _ref = _asyncToGenerator(function* (text) {
@@ -728,11 +736,11 @@ const Natural = {
 /* harmony default export */ __webpack_exports__["a"] = Natural;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_natural__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_natural__ = __webpack_require__(6);
 /* harmony export (immutable) */ __webpack_exports__["b"] = parseSpreadsheet;
 /* unused harmony export determineType */
 /* unused harmony export findType */
@@ -851,13 +859,15 @@ function parseNaturalLanguage(text) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createService; });
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 
 
 
@@ -893,6 +903,7 @@ let createService = (() => {
     let service = yield Service.create({
       name,
       isPublic: false,
+      handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* stringToHandle */])(name),
       UserId: userId
     });
 
@@ -903,7 +914,8 @@ let createService = (() => {
     for (const modelDefinition of modelDefinitions) {
       const model = yield Model.create({
         name: modelDefinition.name,
-        ServiceId: service.id
+        ServiceId: service.id,
+        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* stringToHandle */])(modelDefinition.name)
       });
 
       const modelJSON = model.toJSON();
@@ -974,7 +986,7 @@ let createService = (() => {
 })();
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -988,7 +1000,7 @@ function bootstrap() {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1019,11 +1031,11 @@ const connections = {
 /* harmony default export */ __webpack_exports__["a"] = connections;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
 
@@ -1057,7 +1069,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1082,7 +1094,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1107,7 +1119,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1133,7 +1145,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1158,7 +1170,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1183,13 +1195,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Model = sequelize.define('Model', {
     name: DataTypes.STRING,
+    handle: DataTypes.STRING,
     isFindEnabled: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
@@ -1229,14 +1242,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Service = sequelize.define('Service', {
     name: DataTypes.STRING,
-    url: DataTypes.STRING,
+    handle: DataTypes.STRING,
     isPublic: DataTypes.BOOLEAN
   }, {
     classMethods: {
@@ -1257,17 +1270,17 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
 
 
 /* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const User = sequelize.define('User', {
-    email: {
+    username: {
       type: DataTypes.STRING,
       unique: true
     },
@@ -1292,7 +1305,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1317,35 +1330,290 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_underscore__);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
 
-const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+
+const { Service, Model, Attribute, Entry, Value, User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 
 /* eslint-disable new-cap */
 const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
 
-router.all('/:service/:model/:id?', (req, res) => {
-  const service = req.param('service');
-  const model = req.param('model');
-  const id = req.param('id');
-  const method = req.method;
-  console.log(req);
+router.all('/:user/:service/:model/:id?', (() => {
+  var _ref = _asyncToGenerator(function* (req, res) {
+    const username = req.param('user');
+    const serviceHandle = req.param('service');
+    const modelHandle = req.param('model');
+    const id = req.param('id');
+    const method = req.method;
+    const input = req.body;
+    console.log(req);
 
-  res.send({ service, model, id, method });
-});
+    let data;
+
+    try {
+      const user = yield User.findOne({
+        where: {
+          username
+        }
+      });
+
+      const service = yield Service.findOne({
+        where: {
+          handle: serviceHandle,
+          UserId: user.id
+        }
+      });
+
+      if (!service.isPublic) {
+        return res.status(403).send({ success: false });
+      }
+
+      const model = yield Model.findOne({
+        where: {
+          handle: modelHandle
+        }
+      });
+
+      const attributes = yield Attribute.findAll({
+        where: {
+          ModelId: model.id
+        }
+      });
+
+      data = { user, service, model };
+
+      switch (method) {
+        case 'GET':
+          {
+            if (id) {
+              // Find One
+              if (!model.isFindOneEnabled) {
+                return res.status(403).send({ success: false });
+              }
+
+              const entry = yield Entry.findOne({
+                where: {
+                  index: id,
+                  ModelId: model.id
+                }
+              });
+              const values = yield Value.findAll({
+                where: {
+                  EntryId: entry.id
+                }
+              });
+
+              const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_underscore__["object"])(values.map(function (v) {
+                return v.AttributeId;
+              }), values.map(function (v) {
+                return v.value;
+              }));
+              const obj = {};
+              obj.id = entry.index;
+              for (const attribute of attributes) {
+                obj[attribute.name] = valueByAttributeId[attribute.id];
+              }
+
+              data = obj;
+            } else {
+              // Find All
+              if (!model.isFindEnabled) {
+                return res.status(403).send({ success: false });
+              }
+
+              const entries = yield Entry.findAll({
+                where: {
+                  ModelId: model.id
+                }
+              });
+              const values = yield Value.findAll({
+                where: {
+                  EntryId: entries.map(function (a) {
+                    return a.id;
+                  })
+                }
+              });
+              data = { values, attributes, entries };
+
+              const objects = [];
+              for (const entry of entries) {
+                const obj = {};
+
+                const localValues = values.filter(function (v) {
+                  return v.EntryId === entry.id;
+                });
+                const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_underscore__["object"])(localValues.map(function (v) {
+                  return v.AttributeId;
+                }), localValues.map(function (v) {
+                  return v.value;
+                }));
+                obj.id = entry.index;
+                for (const attribute of attributes) {
+                  obj[attribute.name] = valueByAttributeId[attribute.id];
+                }
+
+                objects.push(obj);
+              }
+
+              data = objects;
+            }
+            break;
+          }
+        case 'POST':
+          {
+            // Create
+            if (!model.isCreateEnabled) {
+              return res.status(403).send({ success: false });
+            }
+            const newestEntry = yield Entry.findOne({
+              where: {
+                ModelId: model.id
+              },
+              order: 'index DESC'
+            });
+
+            const index = (newestEntry ? newestEntry.index : 0) + 1;
+
+            const entry = yield Entry.create({
+              index,
+              ModelId: model.id
+            });
+
+            const obj = {};
+            obj.id = entry.index;
+
+            const valuePromises = [];
+            for (const attribute of attributes) {
+              valuePromises.push(Value.create({
+                EntryId: entry.id,
+                AttributeId: attribute.id,
+                value: input[attribute.name]
+              }));
+              obj[attribute.name] = input[attribute.name] || null;
+            }
+            yield Promise.all(valuePromises);
+            data = obj;
+            break;
+          }
+        case 'PATCH':
+          {
+            // Update
+            if (!model.isUpdateEnabled) {
+              return res.status(403).send({ success: false });
+            }
+
+            const entry = yield Entry.findOne({
+              where: {
+                index: id,
+                ModelId: model.id
+              }
+            });
+            const values = yield Value.findAll({
+              where: {
+                EntryId: entry.id
+              }
+            });
+
+            const valuePromises = [];
+            const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_underscore__["object"])(values.map(function (v) {
+              return v.AttributeId;
+            }), values.map(function (v) {
+              return v;
+            }));
+
+            const obj = {};
+            obj.id = entry.id;
+            for (const attribute of attributes) {
+              const newValue = input[attribute.name];
+              if (newValue) {
+                const oldValue = valueByAttributeId[attribute.id];
+                if (newValue !== oldValue.value) {
+                  if (oldValue) {
+                    // Update
+                    valuePromises.push(Value.update({ value: newValue }, { where: { id: oldValue.id } }));
+                  } else {
+                    // Create
+                    valuePromises.push(Value.create({
+                      EntryId: entry.id,
+                      AttributeId: attribute.id,
+                      value: newValue
+                    }));
+                  }
+                }
+                obj[attribute.name] = newValue;
+              } else {
+                obj[attribute.name] = valueByAttributeId[attribute.id].value;
+              }
+            }
+
+            yield Promise.all(valuePromises);
+            data = obj;
+
+            break;
+          }
+        case 'DELETE':
+          {
+            // Delete
+            if (!model.isDeleteEnabled) {
+              return res.status(403).send({ success: false });
+            }
+
+            const entry = yield Entry.findOne({
+              where: {
+                index: id,
+                ModelId: model.id
+              }
+            });
+
+            yield Value.destroy({
+              where: {
+                EntryId: entry.id
+              }
+            });
+
+            const result = yield Entry.destroy({
+              where: {
+                index: id,
+                ModelId: model.id
+              }
+            });
+            data = Boolean(result);
+
+            break;
+          }
+        default:
+          {
+            return res.status(400).send({ success: false });
+          }
+      }
+    } catch (e) {
+      return res.status(500).send({ success: false, error: e });
+    }
+
+    res.send({ success: true, data });
+  });
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})());
 
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1457,16 +1725,13 @@ router.get('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(3);
 
 
 
@@ -1477,9 +1742,9 @@ function validate(form) {
   const errors = {};
   let success = true;
 
-  if (!form || !form.email || !__WEBPACK_IMPORTED_MODULE_2_validator___default.a.isEmail(form.email)) {
+  if (!form || !form.username || form.username.length < 5) {
     success = false;
-    errors.email = 'This is not a valid email.';
+    errors.username = 'This is not a valid username.';
   }
 
   if (!form || !form.password || form.password.length < 5) {
@@ -1496,7 +1761,7 @@ function validate(form) {
 /* GET index. */
 router.post('/login', (req, res, next) => {
   const validation = validate({
-    email: req.param('email'),
+    username: req.param('username'),
     password: req.param('password')
   });
 
@@ -1526,7 +1791,7 @@ router.post('/login', (req, res, next) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1636,7 +1901,7 @@ router.delete('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1660,14 +1925,16 @@ router.get('/models', (req, res) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_utils__ = __webpack_require__(2);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 
 
 
@@ -1686,6 +1953,7 @@ router.post('/', (() => {
     try {
       const model = yield Model.create({
         name,
+        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["a" /* stringToHandle */])(name),
         ServiceId: serviceId
       });
 
@@ -1713,7 +1981,10 @@ router.patch('/:id', (() => {
     const modelId = req.param('id');
 
     try {
-      const model = yield Model.update({ name: newName }, { where: { id: modelId } });
+      const model = yield Model.update({
+        name: newName,
+        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["a" /* stringToHandle */])(newName)
+      }, { where: { id: modelId } });
 
       return res.json({
         model,
@@ -1762,14 +2033,14 @@ router.get('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_parse__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_service__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_parse__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_service__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models__ = __webpack_require__(0);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -1910,7 +2181,7 @@ router.patch('/:id', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1967,76 +2238,76 @@ router.patch('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("nlp_compromise");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("request-promise");
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = require("sbd");
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("sequelize");
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
-module.exports = require("validator");
+module.exports = require("underscore");
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(4);
+module.exports = __webpack_require__(5);
 
 
 /***/ })

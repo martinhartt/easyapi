@@ -1,9 +1,9 @@
 export const UPDATE_USER = 'UPDATE_USER';
 
-export function updateUser(email, password) {
+export function updateUser(username, password) {
   return {
     type: UPDATE_USER,
-    email,
+    username,
     password,
   };
 }

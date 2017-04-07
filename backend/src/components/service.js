@@ -1,4 +1,5 @@
 import databaseModels from '../models';
+import { stringToHandle } from './utils';
 
 const { Service, Model, Attribute, Entry, Value } = databaseModels;
 
@@ -31,6 +32,7 @@ export async function createService(name, modelDefinitions, userId) {
   let service = await Service.create({
     name,
     isPublic: false,
+    handle: stringToHandle(name),
     UserId: userId,
   });
 
@@ -42,6 +44,7 @@ export async function createService(name, modelDefinitions, userId) {
     const model = await Model.create({
       name: modelDefinition.name,
       ServiceId: service.id,
+      handle: stringToHandle(modelDefinition.name),
     });
 
     const modelJSON = model.toJSON();

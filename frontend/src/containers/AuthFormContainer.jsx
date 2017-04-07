@@ -8,8 +8,8 @@ import 'immutable';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    email: state
-      .getIn(['user', 'email']),
+    username: state
+      .getIn(['user', 'username']),
     password: state
       .getIn(['user', 'password']),
     errors: state
@@ -18,8 +18,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: ({email, password}) => dispatch(authUser(email, password)),
-  onChange: ({email, password}) =>  dispatch(updateUser(email, password)),
+  onSubmit: ({username, password}) => dispatch(authUser(username, password)),
+  onChange: ({username, password}) =>  dispatch(updateUser(username, password)),
 });
 
 const AuthFormContainer = connect(

@@ -6,14 +6,14 @@ import jwt from 'jsonwebtoken';
 const { User } = models;
 
 passport.use(new LocalStrategy({
-  usernameField: 'email',
+  usernameField: 'username',
   passwordField: 'password',
   session: false,
   passReqToCallback: true
-}, (req, email, password, done) => {
+}, (req, username, password, done) => {
   return User.findOne({
     where: {
-      email
+      username
     }
   }).then(async foundUser => {
     let user;
@@ -29,7 +29,7 @@ passport.use(new LocalStrategy({
     } else {
       // New user
       user = await User.create({
-        email,
+        username,
         passwordHash: User.generateHash(password)
       });
     }
@@ -42,7 +42,7 @@ passport.use(new LocalStrategy({
 
     return done(null, {
       user: {
-        email: user.email
+        username: user.username
       },
       token
     });

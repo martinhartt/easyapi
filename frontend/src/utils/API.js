@@ -30,7 +30,7 @@ export const req = (path, params) => curryReq(path)(params);
 
 export const extractModelFromText = text => curryReq('/service/parseText')({ text });
 
-export const authenticateUser = (email, password) => curryReq('/auth/login', false)({ email, password });
+export const authenticateUser = (username, password) => curryReq('/auth/login', false)({ username, password });
 
 export const getService = id => curryReq(`/service/${id}`, true, 'GET')({});
 

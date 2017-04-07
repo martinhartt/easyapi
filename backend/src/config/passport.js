@@ -6,63 +6,58 @@ import jwt from 'jsonwebtoken';
 const { User } = models;
 
 passport.use(new LocalStrategy({
-  usernameField: 'email',
+  usernameField: 'username',
   passwordField: 'password',
   session: false,
-  passReqToCallback: true
-}, (req, email, password, done) => {
-    return User.findOne({
-      where: {
-        email,
-      }
-    })
-    .then(async foundUser => {
+  passReqToCallback: true,
+}, (req, username, password, done) => User.findOne({
+  where: {
+    username,
+  },
+})
+    .then(async (foundUser) => {
       let user;
       if (foundUser) {
         // User exists
         if (!(await foundUser.validPassword(password))) {
-          console.log('Invalid password')
+          console.log('Invalid password');
           return done(null, false, {
             message: 'Incorrect password.',
           });
         }
         user = foundUser;
-
       } else {
         // New user
         user = await User.create({
-          email,
+          username,
           passwordHash: User.generateHash(password),
         });
       }
 
       const payload = {
         user: user.id,
-      }
+      };
 
       const token = jwt.sign(payload, 'secret');
 
       return done(null, {
         user: {
-          email: user.email,
+          username: user.username,
         },
         token,
       });
     })
-    .catch(err => {
-      return done(err);
-    });
-  }
+    .catch(err => done(err)),
 ));
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   User.find({
     where: { id },
-  }, function(err, [user]) {
+  }, (err, [user]) => {
     done(err, user);
   });
 });
