@@ -16,6 +16,6 @@ export function authUser(email, password) {
         dispatch(getServiceList(result));
       }
     })
-    .catch(console.log);
+    .catch(console.error);
   };
 }

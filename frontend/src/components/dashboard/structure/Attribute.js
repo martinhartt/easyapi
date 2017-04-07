@@ -13,14 +13,14 @@ const style = {
     transition: '0.3s all',
     ':hover': {
       backgroundColor: Color.lightGrey,
-    }
-  }
-}
+    },
+  },
+};
 
-const prettify = string => string.replace('_', ' ');
+const prettify = string => string && string.replace('_', ' ');
 
 const Attribute = ({ attribute, onClick }) => <div style={style.base}>
   {prettify(attribute.name)}
-</div>
+</div>;
 
 export default Radium(Attribute);

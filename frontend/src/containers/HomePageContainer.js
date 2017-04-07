@@ -3,13 +3,9 @@ import HomePage from '../components/HomePage';
 import 'immutable';
 
 
-
-const mapStateToProps = (state, ownProps) => {
-  console.log('>>', state.get('user').get('authenticated'));
-  return {
-    authenticated: state.getIn(['user', 'authenticated']),
-  }
-};
+const mapStateToProps = state => ({
+  authenticated: state.getIn(['user', 'authenticated']),
+});
 
 
 const HomePageContainer = connect(

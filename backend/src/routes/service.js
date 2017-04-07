@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
       where: {
         UserId: req.user.id,
       },
-      include: [{ all: true }],
+      include: [{ all: true, nested: true }],
     });
     return res.json({
       services,

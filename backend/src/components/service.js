@@ -62,6 +62,7 @@ export async function createService(name, modelDefinitions, userId) {
     modelJSON.Attributes = attributes;
 
     if (!modelDefinition.entries || modelDefinition.entries.length === 0) {
+      modelJSON.Entries = [];
       models.push(modelJSON);
       continue;
     }
@@ -92,7 +93,7 @@ export async function createService(name, modelDefinitions, userId) {
         values.push(value.toJSON());
       }
 
-      entryJSON.values = values;
+      entryJSON.Values = values;
       entries.push(entryJSON);
     }
 

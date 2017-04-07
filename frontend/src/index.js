@@ -10,12 +10,13 @@ import './index.css';
 import Service from './components/Service';
 import Dashboard from './components/dashboard/Dashboard';
 import StructureContainer from './containers/dashboard/StructureContainer';
-import Entries from './components/dashboard/entries/Entries';
+import EntriesContainer from './containers/dashboard/EntriesContainer';
 import Pages from './components/dashboard/pages/Pages';
 import About from './components/dashboard/about/About';
 import Publish from './components/dashboard/publish/Publish';
 import ServiceListContainer from './containers/ServiceListContainer';
 import HomePageContainer from './containers/HomePageContainer';
+import { isAuthenticated } from './utils/Auth';
 
 const middleware = routerMiddleware(browserHistory);
 const store = createStore(easyAPI,
@@ -29,7 +30,13 @@ const history = syncHistoryWithStore(browserHistory, store, {
   },
 });
 
-history.listen(console.log);
+function requireAuth(nextState, replace) {
+  if (!isAuthenticated()) {
+    replace({
+      pathname: '/',
+    });
+  }
+}
 
 const r = () => render(
   <Provider store={store}>
@@ -45,10 +52,12 @@ const r = () => render(
       <Route
         path="/service/setup"
         component={Service}
+        onEnter={requireAuth}
       />
       <Route
         path="/service/dashboard"
         component={Dashboard}
+        onEnter={requireAuth}
       >
         <Route
           path="structure"
@@ -56,7 +65,7 @@ const r = () => render(
         />
         <Route
           path="entries"
-          component={Entries}
+          component={EntriesContainer}
         />
         <Route
           path="pages"

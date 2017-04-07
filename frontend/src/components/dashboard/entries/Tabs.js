@@ -7,7 +7,7 @@ const style = {
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: Color.whiteText,
-    borderBottom: `2px solid ${Color.lightGrey}`
+    borderBottom: `2px solid ${Color.lightGrey}`,
   },
   tab: {
     display: 'inline-block',
@@ -17,12 +17,12 @@ const style = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderTop: `3px solid transparent`
+    borderTop: '3px solid transparent',
   },
   selected: {
     backgroundColor: Color.lighterGrey,
-    borderTop: `3px solid ${Color.green}`
-  }
+    borderTop: `3px solid ${Color.green}`,
+  },
 };
 
 const Tabs = ({ headers, onSelected }) => <div style={style.base}>
@@ -30,9 +30,10 @@ const Tabs = ({ headers, onSelected }) => <div style={style.base}>
     <div
       key={header.text}
       style={[style.tab, header.selected && style.selected]}
-      onClick={() => onSelected(header.text)}>
+      onClick={() => onSelected(header.id)}
+    >
       {header.text}
     </div>)}
-</div>
+</div>;
 
 export default Radium(Tabs);

@@ -15,11 +15,11 @@ const style = {
   transition: `all ${Dimensions.transitionTime.normal}`,
   ':hover': {
     border: `${Dimensions.borderWidth}px solid ${Color.green}`,
-  }
-}
+  },
+};
 
 const ServiceListItem = ({ service, onClick }) => <div style={style} onClick={onClick}>
-  {service.name}
+  {service && service.name}
 </div>;
 
 export default Radium(ServiceListItem);

@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
       },
       order: 'index DESC',
     });
-    const index = newestEntry.index + 1;
+
+    const index = (newestEntry ? newestEntry.index : 0) + 1;
 
     const entry = await Entry.create({
       index,

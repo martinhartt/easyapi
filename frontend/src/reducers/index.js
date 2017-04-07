@@ -18,13 +18,15 @@ import {
   RECEIVE_SERVICE_LIST,
   SELECT_SERVICE,
   RECEIVE_SERVICE,
+  CHANGE_SELECTED_MODEL,
+  RECEIVE_ENTRY
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
 import setupScreens from '../utils/setupScreens';
 import createMethods from '../utils/createMethods';
 import { isAuthenticated, getToken } from '../utils/Auth';
-import { normalizeServices, normalizeService } from '../utils/normalizr';
+import { normalizeServices, normalizeService, normalizeEntry } from '../utils/normalizr';
 import {
   LOCATION_CHANGE
 } from 'react-router-redux';
@@ -75,9 +77,8 @@ const defaultState = fromJS({
         path: '/service/dashboard/about'
       },
     ],
-    selectedAttribute: {
-
-    }
+    selectedAttribute: null,
+    selectedModel: null,
   },
   setup: {
     name: '',
@@ -85,30 +86,10 @@ const defaultState = fromJS({
     method: 'CREATE_METHOD_NATURAL_LANGUAGE',
   },
   serviceById: {
-    '1': {
-      name: 'Cats',
-      models: ['4','3']
-    }
   },
   modelById: {
-    '4': {
-      name: 'Pet',
-      attributes: ['1','2'],
-    },
-    '3': {
-      name: 'Toy',
-      attributes: ['2'],
-    }
   },
   attributeById: {
-    '1': {
-      name: 'name',
-      type: 'string',
-    },
-    '2': {
-      name: 'age',
-      type: 'integer',
-    }
   },
   entryById: {},
   valueById: {},
@@ -257,17 +238,23 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
     case RECEIVE_SERVICE_LIST: {
       const services = action.services;
 
-      const normalized = normalizeServices({ services }).entities;
+      const entities = normalizeServices({ services }).entities;
 
-      const serviceIds = normalized.services.undefined.services;
+      const serviceIds = entities.services.undefined.services;
 
-      const serviceById = normalized.service;
-      const modelById = normalized.model;
+      const serviceById = entities.service || {};
+      const modelById = entities.model || {};
+      const attributeById = entities.attribute || {};
+      const entryById = entities.entry || {};
+      const valueById = entities.value || {};
 
       return state
         .setIn(['user', 'services'], fromJS(serviceIds))
-        .set('serviceById', fromJS(serviceById))
-        .set('modelById', fromJS(modelById));
+        .set('serviceById', fromJS(serviceById).merge(state.get('serviceById')))
+        .set('modelById', fromJS(modelById).merge(state.get('modelById')))
+        .set('attributeById', fromJS(attributeById).merge(state.get('attributeById')))
+        .set('entryById', fromJS(entryById).merge(state.get('entryById')))
+        .set('valueById', fromJS(valueById).merge(state.get('valueById')));
     }
     case RECEIVE_SERVICE: {
       // TODO
@@ -275,17 +262,35 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
 
       const entities = normalizeService(action.service).entities;
 
-      const serviceById = entities.service;
-      const modelById = entities.model;
-      const attributeById = entities.attribute;
-      const entryById = entities.entry;
+      console.log(entities);
+      const serviceById = entities.service || {};
+      const modelById = entities.model || {};
+      const attributeById = entities.attribute || {};
+      const entryById = entities.entry || {};
+      const valueById = entities.value || {};
 
       return state
         .setIn(['user', 'currentServiceId'], action.service.id)
-        .set('serviceById', state.get('serviceById').merge(fromJS(serviceById)))
-        .set('modelById', state.get('modelById').merge(fromJS(modelById)))
-        .set('attributeById', state.get('attributeById').merge(fromJS(attributeById)))
-        .set('entryById', state.get('entryById').merge(fromJS(entryById)));
+        .set('serviceById', fromJS(serviceById).merge(state.get('serviceById')))
+        .set('modelById', fromJS(modelById).merge(state.get('modelById')))
+        .set('attributeById', fromJS(attributeById).merge(state.get('attributeById')))
+        .set('entryById', fromJS(entryById).merge(state.get('entryById')))
+        .set('valueById', fromJS(valueById).merge(state.get('valueById')));
+    }
+    case RECEIVE_ENTRY: {
+      const entities = normalizeEntry(action.entry).entities;
+
+      const model = action.entry.ModelId;
+
+      const valueById = entities.value || {};
+      const entryById = entities.entry || {};
+
+      const entryIdsPath = ['modelById', `${model}`, 'Entries'];
+
+      return state
+        .setIn(entryIdsPath, state.getIn(entryIdsPath).push(action.entry.id))
+        .set('entryById', fromJS(entryById).merge(state.get('entryById')))
+        .set('valueById', fromJS(valueById).merge(state.get('valueById')));
     }
     case SELECT_SERVICE: {
       return state.setIn(
@@ -293,6 +298,14 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
           'user', 'currentServiceId'
         ],
         action.id,
+      )
+    }
+    case CHANGE_SELECTED_MODEL: {
+      return state.setIn(
+        [
+          'dashboard', 'selectedModel'
+        ],
+        action.id
       )
     }
     default:

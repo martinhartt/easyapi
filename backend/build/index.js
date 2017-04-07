@@ -921,6 +921,7 @@ let createService = (() => {
       modelJSON.Attributes = attributes;
 
       if (!modelDefinition.entries || modelDefinition.entries.length === 0) {
+        modelJSON.Entries = [];
         models.push(modelJSON);
         continue;
       }
@@ -951,7 +952,7 @@ let createService = (() => {
           values.push(value.toJSON());
         }
 
-        entryJSON.values = values;
+        entryJSON.Values = values;
         entries.push(entryJSON);
       }
 
@@ -1502,7 +1503,8 @@ router.post('/', (() => {
         },
         order: 'index DESC'
       });
-      const index = newestEntry.index + 1;
+
+      const index = (newestEntry ? newestEntry.index : 0) + 1;
 
       const entry = yield Entry.create({
         index,
@@ -1750,7 +1752,7 @@ router.get('/', (() => {
         where: {
           UserId: req.user.id
         },
-        include: [{ all: true }]
+        include: [{ all: true, nested: true }]
       });
       return res.json({
         services,

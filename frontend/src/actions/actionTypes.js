@@ -18,3 +18,5 @@ export { CHANGE_SIDEBAR_ITEM } from './dashboard/changeSidebarItem.js';
 export { RECEIVE_SERVICE_LIST } from './auth/receiveServiceList.js';
 export { SELECT_SERVICE } from './setup/selectService.js';
 export { RECEIVE_SERVICE } from './setup/receiveService.js';
+export { CHANGE_SELECTED_MODEL } from './dashboard/changeSelectedModel.js';
+export { RECEIVE_ENTRY } from './dashboard/receiveEntry.js';

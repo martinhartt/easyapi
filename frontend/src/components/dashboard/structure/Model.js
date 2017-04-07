@@ -19,7 +19,7 @@ const style = {
     padding: '5px 10px',
     fontWeight: 600,
     textAlign: 'center',
-  }
+  },
 };
 
 const Model = ({ model }) => <div style={style.base}>
