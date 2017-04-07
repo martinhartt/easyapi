@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,11 +73,11 @@ module.exports =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sequelize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_connections__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__attribute__ = __webpack_require__(11);
@@ -161,9 +161,9 @@ module.exports = require("express");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport_local__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(3);
@@ -257,19 +257,20 @@ module.exports = require("jsonwebtoken");
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_body_parser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes_model__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routes_entry__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__routes_attribute__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes_value__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__config_bootstrap__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__middleware_authentication__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes_model__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routes_entry__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__routes_attribute__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes_value__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__routes_api__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__config_bootstrap__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__middleware_authentication__ = __webpack_require__(10);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
@@ -286,17 +287,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__config_bootstrap__["a" /* default */])().then(_asyncToGenerator(function* () {
+
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__config_bootstrap__["a" /* default */])().then(_asyncToGenerator(function* () {
   /* eslint-disable new-cap */
   const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
   const port = 9001;
 
-  yield __WEBPACK_IMPORTED_MODULE_11__models__["a" /* default */].sequelize.sync();
+  yield __WEBPACK_IMPORTED_MODULE_12__models__["a" /* default */].sequelize.sync();
 
   app.use(__WEBPACK_IMPORTED_MODULE_1_body_parser___default.a.json());
 
   app.use(__WEBPACK_IMPORTED_MODULE_2__config_passport__["a" /* default */].initialize());
-  app.use(__WEBPACK_IMPORTED_MODULE_12__middleware_authentication__["a" /* default */]);
+  app.use(__WEBPACK_IMPORTED_MODULE_13__middleware_authentication__["a" /* default */]);
 
   app.use('/api', __WEBPACK_IMPORTED_MODULE_3__routes_index__["a" /* default */]);
   app.use('/api/service', __WEBPACK_IMPORTED_MODULE_5__routes_service__["a" /* default */]);
@@ -305,6 +307,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__config_bootstrap__["a" /* de
   app.use('/api/attribute', __WEBPACK_IMPORTED_MODULE_8__routes_attribute__["a" /* default */]);
   app.use('/api/entry', __WEBPACK_IMPORTED_MODULE_7__routes_entry__["a" /* default */]);
   app.use('/api/value', __WEBPACK_IMPORTED_MODULE_9__routes_value__["a" /* default */]);
+  app.use('/api/api/', __WEBPACK_IMPORTED_MODULE_10__routes_api__["a" /* default */]);
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
@@ -334,11 +337,11 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__config_bootstrap__["a" /* de
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sbd__);
 let generateModelStructure = (() => {
   var _ref = _asyncToGenerator(function* (text) {
@@ -1186,7 +1189,27 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Model = sequelize.define('Model', {
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    isFindEnabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isFindOneEnabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isCreateEnabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isUpdateEnabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    isDeleteEnabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   }, {
     classMethods: {
       associate(models) {
@@ -1213,6 +1236,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 /* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Service = sequelize.define('Service', {
     name: DataTypes.STRING,
+    url: DataTypes.STRING,
     isPublic: DataTypes.BOOLEAN
   }, {
     classMethods: {
@@ -1237,7 +1261,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
 
 
@@ -1294,6 +1318,34 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 
 /***/ }),
 /* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
+
+
+
+const { Service, Model, Attribute, Entry, Value } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+/* eslint-disable new-cap */
+const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+router.all('/:service/:model/:id?', (req, res) => {
+  const service = req.param('service');
+  const model = req.param('model');
+  const id = req.param('id');
+  const method = req.method;
+  console.log(req);
+
+  res.send({ service, model, id, method });
+});
+
+/* harmony default export */ __webpack_exports__["a"] = router;
+
+/***/ }),
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1405,14 +1457,14 @@ router.get('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_validator__);
 
 
@@ -1474,7 +1526,7 @@ router.post('/login', (req, res, next) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1584,7 +1636,7 @@ router.delete('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1608,7 +1660,7 @@ router.get('/models', (req, res) => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1710,7 +1762,7 @@ router.get('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1858,7 +1910,7 @@ router.patch('/:id', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1915,73 +1967,73 @@ router.patch('/', (() => {
 /* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("nlp_compromise");
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = require("request-promise");
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("sbd");
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = require("sequelize");
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(4);

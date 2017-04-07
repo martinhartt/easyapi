@@ -40,3 +40,4 @@ export const postService = (name, models) => curryReq('/service', true, 'POST')(
 
 export const postEntry = model => curryReq('/entry', true, 'POST')({ model });
 export const deleteEntry = id => curryReq('/entry', true, 'DELETE')({ id });
+export const updateValue = (entry, attribute, value) => curryReq('/value', true, 'PATCH')({ entry, attribute, value });

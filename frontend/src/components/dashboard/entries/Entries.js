@@ -44,11 +44,11 @@ const Entries = ({ entries = [], attributes = [], headers = [], onSelected, onDe
     <TopBar name="OK" onNew={() => onCreate()} />
     <Tabs headers={headers} onSelected={onSelected} />
     <RowHeader>
-      {attributes.map(attr => <Column value={capitalizeString(attr)} key={attr} />)}
+      {attributes.map(attr => <Column value={capitalizeString(attr.name)} key={attr.id} />)}
     </RowHeader>
     {entries.map(entry =>
       <Row key={entry.id} onDelete={() => onDelete(entry.realId)}>
-        {attributes.map(attr => <Column key={entry.id + attr} value={entry[attr]} />)}
+        {attributes.map(attr => <Column key={entry.id + attr.id} value={entry[attr.name]} isItem onChange={e => onUpdate(entry.realId, attr.id, e.target.value)} />)}
       </Row>,
   )}
   </div>;

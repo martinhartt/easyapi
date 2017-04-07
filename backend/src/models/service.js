@@ -1,6 +1,7 @@
 export default function (sequelize, DataTypes) {
   const Service = sequelize.define('Service', {
     name: DataTypes.STRING,
+    handle: DataTypes.STRING,
     isPublic: DataTypes.BOOLEAN,
   }, {
     classMethods: {

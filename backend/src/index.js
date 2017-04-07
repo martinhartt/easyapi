@@ -8,6 +8,7 @@ import model from './routes/model';
 import entry from './routes/entry';
 import attribute from './routes/attribute';
 import value from './routes/value';
+import api from './routes/api';
 import bootstrap from './config/bootstrap';
 import models from './models';
 import authentication from './middleware/authentication';
@@ -32,6 +33,7 @@ bootstrap().then(async () => {
   app.use('/api/attribute', attribute);
   app.use('/api/entry', entry);
   app.use('/api/value', value);
+  app.use('/api/api/', api);
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
