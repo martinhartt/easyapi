@@ -1823,9 +1823,32 @@ router.post('/', (() => {
 
       const index = (newestEntry ? newestEntry.index : 0) + 1;
 
-      const entry = yield Entry.create({
+      const attributes = yield Attribute.findAll({
+        where: {
+          ModelId: modelId
+        }
+      });
+
+      let entry = yield Entry.create({
         index,
         ModelId: modelId
+      });
+
+      const valuePromises = [];
+      for (const attribute of attributes) {
+        valuePromises.push(Value.create({
+          EntryId: entry.id,
+          AttributeId: attribute.id,
+          value: ''
+        }));
+      }
+      yield Promise.all(valuePromises);
+
+      entry = yield Entry.findOne({
+        where: {
+          id: entry.id
+        },
+        include: [{ all: true }]
       });
 
       const response = {
@@ -1877,11 +1900,19 @@ router.delete('/', (() => {
   var _ref3 = _asyncToGenerator(function* (req, res) {
     try {
       const id = req.param('id');
+
+      yield Value.destroy({
+        where: {
+          EntryId: id
+        }
+      });
+
       yield Entry.destroy({
         where: {
           id
         }
       });
+
       return res.json({
         success: true
       });

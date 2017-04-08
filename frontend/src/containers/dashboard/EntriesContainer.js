@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { debounce } from 'underscore';
+import { debounce, difference } from 'underscore';
 import { changeSelectedModel } from '../../actions/dashboard/changeSelectedModel';
 import { createEntry } from '../../actions/dashboard/createEntry';
 import { deleteEntry } from '../../actions/dashboard/deleteEntry';
 import { updateValue } from '../../actions/dashboard/updateValue';
+import { updateValueLocally } from '../../actions/dashboard/updateValueLocally';
 import Entries from '../../components/dashboard/entries/Entries';
-import { difference } from 'underscore';
 
 
 const mapStateToProps = (immutableState) => {
@@ -38,17 +38,17 @@ const mapStateToProps = (immutableState) => {
 
     const missing = difference(
       attributes.map(a => a.id),
-      values.map(v => v.Attribute),
+      values.map(v => v.Attribute || v.AttributeId),
     ).map(id => state.attributeById[id]);
 
     for (const valueObj of values) {
       const value = valueObj.value;
-      obj[state.attributeById[valueObj.Attribute].name] = value;
+      obj[state.attributeById[valueObj.Attribute || valueObj.AttributeId].name] = { value, id: valueObj.id };
     }
 
-    for (const attribute of missing) {
-      obj[attribute.name] = '';
-    }
+    // for (const attribute of missing) {
+    //   obj[attribute.name] = { value: '' };
+    // }
     entries.push(obj);
   }
 
@@ -120,7 +120,10 @@ const mapDispatchToProps = (dispatch) => {
     onSelected: id => dispatch(changeSelectedModel(id)),
     onCreate: () => dispatch(createEntry()),
     onDelete: id => dispatch(deleteEntry(id)),
-    onUpdate: (id, attr, value) => update(id, attr, value),
+    onUpdate: (id, attr, value, valueId) => {
+      dispatch(updateValueLocally(id, valueId, value));
+      update(id, attr, value);
+    },
   };
 };
 

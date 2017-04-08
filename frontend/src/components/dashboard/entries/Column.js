@@ -5,8 +5,9 @@ const style = {
   base: {
     minWidth: 70,
     height: '80%',
-    marginLeft: 30,
-    marginRight: 30,
+    marginLeft: 0,
+    textAlign: 'center',
+    marginRight: 0,
   },
   item: {
     borderRadius: 3,
@@ -16,7 +17,6 @@ const style = {
     },
     border: 'none',
     height: 45,
-    textAlign: 'center',
     fontSize: 18,
     ':focus': {
       outline: 0,
@@ -28,7 +28,7 @@ const style = {
 const Column = ({ value, isItem, onChange }) =>
   isItem ?
     <input style={[style.base, style.item]} value={value} onChange={onChange} /> :
-    <div><div style={[style.base]}>{value}</div></div>;
+    <div style={[style.base]}>{value}</div>;
 
 
 export default Radium(Column);

@@ -20,7 +20,8 @@ import {
   RECEIVE_SERVICE,
   CHANGE_SELECTED_MODEL,
   RECEIVE_ENTRY,
-  DELETE_ENTRY_LOCALLY
+  DELETE_ENTRY_LOCALLY,
+  UPDATE_VALUE_LOCALLY
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
@@ -285,6 +286,7 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
 
       const valueById = entities.value || {};
       const entryById = entities.entry || {};
+      console.log(valueById);
 
       const entryIdsPath = ['modelById', `${model}`, 'Entries'];
 
@@ -314,6 +316,12 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
       return state
         .deleteIn(['entryById', `${action.entry.id}`])
         .setIn(entries, state.getIn(entries).filter(i => i !== action.entry.id));
+    }
+    case UPDATE_VALUE_LOCALLY: {
+      const valueIdsPath = ['valueById', `${action.value}`, 'Entries'];
+
+      return state
+        .setIn(['valueById', `${action.id}`, 'value'], action.value);
     }
     default:
       return state;

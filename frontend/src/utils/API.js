@@ -22,7 +22,9 @@ function curryReq(path, useToken = true, method = 'POST') {
       store.dispatch(logoutUser());
     }
 
-    return response.json();
+    const json = await response.json();
+    console.log(`API response ${method} ${path}`, json);
+    return json;
   };
 }
 

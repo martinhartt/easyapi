@@ -20,9 +20,34 @@ router.post('/', async (req, res) => {
 
     const index = (newestEntry ? newestEntry.index : 0) + 1;
 
-    const entry = await Entry.create({
+    const attributes = await Attribute.findAll({
+      where: {
+        ModelId: modelId,
+      },
+    });
+
+    let entry = await Entry.create({
       index,
       ModelId: modelId,
+    });
+
+    const valuePromises = [];
+    for (const attribute of attributes) {
+      valuePromises.push(
+        Value.create({
+          EntryId: entry.id,
+          AttributeId: attribute.id,
+          value: '',
+        }),
+      );
+    }
+    await Promise.all(valuePromises);
+
+    entry = await Entry.findOne({
+      where: {
+        id: entry.id,
+      },
+      include: [{ all: true }],
     });
 
     const response = {
@@ -62,11 +87,19 @@ router.get('/', async (req, res) => {
 router.delete('/', async (req, res) => {
   try {
     const id = req.param('id');
+
+    await Value.destroy({
+      where: {
+        EntryId: id,
+      },
+    });
+
     await Entry.destroy({
       where: {
         id,
       },
     });
+
     return res.json({
       success: true,
     });
