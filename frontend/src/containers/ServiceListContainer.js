@@ -7,10 +7,16 @@ import {
   newService,
 } from '../actions/setup';
 
-const mapStateToProps = (state, ownProps) => ({
-  services: state.getIn(['user', 'services'])
-      .map(id => state.getIn(['serviceById', `${id}`])).toJS(),
-});
+const mapStateToProps = (state) => {
+  const services = state.getIn(['user', 'services'])
+      .map(id => state.getIn(['serviceById', `${id}`]))
+      .filter(e => !!e)
+      .toJS();
+  console.log(services);
+  return {
+    services,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   onSelect: id =>

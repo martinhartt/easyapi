@@ -242,7 +242,7 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
       )
     }
     case RECEIVE_SERVICE_LIST: {
-      const services = action.services;
+      let services = action.services;
 
       const entities = normalizeServices({ services }).entities;
 
