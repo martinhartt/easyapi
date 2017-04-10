@@ -38,75 +38,93 @@ export async function createService(name, modelDefinitions, userId) {
 
   service = service.toJSON();
 
-  const models = [];
+  await Model.bulkCreate(modelDefinitions.map(def => ({
+    name: def.name,
+    ServiceId: service.id,
+    handle: stringToHandle(def.name),
+  })));
 
-  for (const modelDefinition of modelDefinitions) {
-    const model = await Model.create({
-      name: modelDefinition.name,
+  let models = await Model.findAll({
+    where: {
       ServiceId: service.id,
-      handle: stringToHandle(modelDefinition.name),
-    });
+    },
+  });
 
-    const modelJSON = model.toJSON();
-    const attributes = [];
-    const attributeByName = {};
+  const attributesToCreate = [];
+  const entriesToCreate = [];
+  const entryByIndexByModel = {};
 
+  let i = 0;
+  for (const modelDefinition of modelDefinitions) {
+    const model = models[i];
+    i++;
+    // Create attributes
     for (const attributeDefinition of modelDefinition.attributes) {
-      const attribute = await Attribute.create({
+      attributesToCreate.push({
         name: attributeDefinition.name,
         type: attributeDefinition.type,
         required: attributeDefinition.required,
         multiple: attributeDefinition.multiple,
         ModelId: model.id,
       });
-
-      attributeByName[attributeDefinition.name] = attribute;
-      attributes.push(attribute.toJSON());
     }
 
-    modelJSON.Attributes = attributes;
-
     if (!modelDefinition.entries || modelDefinition.entries.length === 0) {
-      modelJSON.Entries = [];
-      models.push(modelJSON);
       continue;
     }
 
-    const entries = [];
-
+    const entryByIndex = {};
+    // Create entries
     let index = 1;
     for (const entriesDefinition of modelDefinition.entries) {
-      const entry = await Entry.create({
+      entriesToCreate.push({
         index,
         ModelId: model.id,
       });
       index++;
-
-      const entryJSON = entry.toJSON();
-      const values = [];
-
-      for (const attributeString of Object.keys(entriesDefinition)) {
-        if (!attributeByName[attributeString]) {
-          throw new Error(`Please only specify attributes which are defined in the model (${attributeString}).`);
-        }
-        const value = await Value.create({
-          AttributeId: attributeByName[attributeString].id,
-          value: entriesDefinition[attributeString],
-          EntryId: entry.id,
-        });
-
-        values.push(value.toJSON());
-      }
-
-      entryJSON.Values = values;
-      entries.push(entryJSON);
+      entryByIndex[index] = entriesDefinition;
     }
-
-    modelJSON.Entries = entries;
-    models.push(modelJSON);
+    entryByIndexByModel[modelDefinition.name] = entryByIndex;
   }
 
-  service.Models = models;
+  await Attribute.bulkCreate(attributesToCreate);
+  await Entry.bulkCreate(entriesToCreate);
+
+  models = await Model.findAll({
+    where: {
+      ServiceId: service.id,
+    },
+    include: [{ all: true, nested: true }],
+  });
+
+  const valuesToCreate = [];
+
+  // Index: model > entry > attribute > value
+
+  console.log(entryByIndexByModel);
+
+  for (const model of models) {
+    for (const entry of model.Entries) {
+      for (const attribute of model.Attributes) {
+        console.log(model.name, entry.index, attribute.name);
+        const entryDefinition = entryByIndexByModel[model.name][entry.index];
+        valuesToCreate.push({
+          AttributeId: attribute.id,
+          EntryId: entry.id,
+          value: entryDefinition && entryDefinition[attribute.name],
+        });
+      }
+    }
+  }
+
+  await Value.bulkCreate(valuesToCreate);
+
+  service = await Service.findOne({
+    where: {
+      id: service.id,
+    },
+    include: [{ all: true, nested: true }],
+  });
 
   return service;
 }
