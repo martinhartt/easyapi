@@ -1,10 +1,12 @@
 import { Router } from 'express';
+import multer from 'multer';
 import { parseSpreadsheet, parseNaturalLanguage } from '../components/parse';
 import { createService, findServices } from '../components/service';
 import databaseModels from '../models';
 
 const { Service, Model, Attribute, Entry, Value } = databaseModels;
 
+const upload = multer({ dest: 'upload/' });
 
 /* eslint-disable new-cap */
 const router = Router();
@@ -15,15 +17,14 @@ router.post('/parseText', (req, res) => {
   .then(result => res.send(result));
 });
 
-router.post('/parseSpreadsheet', (req, res) => {
-  const text = req.param('text');
-  return parseSpreadsheet(text)
+router.post('/parseSpreadsheet', upload.single('spreadsheet'), (req, res) => {
+  console.log(req.file);
+  return parseSpreadsheet(req.file)
   .then(result => res.send(result));
 });
 
 /* POST scratch. */
 router.post('/', async (req, res) => {
-  console.log(req.param('models'));
   const name = req.param('name');
   const modelDefinitions = req.param('models');
 
@@ -99,8 +100,11 @@ router.patch('/:id', async (req, res) => {
     if (req.param('name')) {
       toUpdate.name = req.param('name');
     }
-    if (req.param('isPublic')) {
-      toUpdate.isPublic = req.param('isPublic');
+    if (req.body.isPublic !== undefined) {
+      toUpdate.isPublic = req.body.isPublic;
+    }
+    if (req.param('handle')) {
+      toUpdate.handle = req.param('handle');
     }
 
     const service = await Service.update(

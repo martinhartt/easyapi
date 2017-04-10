@@ -11,11 +11,15 @@ router.post('/', async (req, res) => {
   const modelId = req.param('model');
   const name = req.param('name');
   const type = req.param('type');
+  const required = req.param('required');
+  const multiple = req.param('multiple');
 
   try {
     const attribute = await Attribute.create({
       name,
       type,
+      required,
+      multiple,
       ModelId: modelId,
     });
 

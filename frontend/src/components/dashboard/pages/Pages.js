@@ -34,7 +34,7 @@ const style = {
   field: {
     marginBottom: 10,
     marginTop: 4,
-  }
+  },
 };
 
 
@@ -51,35 +51,35 @@ const pagesExamples = [
     operation: 'findById',
     model: 'pets',
   },
-]
+];
 
-const Pages = ({ name, pages = pagesExamples, isCreating = true }) => <div style={style.base}>
+function bind(model, action, onChange) {
+  const name = `${model.name}`;
+  const prop = `${action.prop}`;
+  console.log('bind', name, prop);
+  return console.log.bind(console, name, prop);// onChange(name, { [prop]: !!e.target.checked });
+}
+
+const Pages = ({ name, models = [], actions = [], onChange = console.log, urlPrefix }) => <div style={style.base}>
   <TopBar name={name} />
-  {isCreating && <div style={style.page}>
-    <div style={style.label}>Path:</div>
-    <div style={style.field}>
-      <TextInput name="path" placeholder="Path" />
-    </div>
-    <div style={style.label}>Method:</div>
-    <div style={style.field}>
-      <TextInput name="method" placeholder="Method" />
-    </div>
-    <div style={style.label}>Operation:</div>
-    <div style={style.field}>
-      <TextInput name="operation" placeholder="Operation" />
-    </div>
-    <div style={style.label}>Model:</div>
-    <div style={style.field}>
-      <TextInput name="model" placeholder="Model" />
-    </div>
-    <div style={style.field}>
-      <Button text="Create" />
-    </div>
-  </div>}
-  {pages.map(page => <div style={style.page}>
-    <h3 style={style.title}><span style={style.method}>{page.method}</span> {page.path}</h3>
-    <p style={style.description}>For the model {page.model}, it will {page.operation}</p>
-
+  {models.map((model, modelIndex) => <div style={style.page}>
+    <h3 style={style.title}>{model.name}</h3>
+    {actions.map(action => (
+      <div>
+        <input
+          id={action}
+          type="checkbox"
+          checked={model[action.prop].value === true}
+          onChange={bind(model, action)}
+        />
+        <label
+          htmlFor={action}
+          style={style.label}
+        >
+          {action.label} ({action.method} {urlPrefix}{model.name})
+        </label>
+      </div>
+    ))}
   </div>)}
 </div>;
 

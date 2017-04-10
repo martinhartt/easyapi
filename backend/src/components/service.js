@@ -55,6 +55,8 @@ export async function createService(name, modelDefinitions, userId) {
       const attribute = await Attribute.create({
         name: attributeDefinition.name,
         type: attributeDefinition.type,
+        required: attributeDefinition.required,
+        multiple: attributeDefinition.multiple,
         ModelId: model.id,
       });
 

@@ -1,5 +1,5 @@
 export { ANALYSE_NATURAL_TEXT } from './setup/analyseNaturalText.js';
-export { ANNOTATE_NATURAL_TEXT } from './setup/annotateNaturalText.js';
+export { UPDATE_MODEL_PREVIEW } from './setup/updateModelPreview.js';
 export { GENERATE_WEBHOOK_URL } from './setup/generateWebhookURL.js';
 export { NEW_SERVICE } from './setup/newService.js';
 export { RECEIVE_WEBHOOK_URL } from './setup/receiveWebhookURL.js';
@@ -22,3 +22,5 @@ export { CHANGE_SELECTED_MODEL } from './dashboard/changeSelectedModel.js';
 export { RECEIVE_ENTRY } from './dashboard/receiveEntry.js';
 export { DELETE_ENTRY_LOCALLY } from './dashboard/deleteEntryLocally.js';
 export { UPDATE_VALUE_LOCALLY } from './dashboard/updateValueLocally.js';
+export { UPDATE_SERVICE_LOCALLY } from './dashboard/updateServiceLocally.js';
+export { SELECT_ATTRIBUTE } from './dashboard/selectAttribute.js';

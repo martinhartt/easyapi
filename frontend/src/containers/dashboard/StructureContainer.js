@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {
 } from '../../actions/dashboard/changeSidebarItem';
 import Structure from '../../components/dashboard/structure/Structure';
+import { selectAttribute } from '../../actions/dashboard/selectAttribute';
 import 'immutable';
 
 const mapStateToProps = (immutableState) => {
@@ -28,12 +29,14 @@ const mapStateToProps = (immutableState) => {
    state.attributeById[state.dashboard.selectedAttribute];
 
   return {
+    name: service.name,
     models,
     selectedAttribute,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
+  onSelectAttribute: id => dispatch(selectAttribute(id)),
 });
 
 

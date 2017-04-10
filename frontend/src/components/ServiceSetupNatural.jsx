@@ -34,7 +34,7 @@ function formatAnnotations(annotations = []) {
   return { __html: html };
 }
 
-const ServiceSetupNatural = ({ text, onChange, onDone, annotations }) => (
+const ServiceSetupNatural = ({ text, onChange, onDone, annotations, nextEnabled }) => (
   <div>
     <div style={styles.field}>
       <p>Please describe the various things and entities, <br />along with their properties and relationships</p>
@@ -48,7 +48,7 @@ const ServiceSetupNatural = ({ text, onChange, onDone, annotations }) => (
       <p dangerouslySetInnerHTML={formatAnnotations(annotations)} />
     </div>
     <div style={styles.nextButton} >
-      <Button isDisabled={!text || !text.length} onClick={onDone} text="Next" />
+      <Button isDisabled={!nextEnabled} onClick={onDone} text="Next" />
     </div>
   </div>
 );

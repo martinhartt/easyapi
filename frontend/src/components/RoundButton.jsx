@@ -18,6 +18,7 @@ const style = {
     cursor: 'pointer',
     transition: `${Dimensions.transitionTime.normal} background-color`,
     fontSize: 30,
+    backgroundSize: 'contain',
     color: Color.whiteText,
     ':hover': {
       backgroundColor: Color.greenLight,
@@ -28,19 +29,17 @@ const style = {
   isDisabled: {
     pointerEvents: 'none',
     backgroundColor: Color.grey,
-  }
-}
+  },
+};
 
 const RoundButton = ({ text, onClick, isDisabled, color = Color.green }) => (
-  <button onClick={onClick} style={[style.base, isDisabled && style.isDisabled, {backgroundColor: color}]}>
-    {text}
-  </button>
-)
+  <button onClick={onClick} style={[style.base, isDisabled && style.isDisabled, { backgroundColor: color, backgroundImage: `url('/img/${text}.png')` }]} />
+);
 
 RoundButton.PropTypes = {
   icon: PropTypes.string,
   onClick: PropTypes.func,
-}
+};
 
 
 export default Radium(RoundButton);

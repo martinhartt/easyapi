@@ -10,7 +10,7 @@ const style = {
 
 const Row = ({ children, highlighted, onHover, onDelete }) => <div style={style.base}>
   {children}
-  <RoundButton onClick={onDelete} text="-" color={Color.red} />
+  <RoundButton onClick={onDelete} text="remove" color={Color.red} />
 
 </div>;
 

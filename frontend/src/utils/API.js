@@ -23,7 +23,7 @@ function curryReq(path, useToken = true, method = 'POST') {
     }
 
     const json = await response.json();
-    console.log(`API response ${method} ${path}`, json);
+    console.log(`API response ${method} ${path}`, params, json);
     return json;
   };
 }
@@ -43,3 +43,25 @@ export const postService = (name, models) => curryReq('/service', true, 'POST')(
 export const postEntry = model => curryReq('/entry', true, 'POST')({ model });
 export const deleteEntry = id => curryReq('/entry', true, 'DELETE')({ id });
 export const updateValue = (entry, attribute, value) => curryReq('/value', true, 'PATCH')({ entry, attribute, value });
+export const updateService = (id, changes) => curryReq(`/service/${id}`, true, 'PATCH')(changes);
+
+
+export async function postAnalyzeSpreadsheet(file) {
+  const formData = new FormData();
+  formData.append('spreadsheet', file);
+
+  const headers = {
+  };
+
+  headers.Authorization = `bearer ${getToken()}`;
+
+  const response = await fetch('/api/service/parseSpreadsheet', {
+    method: 'POST',
+    headers,
+    body: formData,
+  });
+
+  const json = await response.json();
+  console.log('FILE API response', json);
+  return json;
+}

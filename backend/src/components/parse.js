@@ -1,33 +1,52 @@
+import XLSX from 'xlsx';
 import Natural from '../components/natural';
+import { object } from 'underscore';
 
-export function parseSpreadsheet(spreadsheets) {
+export function parseSpreadsheet(file) {
   // Assume spreadsheet is array of csv's
+  const workbook = XLSX.readFile(file.path);
+
+  const sheetNames = workbook.SheetNames;
+
+  const csvs = sheetNames
+    .map(name => workbook.Sheets[name])
+    .map(sheet => XLSX.utils.sheet_to_csv(sheet));
+
+  const sheetByName = object(sheetNames, csvs);
 
   const allModelDefinitions = [];
 
-  for (const csv of spreadsheets) {
-    let modelDefinition = {};
-    let [headingLine, ...rowLines] = csv.split('\n');
-    let headings = headingLine.split(',');
-    let rows = rowLines.map(r => r.split(','));
+  for (const name of sheetNames) {
+    const csv = sheetByName[name];
+    const modelDefinition = {};
+    const [headingLine, ...rowLines] = csv.split('\n');
+    const headings = headingLine.split(',');
+    const rows = rowLines.map(r => r.split(',')); // Get first 20 rows for sample data
+    modelDefinition.name = name;
 
+    const attributes = [];
+    const entries = [];
 
     for (let i = 0; i < headings.length; i++) {
-      let name = headings[i];
+      const headingName = headings[i].toLowerCase();
 
-      let types = new Set(rows.map(row => determineType(row[i])));
-      console.log({name, types});
+      const types = determineType(new Set(rows.slice(0, 20).map(row => findType(row[i]))));
+      attributes.push(Object.assign({ name: headingName }, types));
     }
 
+    rows.forEach((row) => {
+      const entry = {};
+      attributes.forEach((attribute, i) => {
+        entry[attribute.name] = row[i];
+      });
+      entries.push(entry);
+    });
+
+    modelDefinition.entries = entries;
+    modelDefinition.attributes = attributes;
     allModelDefinitions.push(modelDefinition);
   }
-}
-
-function mode(array) {
-  if (!array || array.length === 0) return null;
-  return array.reduce(array[0], (prev, value) => {
-    return (value > prev) ? value : prev;
-  });
+  return Promise.resolve(allModelDefinitions);
 }
 
 // Given a array of type information, determines the type which encompases all values
@@ -54,7 +73,7 @@ export function determineType(information) {
       }
     }
 
-    if (value.multiple = true) {
+    if (value.multiple == true) {
       multiple = true;
     }
   }
@@ -67,12 +86,15 @@ export function determineType(information) {
 }
 
 // Given a string, finds the most likely type
-export function findType(string) {
+export function findType(raw) {
   // If there is no value assume null
-  if ((string === null) || (string === undefined)) return null;
+  if ((raw === null) || (raw === undefined)) return null;
 
-  let object = safeJSONParse(string);
-  let multiple = Array.isArray(object);
+  const string = raw.trim();
+  if (string.length === 0) return null;
+
+  const object = safeJSONParse(string);
+  const multiple = Array.isArray(object);
   let type;
 
   if (multiple) {
@@ -84,21 +106,21 @@ export function findType(string) {
     }
   } else {
     // Check for floats
-    if (/^\-?((\d+\.\d*)|(\d+\.\d*))$/.test(string)) {
+    if (/^-?((\d+\.\d*)|(\d+\.\d*))$/.test(string)) {
       type = 'float';
-    } else if (/^\-?(\d+)$/.test(string)) {
+    } else if (/^-?(\d+)$/.test(string)) {
       type = 'integer';
     } else {
       type = 'string';
     }
   }
 
+  console.log(string, type);
   return {
     type,
     multiple,
     example: string,
-  }
-
+  };
 }
 
 function safeJSONParse(string) {

@@ -21,16 +21,19 @@ const style = {
     position: 'absolute',
     right: 10,
     cursor: 'pointer',
-  }
-}
+  },
+};
 
-const AttributeModal = ({ attribute, onChange, onClose }) => <div style={style}>
+const Modal = ({ name, object, attributes, onChange, onClose }) => <div style={style}>
   <div style={style.close} onClick={onClose} />
-  <h3>{capitalizeString(attribute.name)}</h3>
-  <p>Name</p>
-  <TextInput text={attribute.name} onChange={val => onChange({ name: 'name', val })} />
-  <p>Example</p>
-  <TextInput text={attribute.type} />
+  <h3>{name && capitalizeString(name)}</h3>
+  {attributes.map(attr =>
+    <div key={attr.value}>
+      <label htmlFor={attr.value}>{attr.label}</label>
+      <TextInput text={object[attr.value]} onChange={val => onChange({ [attr.value]: val })} />
+    </div>,
+  )}
+
 </div>;
 
-export default AttributeModal;
+export default Modal;

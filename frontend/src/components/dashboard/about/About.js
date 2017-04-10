@@ -20,19 +20,38 @@ const style = {
   field: {
     marginBottom: 10,
     marginTop: 4,
-  }
-}
+  },
+};
 
 const metaExample = {
   name: 'Pets',
-}
+  url: 'pets',
+  author: 'Martin Hartt',
+  isPublic: false,
+};
 
 const About = ({ name, meta = metaExample, onChange }) => <div>
   <TopBar name={name} />
   <div style={style.base}>
     <h3 style={style.h3}>About</h3>
-    <div style={style.label}>Name</div>
-    <div style={style.field}><TextInput text={meta.name} onChange={(value) => onChange({name: value})}/></div>
+    {
+      Object.keys(meta).map(key =>
+        (typeof (meta[key].value) === 'boolean') ?
+          <div>
+            <input id={key} type="checkbox" checked={meta[key].value === true} onChange={e => onChange({ [key]: !!e.target.checked })} />
+            <label htmlFor={key} style={style.label}>{key}</label>
+          </div>
+                 :
+          <div>
+            <label style={style.label} htmlFor={key}>{meta[key].label}</label>
+            <div style={style.field}>
+              <TextInput id={key} text={meta[key].value} onChange={value => onChange({ [key]: value })} />
+            </div>
+          </div>,
+
+      )
+    }
+
   </div>
 </div>;
 

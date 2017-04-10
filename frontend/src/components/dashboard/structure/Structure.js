@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import Model from './Model';
 import TopBar from '../TopBar';
-import AttributeModal from './AttributeModal';
+import Modal from './Modal';
 import { lightBorder, Color } from '../../StyleConstant';
 
 const style = {
@@ -100,12 +100,35 @@ const exampleAttribute = {
   multiple: false,
 };
 
-const Structure = ({ params, models = [], selectedAttribute }) => <div style={style.base}>
-  <TopBar name="Pets" />
-  {selectedAttribute && <AttributeModal attribute={selectedAttribute} />}
+const attributes = [
+  {
+    value: 'name',
+    label: 'Name',
+    type: 'string',
+  },
+  {
+    value: 'type',
+    label: 'Type',
+    type: 'string',
+  },
+  {
+    value: 'multiple',
+    label: 'Multiple',
+    type: 'boolean',
+  },
+  {
+    value: 'required',
+    label: 'Required',
+    type: 'booleanonSelectAttribute = console.log, ',
+  },
+];
+
+const Structure = ({ name, params, models = [], selectedAttribute, onSelectAttribute = console.log, onCreate, onDelete }) => <div style={style.base}>
+  <TopBar name={name} onNew={onCreate} />
+  {selectedAttribute && <Modal name={selectedAttribute.name} object={selectedAttribute} attributes={attributes} onClose={() => onSelectAttribute(undefined)} />}
   <div style={style.main}>
     {models.map(model =>
-      <Model model={model} />,
+      <Model key={`model-${model.id}`} onClickAttribute={onSelectAttribute} model={model} />,
     )}
   </div>
 </div>;

@@ -22,9 +22,9 @@ const style = {
   },
 };
 
-const Model = ({ model }) => <div style={style.base}>
+const Model = ({ model, onClickAttribute }) => <div style={style.base}>
   <h3 style={style.title}>{capitalizeString(model.name)}</h3>
-  {model.attributes.map(attribute => <Attribute attribute={attribute} />)}
+  {model.attributes.map(attribute => <Attribute key={`attr-${attribute.id}`} onClick={() => onClickAttribute(attribute.id)} attribute={attribute} />)}
 </div>;
 
 export default Radium(Model);

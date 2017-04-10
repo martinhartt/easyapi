@@ -18,8 +18,8 @@ const ServiceList = ({ services, onSelect, onCreate }) => (
   <div>
     <p style={style.p}>Which API would you like to work on?</p>
     <div style={style.list}>
-      {services.map(service => <ServiceListItem onClick={() => onSelect(service.id)} service={service} />)}
-      <RoundButton text="+" onClick={onCreate} />
+      {services.map(service => <ServiceListItem key={service} onClick={() => onSelect(service.id)} service={service} />)}
+      <RoundButton text="add" onClick={onCreate} />
     </div>
   </div>
 );

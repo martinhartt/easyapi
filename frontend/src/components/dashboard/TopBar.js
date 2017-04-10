@@ -17,13 +17,13 @@ const style = {
     padding: 0,
     fontWeight: 500,
     fontSize: 24,
-  }
+  },
 };
 
 const TopBar = ({ name, actions, onNew }) =>
   <div style={style.base}>
     <h2 style={style.h2}>{name}</h2>
-    <RoundButton text="+" onClick={onNew}></RoundButton>
+    <RoundButton text="add" onClick={onNew} />
   </div>;
 
 export default TopBar;

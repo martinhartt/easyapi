@@ -1,6 +1,6 @@
 // @flow
 
-import { annotateNaturalText } from './annotateNaturalText';
+import { updateModelPreview } from './updateModelPreview';
 import { updateNaturalText } from './updateNaturalText';
 import { extractModelFromText } from '../../utils/API';
 
@@ -12,7 +12,7 @@ export function analyseNaturalText(text: string) {
     dispatch(updateNaturalText(text));
 
     return extractModelFromText(text)
-      .then(result => dispatch(annotateNaturalText(text, result)))
+      .then(result => dispatch(updateModelPreview(result)))
       .catch(console.log);
   }
 }

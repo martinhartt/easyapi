@@ -14,9 +14,9 @@ const style = {
   },
 };
 
-const Entries = ({ entries = [], attributes = [], headers = [], onSelected, onDelete, onCreate, onUpdate }) =>
+const Entries = ({ name, entries = [], attributes = [], headers = [], onSelected, onDelete, onCreate, onUpdate }) =>
   <div style={style.base}>
-    <TopBar name="OK" onNew={() => onCreate()} />
+    <TopBar name={name} onNew={() => onCreate()} />
     <Tabs headers={headers} onSelected={onSelected} />
     <RowHeader>
       <Column key="headerid" value="ID" />

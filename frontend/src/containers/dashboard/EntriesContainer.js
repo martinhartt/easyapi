@@ -107,6 +107,7 @@ entryById: {
 
 
   return {
+    name: service.name,
     headers,
     attributes,
     entries,

@@ -23,17 +23,18 @@ const styles = {
     width: 500,
     height: 130,
     padding: Dimensions.padding,
-  }
+  },
 };
 
-const TextInput = ({ text, placeholder, onChange, long = false, name, type }) => (
+const TextInput = ({ text, placeholder, onChange, long = false, name, type, id }) => (
   long ? (
     <textarea
       value={text}
       placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       style={[styles.base, styles.long]}
       name={name}
+      id={id}
     />
   ) : (
     <input
@@ -42,8 +43,9 @@ const TextInput = ({ text, placeholder, onChange, long = false, name, type }) =>
       name={name}
       type={type}
       placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       style={styles.base}
+      id={id}
     />
   )
 

@@ -4,14 +4,15 @@ import Frame from './Frame';
 import ServiceSetupNameContainer from '../containers/ServiceSetupNameContainer';
 import ServiceSetupMethodContainer from '../containers/ServiceSetupMethodContainer';
 import ServiceSetupNaturalContainer from '../containers/ServiceSetupNaturalContainer';
-import setupScreens from '../utils/setupScreens';
-
-const {
+import ServiceSetupSpreadsheetContainer from '../containers/ServiceSetupSpreadsheetContainer';
+import ServiceSetupDeviceContainer from '../containers/ServiceSetupDeviceContainer';
+import {
   SERVICE_SETUP_SCREEN_METHOD,
   SERVICE_SETUP_SCREEN_NAME,
   SERVICE_SETUP_SCREEN_NATURAL,
-} = setupScreens;
-
+  SERVICE_SETUP_SCREEN_SPREADSHEET,
+  SERVICE_SETUP_SCREEN_DEVICE,
+} from '../utils/setupScreens';
 
 const ServiceSetup = ({ screen }) => {
   let inner;
@@ -26,6 +27,12 @@ const ServiceSetup = ({ screen }) => {
     case SERVICE_SETUP_SCREEN_NATURAL:
       inner = (<ServiceSetupNaturalContainer />);
       break;
+    case SERVICE_SETUP_SCREEN_SPREADSHEET:
+      inner = (<ServiceSetupSpreadsheetContainer />);
+      break;
+    case SERVICE_SETUP_SCREEN_DEVICE:
+      inner = (<ServiceSetupDeviceContainer />);
+      break;
     default:
       inner = (<p>{'404 Setup screen not found'}</p>);
   }
@@ -35,7 +42,7 @@ const ServiceSetup = ({ screen }) => {
       {inner}
     </Frame>
   );
-}
+};
 
 ServiceSetup.PropTypes = {
   screen: PropTypes.string,

@@ -1,7 +1,7 @@
 // @flow
 import { List, Map, fromJS } from 'immutable';
 import {
-  ANNOTATE_NATURAL_TEXT,
+  UPDATE_MODEL_PREVIEW,
   NEW_SERVICE,
   RECEIVE_WEBHOOK_URL,
   SELECT_DEVICE,
@@ -21,17 +21,26 @@ import {
   CHANGE_SELECTED_MODEL,
   RECEIVE_ENTRY,
   DELETE_ENTRY_LOCALLY,
-  UPDATE_VALUE_LOCALLY
+  UPDATE_VALUE_LOCALLY,
+  UPDATE_SERVICE_LOCALLY,
+  SELECT_ATTRIBUTE
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
-import setupScreens from '../utils/setupScreens';
 import createMethods from '../utils/createMethods';
 import { isAuthenticated, getToken } from '../utils/Auth';
 import { normalizeServices, normalizeService, normalizeEntry } from '../utils/normalizr';
 import {
   LOCATION_CHANGE
 } from 'react-router-redux';
+import {
+  SERVICE_SETUP_SCREEN_METHOD,
+  SERVICE_SETUP_SCREEN_NAME,
+  SERVICE_SETUP_SCREEN_NATURAL,
+  SERVICE_SETUP_SCREEN_SPREADSHEET,
+  SERVICE_SETUP_SCREEN_DEVICE,
+} from '../utils/setupScreens';
+
 
 const {
   naturalLanguage,
@@ -39,11 +48,6 @@ const {
   device,
 } = createMethods;
 
-const {
-  SERVICE_SETUP_SCREEN_METHOD,
-  SERVICE_SETUP_SCREEN_NAME,
-  SERVICE_SETUP_SCREEN_NATURAL,
-} = setupScreens;
 
 const NEW_ID = '-1';
 
@@ -126,7 +130,7 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
               return state.setIn(['setup', 'screen'], SERVICE_SETUP_SCREEN_NATURAL);
               break;
             case spreadsheet:
-              return state.setIn(['setup', 'screen'], SERVICE_SETUP_SCREEN_NAME);
+              return state.setIn(['setup', 'screen'], SERVICE_SETUP_SCREEN_SPREADSHEET);
               break;
             case device:
               return state.setIn(['setup', 'screen'], SERVICE_SETUP_SCREEN_NAME);
@@ -177,9 +181,9 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
     case UPDATE_NATURAL_TEXT: {
       return state.setIn(['setup', 'naturalText'], formatSentences(action.text));
     }
-    case ANNOTATE_NATURAL_TEXT: {
+    case UPDATE_MODEL_PREVIEW: {
       return state
-        .setIn(['setup', 'naturalTextAnnotations'], action.annotations);
+        .setIn(['setup', 'modelDefinitionPreview'], action.annotations);
     }
     case SELECT_DEVICE: {
       return state
@@ -322,6 +326,16 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
 
       return state
         .setIn(['valueById', `${action.id}`, 'value'], action.value);
+    }
+    case UPDATE_SERVICE_LOCALLY: {
+      const servicePath = ['serviceById', `${state.getIn(['user', 'currentServiceId'])}`];
+
+      return state
+        .setIn(servicePath, state.getIn(servicePath).merge(fromJS(action.changes)));
+    }
+    case SELECT_ATTRIBUTE: {
+      return state
+        .setIn(['dashboard', 'selectedAttribute'], action.id);
     }
     default:
       return state;

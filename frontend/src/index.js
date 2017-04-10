@@ -11,8 +11,8 @@ import Service from './components/Service';
 import Dashboard from './components/dashboard/Dashboard';
 import StructureContainer from './containers/dashboard/StructureContainer';
 import EntriesContainer from './containers/dashboard/EntriesContainer';
-import Pages from './components/dashboard/pages/Pages';
-import About from './components/dashboard/about/About';
+import AboutContainer from './containers/dashboard/AboutContainer';
+import PagesContainer from './containers/dashboard/PagesContainer';
 import Publish from './components/dashboard/publish/Publish';
 import ServiceListContainer from './containers/ServiceListContainer';
 import HomePageContainer from './containers/HomePageContainer';
@@ -69,11 +69,11 @@ const r = () => render(
         />
         <Route
           path="pages"
-          component={Pages}
+          component={PagesContainer}
         />
         <Route
           path="about"
-          component={About}
+          component={AboutContainer}
         />
         <Route
           path="publish"

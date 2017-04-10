@@ -11,7 +11,7 @@ export function createService() {
     const state = getState();
 
     const setup = state.get('setup');
-    return postService(setup.get('name'), setup.get('naturalTextAnnotations'))
+    return postService(setup.get('name'), setup.get('modelDefinitionPreview'))
       .then((result) => {
         if (result.success) {
           dispatch(receiveService(result.service));

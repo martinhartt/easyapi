@@ -17,9 +17,9 @@ const style = {
   },
 };
 
-const prettify = string => string && string.replace('_', ' ');
+const prettify = string => string && string.replace(/_/g, ' ');
 
-const Attribute = ({ attribute, onClick }) => <div style={style.base}>
+const Attribute = ({ attribute, onClick }) => <div onClick={onClick} style={style.base}>
   {prettify(attribute.name)}
 </div>;
 
