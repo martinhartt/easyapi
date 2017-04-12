@@ -27,3 +27,4 @@ export { UPDATE_VALUE_LOCALLY } from './dashboard/updateValueLocally.js';
 export { UPDATE_SERVICE_LOCALLY } from './dashboard/updateServiceLocally.js';
 export { SELECT_ATTRIBUTE } from './dashboard/selectAttribute.js';
 export { DELETE_MODEL_LOCALLY } from './dashboard/deleteModelLocally.js';
+export { DELETE_ATTRIBUTE_LOCALLY } from './dashboard/deleteAttributeLocally.js';
