@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import databaseModels from '../models';
 import { object } from 'underscore';
+import databaseModels from '../models';
+import { decode } from '../components/utils';
 
 const { Service, Model, Attribute, Entry, Value, User } = databaseModels;
 
@@ -15,7 +16,6 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
   const id = req.param('id');
   const method = req.method;
   const input = req.body;
-  console.log(req);
 
   let data;
 
@@ -77,7 +77,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
           const obj = {};
           obj.id = entry.index;
           for (const attribute of attributes) {
-            obj[attribute.name] = valueByAttributeId[attribute.id];
+            obj[attribute.name] = decode(valueByAttributeId[attribute.id], attribute.type);
           }
 
           data = obj;
@@ -109,7 +109,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
             );
             obj.id = entry.index;
             for (const attribute of attributes) {
-              obj[attribute.name] = valueByAttributeId[attribute.id];
+              obj[attribute.name] = decode(valueByAttributeId[attribute.id], attribute.type);
             }
 
             objects.push(obj);
@@ -150,7 +150,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
               value: input[attribute.name],
             }),
           );
-          obj[attribute.name] = input[attribute.name] || null;
+          obj[attribute.name] = decode(input[attribute.name], attribute.type) || null;
         }
         await Promise.all(valuePromises);
         data = obj;

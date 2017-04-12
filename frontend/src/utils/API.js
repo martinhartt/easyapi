@@ -45,6 +45,14 @@ export const deleteEntry = id => curryReq('/entry', true, 'DELETE')({ id });
 export const updateValue = (entry, attribute, value) => curryReq('/value', true, 'PATCH')({ entry, attribute, value });
 export const updateService = (id, changes) => curryReq(`/service/${id}`, true, 'PATCH')(changes);
 
+export const postModel = curryReq('/model', true, 'POST');
+export const deleteModel = curryReq('/model', true, 'DELETE');
+export const patchModel = curryReq('/model', true, 'PATCH');
+
+export const postAttribute = curryReq('/attribute', true, 'POST');
+export const patchAttribute = curryReq('/attribute', true, 'PATCH');
+export const deleteAttribute = curryReq('/attribute', true, 'DELETE');
+
 
 export async function postAnalyzeSpreadsheet(file) {
   const formData = new FormData();

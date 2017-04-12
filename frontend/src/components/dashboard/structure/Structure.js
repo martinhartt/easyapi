@@ -2,102 +2,35 @@ import React from 'react';
 import Radium from 'radium';
 import Model from './Model';
 import TopBar from '../TopBar';
-import Modal from './Modal';
+import DialogBox from './DialogBox';
 import { lightBorder, Color } from '../../StyleConstant';
 
 const style = {
   main: {
     backgroundColor: Color.lighterGrey,
-    height: 'calc(100vh - 77px)',
+    height: 'calc(100vh - 97px)',
     padding: 10,
+    overflowY: 'auto',
   },
   model: {
 
   },
-};
-
-const exampleModels = [
-  {
-    name: 'pet',
-    raw: 'pet',
-    attributes: [
-      {
-        type: 'string',
-        name: 'name',
-        raw: 'name',
-        lemma: 'name',
-        required: false,
-        multiple: false,
-      },
-      {
-        type: 'string',
-        name: 'breed',
-        raw: 'breed',
-        lemma: 'breed',
-        required: false,
-        multiple: false,
-      },
-      {
-        type: 'Owner',
-        name: 'owner',
-        raw: 'owner',
-        lemma: 'owner',
-        required: false,
-        multiple: false,
-      },
-      {
-        type: 'Toy',
-        name: 'likes_toy',
-        raw: 'toy',
-        lemma: 'toy',
-        required: false,
-        multiple: false,
-      },
-    ],
+  newModel: {
+    textAlign: 'center',
+    backgroundColor: 'white',
+    border: '2px solid rgba(198, 198, 198, 0.34)',
+    borderRadius: 3,
+    width: 250,
+    padding: 5,
+    paddingBottom: 10,
+    fontSize: 27,
+    cursor: 'pointer',
+    color: 'black',
+    transition: '0.5s all',
+    ':hover': {
+      border: '2px solid rgba(198, 198, 198, 0.8)',
+    },
   },
-  {
-    name: 'owner',
-    raw: 'Owner',
-    attributes: [
-      {
-        type: 'string',
-        name: 'name',
-        raw: 'name',
-        lemma: 'name',
-        required: false,
-        multiple: false,
-      },
-      {
-        type: 'Pet',
-        name: 'owns_pet',
-        raw: 'pet',
-        lemma: 'pet',
-        required: false,
-        multiple: false,
-      },
-    ],
-  },
-  {
-    name: 'toy',
-    raw: 'Toy',
-    attributes: [
-      {
-        type: 'string',
-        name: 'name',
-        raw: 'name',
-        lemma: 'name',
-        required: false,
-        multiple: false,
-      },
-    ],
-  },
-];
-
-const exampleAttribute = {
-  name: 'attribute',
-  type: 'string',
-  required: true,
-  multiple: false,
 };
 
 const attributes = [
@@ -109,7 +42,8 @@ const attributes = [
   {
     value: 'type',
     label: 'Type',
-    type: 'string',
+    type: 'enum',
+    options: ['string', 'integer', 'float'],
   },
   {
     value: 'multiple',
@@ -119,16 +53,35 @@ const attributes = [
   {
     value: 'required',
     label: 'Required',
-    type: 'booleanonSelectAttribute = console.log, ',
+    type: 'boolean',
   },
 ];
 
-const Structure = ({ name, params, models = [], selectedAttribute, onSelectAttribute = console.log, onCreate, onDelete }) => <div style={style.base}>
-  <TopBar name={name} onNew={onCreate} />
-  {selectedAttribute && <Modal name={selectedAttribute.name} object={selectedAttribute} attributes={attributes} onClose={() => onSelectAttribute(undefined)} />}
+const Structure = ({
+  name,
+  params,
+  models = [],
+  selectedAttribute,
+  onSelectAttribute = console.log,
+  onModelCreate = console.log,
+  onModelDelete = console.log.bind(null, 'delete'),
+  onModelChange = console.log,
+  onAttributeCreate = console.log,
+  onAttributeDelete = console.log,
+  onAttributeChange = console.log,
+}) => <div style={style.base}>
+  <TopBar name={name} onNew={() => onModelCreate()} />
+  {selectedAttribute && <DialogBox
+    name={selectedAttribute.name}
+    object={selectedAttribute}
+    attributes={attributes}
+    onChange={changes => onAttributeChange(selectedAttribute.id, changes)}
+    onDelete={() => onAttributeDelete(selectedAttribute.id)}
+    onClose={() => onSelectAttribute(undefined)}
+  />}
   <div style={style.main}>
     {models.map(model =>
-      <Model key={`model-${model.id}`} onClickAttribute={onSelectAttribute} model={model} />,
+      <Model key={`model-${model.id}`} onChange={onModelChange} onDelete={onModelDelete} onAttributeCreate={onAttributeCreate} onClickAttribute={onSelectAttribute} model={model} />,
     )}
   </div>
 </div>;

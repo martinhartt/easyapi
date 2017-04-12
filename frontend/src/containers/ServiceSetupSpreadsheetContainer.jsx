@@ -8,10 +8,9 @@ import ServiceSetupSpreadsheet from '../components/ServiceSetupSpreadsheet';
 
 const mapStateToProps = (state) => {
   const preview = state.getIn(['setup', 'modelDefinitionPreview']);
-  console.log(preview, preview && preview.length);
   return {
     file: state.getIn(['setup', 'file']),
-    annotations: state.getIn(['setup', 'modelDefinitionPreview']),
+    annotations: preview,
     nextEnabled: preview && !!preview.length,
   };
 };

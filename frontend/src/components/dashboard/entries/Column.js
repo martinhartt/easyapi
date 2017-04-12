@@ -4,10 +4,11 @@ import Radium from 'radium';
 const style = {
   base: {
     minWidth: 70,
-    height: '80%',
+    // height: '80%',
     marginLeft: 0,
     textAlign: 'center',
-    marginRight: 0,
+    marginRight: 5,
+    width: 190,
   },
   item: {
     borderRadius: 3,
@@ -23,12 +24,15 @@ const style = {
       border: 0,
     },
   },
+  first: {
+    width: 80,
+  },
 };
 
-const Column = ({ value, isItem, onChange }) =>
+const Column = ({ value, isItem, onChange, first = false }) =>
   isItem ?
-    <input style={[style.base, style.item]} value={value} onChange={onChange} /> :
-    <div style={[style.base]}>{value}</div>;
+    <input style={[style.base, style.item, first && style.first]} value={value} onChange={onChange} /> :
+    <div style={[style.base, first && style.first]}>{value}</div>;
 
 
 export default Radium(Column);

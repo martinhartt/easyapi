@@ -3,7 +3,7 @@ import Radium from 'radium';
 import { Color, Dimensions } from './StyleConstant';
 
 const activeStyle = {
-  backgroundColor: Color.greenDark,
+  opacity: 1.0,
   border: 'none',
   outline: 'none',
 };
@@ -16,12 +16,12 @@ const style = {
     border: 'none',
     borderRadius: '50%',
     cursor: 'pointer',
-    transition: `${Dimensions.transitionTime.normal} background-color`,
+    transition: `${Dimensions.transitionTime.normal} opacity`,
     fontSize: 30,
     backgroundSize: 'contain',
     color: Color.whiteText,
     ':hover': {
-      backgroundColor: Color.greenLight,
+      opacity: 0.8,
     },
     ':active': activeStyle,
     ':focus': activeStyle,
@@ -32,8 +32,8 @@ const style = {
   },
 };
 
-const RoundButton = ({ text, onClick, isDisabled, color = Color.green }) => (
-  <button onClick={onClick} style={[style.base, isDisabled && style.isDisabled, { backgroundColor: color, backgroundImage: `url('/img/${text}.png')` }]} />
+const RoundButton = ({ text, onClick, isDisabled, color = Color.green, small = false }) => (
+  <button onClick={onClick} style={[style.base, isDisabled && style.isDisabled, { backgroundColor: color, backgroundImage: `url('/img/${text}.png')` }, small && { width: 25, height: 25 }]} />
 );
 
 RoundButton.PropTypes = {

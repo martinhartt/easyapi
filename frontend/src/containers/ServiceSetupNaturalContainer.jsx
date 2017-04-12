@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
   return {
     text: state.getIn(['setup', 'naturalText']),
     annotations: preview,
-    nextEnabled: preview && !!preview.size,
+    nextEnabled: preview && !!preview.length,
   };
 };
 

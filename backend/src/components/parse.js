@@ -21,7 +21,12 @@ export function parseSpreadsheet(file) {
     const modelDefinition = {};
     const [headingLine, ...rowLines] = csv.split('\n');
     const headings = headingLine.split(',');
-    const rows = rowLines.map(r => r.split(',')); // Get first 20 rows for sample data
+    const rows = rowLines
+      .map(r => r.split(','))
+      .filter(r => r.join('').trim().length > 0);
+
+    console.log(rows);
+
     modelDefinition.name = name;
 
     const attributes = [];
@@ -30,6 +35,7 @@ export function parseSpreadsheet(file) {
     for (let i = 0; i < headings.length; i++) {
       const headingName = headings[i].toLowerCase();
 
+       // Get first 20 rows for sample data
       const types = determineType(new Set(rows.slice(0, 20).map(row => findType(row[i]))));
       attributes.push(Object.assign({ name: headingName }, types));
     }

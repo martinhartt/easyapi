@@ -3,14 +3,11 @@ import {
 } from '../../actions/dashboard/changeSidebarItem';
 import Structure from '../../components/dashboard/structure/Structure';
 import { selectAttribute } from '../../actions/dashboard/selectAttribute';
+import { createModel } from '../../actions/dashboard/createModel';
 import 'immutable';
 
 const mapStateToProps = (immutableState) => {
   const state = immutableState.toJS();
-  // const service = state.getIn([
-  //   'serviceById',
-  //   `${state.getIn(['user', 'currentServiceId'])}`,
-  // ]);
 
   const service = state.serviceById[state.user.currentServiceId];
 
@@ -21,7 +18,7 @@ const mapStateToProps = (immutableState) => {
   const models = service.Models
     .map(i => state.modelById[i])
     .map(model => Object.assign(model, {
-      attributes: model.Attributes.map(i => state.attributeById[i]),
+      attributes: model.Attributes && model.Attributes.map(i => state.attributeById[i]),
     }));
 
 
@@ -37,6 +34,7 @@ const mapStateToProps = (immutableState) => {
 
 const mapDispatchToProps = dispatch => ({
   onSelectAttribute: id => dispatch(selectAttribute(id)),
+  onModelCreate: () => dispatch(createModel()),
 });
 
 

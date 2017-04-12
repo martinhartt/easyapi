@@ -23,13 +23,14 @@ import {
   DELETE_ENTRY_LOCALLY,
   UPDATE_VALUE_LOCALLY,
   UPDATE_SERVICE_LOCALLY,
-  SELECT_ATTRIBUTE
+  SELECT_ATTRIBUTE,
+  RECEIVE_MODEL
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
 import createMethods from '../utils/createMethods';
 import { isAuthenticated, getToken } from '../utils/Auth';
-import { normalizeServices, normalizeService, normalizeEntry } from '../utils/normalizr';
+import { normalizeServices, normalizeService, normalizeEntry, normalizeModel } from '../utils/normalizr';
 import {
   LOCATION_CHANGE
 } from 'react-router-redux';
@@ -290,7 +291,6 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
 
       const valueById = entities.value || {};
       const entryById = entities.entry || {};
-      console.log(valueById);
 
       const entryIdsPath = ['modelById', `${model}`, 'Entries'];
 
@@ -298,6 +298,17 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         .setIn(entryIdsPath, state.getIn(entryIdsPath).push(action.entry.id))
         .set('entryById', fromJS(entryById).merge(state.get('entryById')))
         .set('valueById', fromJS(valueById).merge(state.get('valueById')));
+    }
+    case RECEIVE_MODEL: {
+      const entities = normalizeModel(action.model).entities;
+
+      const modelById = entities.model || {};
+
+      const modelIdsPath = ['serviceById', `${state.getIn(['user','currentServiceId'])}`, 'Models'];
+
+      return state
+        .setIn(modelIdsPath, state.getIn(modelIdsPath).push(action.model.id))
+        .set('modelById', fromJS(modelById).merge(state.get('modelById')));
     }
     case SELECT_SERVICE: {
       return state.setIn(

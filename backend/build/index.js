@@ -161,11 +161,28 @@ module.exports = require("express");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = stringToHandle;
+/* harmony export (immutable) */ __webpack_exports__["b"] = stringToHandle;
+/* unused harmony export encode */
+/* harmony export (immutable) */ __webpack_exports__["a"] = decode;
 
 
 function stringToHandle(string) {
   return string.toLowerCase().replace(/\W/g, '');
+}
+
+function encode(value, type) {
+  return `${value}`;
+}
+
+function decode(string, type) {
+  switch (type) {
+    case 'integer':
+      return parseInt(string, 10);
+    case 'float':
+      return parseFloat(string);
+    default:
+      return string;
+  }
 }
 
 /***/ }),
@@ -776,7 +793,10 @@ function parseSpreadsheet(file) {
     const modelDefinition = {};
     const [headingLine, ...rowLines] = csv.split('\n');
     const headings = headingLine.split(',');
-    const rows = rowLines.map(r => r.split(',')); // Get first 20 rows for sample data
+    const rows = rowLines.map(r => r.split(',')).filter(r => r.join('').trim().length > 0);
+
+    console.log(rows);
+
     modelDefinition.name = name;
 
     const attributes = [];
@@ -785,6 +805,7 @@ function parseSpreadsheet(file) {
     for (let i = 0; i < headings.length; i++) {
       const headingName = headings[i].toLowerCase();
 
+      // Get first 20 rows for sample data
       const types = determineType(new Set(rows.slice(0, 20).map(row => findType(row[i]))));
       attributes.push(Object.assign({ name: headingName }, types));
     }
@@ -935,7 +956,7 @@ let createService = (() => {
     let service = yield Service.create({
       name,
       isPublic: false,
-      handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* stringToHandle */])(name),
+      handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["b" /* stringToHandle */])(name),
       UserId: userId
     });
 
@@ -945,7 +966,7 @@ let createService = (() => {
       return {
         name: def.name,
         ServiceId: service.id,
-        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* stringToHandle */])(def.name)
+        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["b" /* stringToHandle */])(def.name)
       };
     }));
 
@@ -1392,16 +1413,18 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_underscore__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_underscore__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_utils__ = __webpack_require__(2);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
 
 
 
-const { Service, Model, Attribute, Entry, Value, User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
+
+const { Service, Model, Attribute, Entry, Value, User } = __WEBPACK_IMPORTED_MODULE_2__models__["a" /* default */];
 
 /* eslint-disable new-cap */
 const router = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
@@ -1414,7 +1437,6 @@ router.all('/:user/:service/:model/:id?', (() => {
     const id = req.param('id');
     const method = req.method;
     const input = req.body;
-    console.log(req);
 
     let data;
 
@@ -1471,7 +1493,7 @@ router.all('/:user/:service/:model/:id?', (() => {
                 }
               });
 
-              const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_underscore__["object"])(values.map(function (v) {
+              const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["object"])(values.map(function (v) {
                 return v.AttributeId;
               }), values.map(function (v) {
                 return v.value;
@@ -1479,7 +1501,7 @@ router.all('/:user/:service/:model/:id?', (() => {
               const obj = {};
               obj.id = entry.index;
               for (const attribute of attributes) {
-                obj[attribute.name] = valueByAttributeId[attribute.id];
+                obj[attribute.name] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__components_utils__["a" /* decode */])(valueByAttributeId[attribute.id], attribute.type);
               }
 
               data = obj;
@@ -1510,14 +1532,14 @@ router.all('/:user/:service/:model/:id?', (() => {
                 const localValues = values.filter(function (v) {
                   return v.EntryId === entry.id;
                 });
-                const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_underscore__["object"])(localValues.map(function (v) {
+                const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["object"])(localValues.map(function (v) {
                   return v.AttributeId;
                 }), localValues.map(function (v) {
                   return v.value;
                 }));
                 obj.id = entry.index;
                 for (const attribute of attributes) {
-                  obj[attribute.name] = valueByAttributeId[attribute.id];
+                  obj[attribute.name] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__components_utils__["a" /* decode */])(valueByAttributeId[attribute.id], attribute.type);
                 }
 
                 objects.push(obj);
@@ -1557,7 +1579,7 @@ router.all('/:user/:service/:model/:id?', (() => {
                 AttributeId: attribute.id,
                 value: input[attribute.name]
               }));
-              obj[attribute.name] = input[attribute.name] || null;
+              obj[attribute.name] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__components_utils__["a" /* decode */])(input[attribute.name], attribute.type) || null;
             }
             yield Promise.all(valuePromises);
             data = obj;
@@ -1583,7 +1605,7 @@ router.all('/:user/:service/:model/:id?', (() => {
             });
 
             const valuePromises = [];
-            const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_underscore__["object"])(values.map(function (v) {
+            const valueByAttributeId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["object"])(values.map(function (v) {
               return v.AttributeId;
             }), values.map(function (v) {
               return v;
@@ -1779,6 +1801,32 @@ router.get('/', (() => {
 
   return function (_x5, _x6) {
     return _ref3.apply(this, arguments);
+  };
+})());
+
+router.delete('/', (() => {
+  var _ref4 = _asyncToGenerator(function* (req, res) {
+    try {
+      const id = req.param('id');
+      const result = yield Attribute.destroy({
+        where: {
+          id
+        }
+      });
+      return res.json({
+        result,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 })());
 
@@ -2044,7 +2092,7 @@ router.post('/', (() => {
     try {
       const model = yield Model.create({
         name,
-        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["a" /* stringToHandle */])(name),
+        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["b" /* stringToHandle */])(name),
         ServiceId: serviceId
       });
 
@@ -2074,7 +2122,7 @@ router.patch('/:id', (() => {
     try {
       const model = yield Model.update({
         name: newName,
-        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["a" /* stringToHandle */])(newName)
+        handle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["b" /* stringToHandle */])(newName)
       }, { where: { id: modelId } });
 
       return res.json({
@@ -2118,6 +2166,32 @@ router.get('/', (() => {
 
   return function (_x5, _x6) {
     return _ref3.apply(this, arguments);
+  };
+})());
+
+router.delete('/', (() => {
+  var _ref4 = _asyncToGenerator(function* (req, res) {
+    try {
+      const id = req.param('id');
+      const result = yield Model.destroy({
+        where: {
+          id
+        }
+      });
+      return res.json({
+        result,
+        success: true
+      });
+    } catch (e) {
+      return res.status(501).json({
+        error: e,
+        success: false
+      });
+    }
+  });
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 })());
 

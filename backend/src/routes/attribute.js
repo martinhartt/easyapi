@@ -87,4 +87,24 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.delete('/', async (req, res) => {
+  try {
+    const id = req.param('id');
+    const result = await Attribute.destroy({
+      where: {
+        id,
+      },
+    });
+    return res.json({
+      result,
+      success: true,
+    });
+  } catch (e) {
+    return res.status(501).json({
+      error: e,
+      success: false,
+    });
+  }
+});
+
 export default router;

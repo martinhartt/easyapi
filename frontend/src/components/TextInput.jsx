@@ -26,7 +26,7 @@ const styles = {
   },
 };
 
-const TextInput = ({ text, placeholder, onChange, long = false, name, type, id }) => (
+const TextInput = ({ text, placeholder, onChange, long = false, name, type = 'text', id }) => (
   long ? (
     <textarea
       value={text}
@@ -38,7 +38,6 @@ const TextInput = ({ text, placeholder, onChange, long = false, name, type, id }
     />
   ) : (
     <input
-      type="text"
       value={text}
       name={name}
       type={type}
