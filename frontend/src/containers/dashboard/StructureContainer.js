@@ -4,7 +4,7 @@ import {
 import Structure from '../../components/dashboard/structure/Structure';
 import { selectAttribute } from '../../actions/dashboard/selectAttribute';
 import { createModel } from '../../actions/dashboard/createModel';
-import 'immutable';
+import { createAttribute } from '../../actions/dashboard/createAttribute';
 
 const mapStateToProps = (immutableState) => {
   const state = immutableState.toJS();
@@ -21,7 +21,6 @@ const mapStateToProps = (immutableState) => {
       attributes: model.Attributes && model.Attributes.map(i => state.attributeById[i]),
     }));
 
-
   const selectedAttribute = state.dashboard.selectedAttribute &&
    state.attributeById[state.dashboard.selectedAttribute];
 
@@ -35,6 +34,7 @@ const mapStateToProps = (immutableState) => {
 const mapDispatchToProps = dispatch => ({
   onSelectAttribute: id => dispatch(selectAttribute(id)),
   onModelCreate: () => dispatch(createModel()),
+  onAttributeCreate: model => dispatch(createAttribute(model)),
 });
 
 

@@ -21,6 +21,7 @@ export { RECEIVE_SERVICE } from './setup/receiveService.js';
 export { CHANGE_SELECTED_MODEL } from './dashboard/changeSelectedModel.js';
 export { RECEIVE_ENTRY } from './dashboard/receiveEntry.js';
 export { RECEIVE_MODEL } from './dashboard/receiveModel.js';
+export { RECEIVE_ATTRIBUTE } from './dashboard/receiveAttribute.js';
 export { DELETE_ENTRY_LOCALLY } from './dashboard/deleteEntryLocally.js';
 export { UPDATE_VALUE_LOCALLY } from './dashboard/updateValueLocally.js';
 export { UPDATE_SERVICE_LOCALLY } from './dashboard/updateServiceLocally.js';

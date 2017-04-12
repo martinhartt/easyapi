@@ -24,13 +24,14 @@ import {
   UPDATE_VALUE_LOCALLY,
   UPDATE_SERVICE_LOCALLY,
   SELECT_ATTRIBUTE,
-  RECEIVE_MODEL
+  RECEIVE_MODEL,
+  RECEIVE_ATTRIBUTE,
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
 import createMethods from '../utils/createMethods';
 import { isAuthenticated, getToken } from '../utils/Auth';
-import { normalizeServices, normalizeService, normalizeEntry, normalizeModel } from '../utils/normalizr';
+import { normalizeServices, normalizeService, normalizeEntry, normalizeModel, normalizeAttribute } from '../utils/normalizr';
 import {
   LOCATION_CHANGE
 } from 'react-router-redux';
@@ -309,6 +310,18 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
       return state
         .setIn(modelIdsPath, state.getIn(modelIdsPath).push(action.model.id))
         .set('modelById', fromJS(modelById).merge(state.get('modelById')));
+    }
+    case RECEIVE_ATTRIBUTE: {
+      const entities = normalizeAttribute(action.attribute).entities;
+
+      const attributeById = entities.attribute || {};
+
+      const attributeIdsPath = ['modelById', `${action.attribute.ModelId}`, 'Attributes'];
+
+      console.log(attributeIdsPath)
+      return state
+        .setIn(attributeIdsPath, (state.getIn(attributeIdsPath) || fromJS([])).push(action.attribute.id))
+        .set('attributeById', fromJS(attributeById).merge(state.get('attributeById')));
     }
     case SELECT_SERVICE: {
       return state.setIn(
