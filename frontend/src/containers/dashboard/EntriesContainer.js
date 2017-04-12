@@ -22,8 +22,11 @@ const mapStateToProps = (immutableState) => {
 
   const model = state.modelById[selectedModel];
 
-  model.attributes = model.Attributes.map(i => state.attributeById[i]);
-  model.entries = model.Entries.map(i => state.entryById[i]);
+  if (!model) return {};
+
+  model.attributes = model.Attributes ? model.Attributes.map(i => state.attributeById[i]) : [];
+  model.entries = model.Entries ? model.Entries.map(i => state.entryById[i]) : [];
+  console.log('This is ', model);
 
   const headers = service.Models
     .map(i => state.modelById[i])

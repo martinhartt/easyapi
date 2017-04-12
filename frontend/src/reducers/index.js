@@ -26,6 +26,7 @@ import {
   SELECT_ATTRIBUTE,
   RECEIVE_MODEL,
   RECEIVE_ATTRIBUTE,
+  DELETE_MODEL_LOCALLY,
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
@@ -318,7 +319,6 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
 
       const attributeIdsPath = ['modelById', `${action.attribute.ModelId}`, 'Attributes'];
 
-      console.log(attributeIdsPath)
       return state
         .setIn(attributeIdsPath, (state.getIn(attributeIdsPath) || fromJS([])).push(action.attribute.id))
         .set('attributeById', fromJS(attributeById).merge(state.get('attributeById')));
@@ -344,6 +344,12 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
       return state
         .deleteIn(['entryById', `${action.entry.id}`])
         .setIn(entries, state.getIn(entries).filter(i => i !== action.entry.id));
+    }
+    case DELETE_MODEL_LOCALLY: {
+      const models = ['serviceById', `${state.getIn(['user','currentServiceId'])}`, 'Models'];
+      return state
+        .deleteIn(['modelById', `${action.id}`])
+        .setIn(models, state.getIn(models).filter(i => i !== action.id));
     }
     case UPDATE_VALUE_LOCALLY: {
       const valueIdsPath = ['valueById', `${action.value}`, 'Entries'];

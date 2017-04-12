@@ -10,6 +10,7 @@ const style = {
     borderRadius: 3,
     padding: '5px 9px',
     cursor: 'pointer',
+    minHeight: 25,
     transition: '0.3s all',
     ':hover': {
       backgroundColor: Color.lightGrey,
