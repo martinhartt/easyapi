@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Color } from '../../StyleConstant';
 
@@ -35,5 +36,9 @@ const Tabs = ({ headers, onSelected }) => <div style={style.base}>
       {header.text}
     </div>)}
 </div>;
+
+Tabs.propTypes = {
+  headers: PropTypes.array,
+};
 
 export default Radium(Tabs);

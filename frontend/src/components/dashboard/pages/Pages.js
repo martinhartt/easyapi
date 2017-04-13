@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TopBar from '../TopBar';
 import { Color } from '../../StyleConstant';
 import TextInput from '../../TextInput';
@@ -60,7 +61,7 @@ function bind(model, action, onChange) {
   return console.log.bind(console, name, prop);// onChange(name, { [prop]: !!e.target.checked });
 }
 
-const Pages = ({ name, models = [], actions = [], onChange = console.log, urlPrefix }) => <div style={style.base}>
+const Pages = ({ name, models = [], actions = [], onChange, urlPrefix }) => <div style={style.base}>
   <TopBar name={name} />
   {models.map((model, modelIndex) => <div style={style.page}>
     <h3 style={style.title}>{model.name}</h3>
@@ -82,5 +83,13 @@ const Pages = ({ name, models = [], actions = [], onChange = console.log, urlPre
     ))}
   </div>)}
 </div>;
+
+Pages.propTypes = {
+  name: PropTypes.string,
+  models: PropTypes.array,
+  actions: PropTypes.array,
+  onChange: PropTypes.func,
+  urlPrefix: PropTypes.string,
+};
 
 export default Pages;

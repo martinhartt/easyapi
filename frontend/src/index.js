@@ -7,13 +7,12 @@ import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import easyAPI from './reducers';
 import './index.css';
-import Service from './components/Service';
+import ServiceSetupContainer from './containers/setup/SetupContainer';
 import Dashboard from './components/dashboard/Dashboard';
 import StructureContainer from './containers/dashboard/StructureContainer';
 import EntriesContainer from './containers/dashboard/EntriesContainer';
 import AboutContainer from './containers/dashboard/AboutContainer';
 import PagesContainer from './containers/dashboard/PagesContainer';
-import Publish from './components/dashboard/publish/Publish';
 import ServiceListContainer from './containers/ServiceListContainer';
 import HomePageContainer from './containers/HomePageContainer';
 import { isAuthenticated } from './utils/Auth';
@@ -51,7 +50,7 @@ const r = () => render(
       />
       <Route
         path="/service/setup"
-        component={Service}
+        component={ServiceSetupContainer}
         onEnter={requireAuth}
       />
       <Route
@@ -74,10 +73,6 @@ const r = () => render(
         <Route
           path="about"
           component={AboutContainer}
-        />
-        <Route
-          path="publish"
-          component={Publish}
         />
         <IndexRedirect to="structure" />
       </Route>

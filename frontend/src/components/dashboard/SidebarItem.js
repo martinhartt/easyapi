@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Link } from 'react-router';
 import { Color } from '../StyleConstant';
@@ -33,5 +34,14 @@ const SidebarItem = ({ item, onClick }) =>
       {item.name}
     </div>
   </div>;
+
+SidebarItem.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string,
+    path: PropTypes.string,
+    selected: PropTypes.bool,
+  }),
+  onClick: PropTypes.func,
+};
 
 export default Radium(SidebarItem);

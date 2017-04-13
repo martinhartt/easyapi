@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Frame from '../Frame';
 import SetupNameContainer from '../../containers/setup/SetupNameContainer';
@@ -14,7 +15,7 @@ import {
 
 const Setup = ({ screen }) => {
   let inner;
-  console.log('screen', screen);
+
   switch (screen) {
     case SERVICE_SETUP_SCREEN_NAME:
       inner = (<SetupNameContainer />);
@@ -39,7 +40,7 @@ const Setup = ({ screen }) => {
   );
 };
 
-Setup.PropTypes = {
+Setup.propTypes = {
   screen: PropTypes.string,
 };
 

@@ -1,8 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Button from '../Button';
 import TextInput from '../TextInput';
 import capitalizeString from '../../utils/capitalizeString';
+import Model from '../dashboard/structure/Model';
 
 const styles = {
   nextButton: {
@@ -45,7 +47,8 @@ const SetupNatural = ({ text, onChange, onDone, annotations, nextEnabled }) => (
           long
         />
       </div>
-      <p dangerouslySetInnerHTML={formatAnnotations(annotations)} />
+      {annotations && annotations.map(a => <Model enableInteractions={false} model={a} />)}
+      {/* <p dangerouslySetInnerHTML={formatAnnotations(annotations)} /> */}
     </div>
     <div style={styles.nextButton} >
       <Button isDisabled={!nextEnabled} onClick={onDone} text="Next" />
@@ -57,6 +60,8 @@ SetupNatural.PropTypes = {
   text: PropTypes.string,
   onChange: PropTypes.func,
   onDone: PropTypes.func,
+  annotations: PropTypes.array,
+  nextEnabled: PropTypes.bool,
 };
 
 /* eslint-disable new-cap */

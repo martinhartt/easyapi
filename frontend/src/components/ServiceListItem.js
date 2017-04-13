@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Color, Dimensions } from './StyleConstant';
 
@@ -21,5 +22,12 @@ const style = {
 const ServiceListItem = ({ service, onClick }) => <div style={style} onClick={onClick}>
   {service && service.name}
 </div>;
+
+ServiceListItem.propTypes = {
+  service: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  onClick: PropTypes.func,
+};
 
 export default Radium(ServiceListItem);

@@ -1,9 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Button from '../Button';
 import TextInput from '../TextInput';
 import capitalizeString from '../../utils/capitalizeString';
 import Dropzone from 'react-dropzone';
+import Model from '../dashboard/structure/Model';
 
 const styles = {
   nextButton: {
@@ -16,6 +18,16 @@ const styles = {
     marginRight: 'auto',
     textAlign: 'center',
     marginTop: 100,
+  },
+  sheet: {
+    width: '100%',
+    height: 300,
+    border: '2px solid gray',
+    borderRadius: 5,
+    borderStyle: 'dashed',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
   },
 };
 
@@ -38,13 +50,12 @@ function formatAnnotations(annotations = []) {
 const SetupSpreadsheet = ({ text, onChange, onDone, annotations, nextEnabled }) => (
   <div>
     <div style={styles.field}>
-      <p>Please describe the various things and entities, <br />along with their properties and relationships</p>
       <div>
-        <Dropzone onDrop={onChange}>
-          Drop it
+        <Dropzone onDrop={onChange} style={styles.sheet}>
+          Drop a spreadsheet file into this area
         </Dropzone>
       </div>
-      <p dangerouslySetInnerHTML={formatAnnotations(annotations)} />
+      {annotations && annotations.map(a => <Model enableInteractions={false} model={a} />)}
     </div>
     <div style={styles.nextButton} >
       <Button isDisabled={!nextEnabled} onClick={onDone} text="Next" />
@@ -56,6 +67,8 @@ SetupSpreadsheet.PropTypes = {
   text: PropTypes.string,
   onChange: PropTypes.func,
   onDone: PropTypes.func,
+  annotations: PropTypes.array,
+  nextEnabled: PropTypes.bool,
 };
 
 /* eslint-disable new-cap */

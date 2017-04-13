@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { lightBorder, Color } from '../StyleConstant';
 import RoundButton from '../RoundButton';
 
@@ -20,10 +21,15 @@ const style = {
   },
 };
 
-const TopBar = ({ name, actions, onNew }) =>
+const TopBar = ({ name, onNew }) =>
   <div style={style.base}>
     <h2 style={style.h2}>{name}</h2>
     <RoundButton text="add" onClick={onNew} />
   </div>;
+
+TopBar.propTypes = {
+  name: PropTypes.string,
+  onNew: PropTypes.func,
+};
 
 export default TopBar;

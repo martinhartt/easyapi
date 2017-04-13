@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Color, Dimensions } from './StyleConstant';
 
@@ -28,19 +29,21 @@ const style = {
   isDisabled: {
     pointerEvents: 'none',
     backgroundColor: Color.grey,
-  }
-}
+  },
+};
 
 const Button = ({ text, onClick, isDisabled, type }) => (
   <button type={type} onClick={onClick} style={[style.base, isDisabled ? style.isDisabled : {}]}>
     {text}
   </button>
-)
+);
 
 Button.PropTypes = {
   text: PropTypes.string,
   onClick: PropTypes.func,
-}
+  isDisabled: PropTypes.bool,
+  type: PropTypes.string,
+};
 
 
 export default Radium(Button);

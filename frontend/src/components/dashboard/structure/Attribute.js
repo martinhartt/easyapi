@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import capitalizeString from '../../../utils/capitalizeString';
 import { Color } from '../../StyleConstant';
@@ -16,12 +17,29 @@ const style = {
       backgroundColor: Color.lightGrey,
     },
   },
+  noInteraction: {
+    cursor: 'default',
+  },
 };
 
 const prettify = string => string && string.replace(/_/g, ' ');
 
-const Attribute = ({ attribute, onClick }) => <div onClick={onClick} style={style.base}>
-  {prettify(attribute.name)}
+function formatAttribute(attribute) {
+  console.log(attribute);
+  const leftPar = attribute.multiple ? '[' : '';
+  const rightPar = attribute.multiple ? ']' : '';
+  return `${prettify(attribute.name)} (${leftPar}${attribute.type}${rightPar})`;
+}
+
+const Attribute = ({ attribute, onClick, enableInteractions }) => <div onClick={onClick} style={[style.base, !enableInteractions && style.noInteraction]}>
+  {formatAttribute(attribute)}
 </div>;
+
+Attribute.propTypes = {
+  attribute: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  enableInteractions: PropTypes.bool,
+};
 
 export default Radium(Attribute);

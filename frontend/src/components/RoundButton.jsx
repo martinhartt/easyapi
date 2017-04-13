@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Color, Dimensions } from './StyleConstant';
 
@@ -37,8 +38,11 @@ const RoundButton = ({ text, onClick, isDisabled, color = Color.green, small = f
 );
 
 RoundButton.PropTypes = {
-  icon: PropTypes.string,
+  text: PropTypes.string,
   onClick: PropTypes.func,
+  isDisabled: PropTypes.bool,
+  color: PropTypes.string,
+  small: PropTypes.bool,
 };
 
 

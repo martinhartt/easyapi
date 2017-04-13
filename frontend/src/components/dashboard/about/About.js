@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TopBar from '../TopBar';
 import { Color } from '../../StyleConstant';
 import TextInput from '../../TextInput';
@@ -54,5 +55,16 @@ const About = ({ name, meta = metaExample, onChange }) => <div>
 
   </div>
 </div>;
+
+About.propTypes = {
+  name: PropTypes.string,
+  meta: PropTypes.shape({
+    name: PropTypes.string,
+    url: PropTypes.string,
+    author: PropTypes.string,
+    public: PropTypes.bool,
+  }),
+  onChange: PropTypes.func,
+};
 
 export default About;

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import TextInput from '../TextInput';
 import Button from '../Button';
@@ -30,6 +31,7 @@ const SetupMethod = ({ name, onChange, onDone }) => (
 
 SetupMethod.PropTypes = {
   name: PropTypes.string,
+  onChange: PropTypes.func,
   onDone: PropTypes.func,
 };
 

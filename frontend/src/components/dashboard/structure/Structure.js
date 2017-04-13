@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Model from './Model';
 import TopBar from '../TopBar';
@@ -59,16 +60,15 @@ const attributes = [
 
 const Structure = ({
   name,
-  params,
   models = [],
   selectedAttribute,
-  onSelectAttribute = console.log,
-  onModelCreate = console.log,
-  onModelDelete = console.log.bind(null, 'delete'),
-  onModelChange = console.log,
-  onAttributeCreate = console.log,
-  onAttributeDelete = console.log,
-  onAttributeChange = console.log,
+  onSelectAttribute,
+  onModelCreate,
+  onModelDelete,
+  onModelChange,
+  onAttributeCreate,
+  onAttributeDelete,
+  onAttributeChange,
 }) => <div style={style.base}>
   <TopBar name={name} onNew={() => onModelCreate()} />
   {selectedAttribute && <DialogBox
@@ -85,5 +85,18 @@ const Structure = ({
     )}
   </div>
 </div>;
+
+Structure.propTypes = {
+  name: PropTypes.string,
+  models: PropTypes.array,
+  selectedAttribute: PropTypes.object,
+  onSelectAttribute: PropTypes.func,
+  onModelCreate: PropTypes.func,
+  onModelDelete: PropTypes.func,
+  onModelChange: PropTypes.func,
+  onAttributeCreate: PropTypes.func,
+  onAttributeDelete: PropTypes.func,
+  onAttributeChange: PropTypes.func,
+};
 
 export default Radium(Structure);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Color, lightBorder } from '../../StyleConstant';
 import TextInput from '../../TextInput';
 import capitalizeString from '../../../utils/capitalizeString';
@@ -109,5 +110,14 @@ const DialogBox = ({ name, object, attributes, onChange, onClose, onDelete }) =>
       <div onClick={onDelete} style={style.delete}>Delete</div>
     </div>
   </div>;
+
+DialogBox.propTypes = {
+  name: PropTypes.string,
+  object: PropTypes.object,
+  attributes: PropTypes.array,
+  onChange: PropTypes.func,
+  onClose: PropTypes.func,
+  onDelete: PropTypes.func,
+};
 
 export default DialogBox;

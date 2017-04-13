@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Router, Route, browserHistory } from 'react-router';
 import AuthFormContainer from '../containers/AuthFormContainer';
@@ -16,7 +17,7 @@ const HomePage = ({ authenticated }) => (
 );
 
 HomePage.propTypes = {
-  params: PropTypes.any,
+  authenticated: PropTypes.bool,
 };
 
 /* eslint-disable new-cap */

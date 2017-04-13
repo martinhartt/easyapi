@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Color, Dimensions } from './StyleConstant';
 
@@ -52,6 +53,12 @@ const TextInput = ({ text, placeholder, onChange, long = false, name, type = 'te
 
 TextInput.propTypes = {
   text: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+  long: PropTypes.bool,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  id: PropTypes.any,
 };
 
 /* eslint-disable new-cap */

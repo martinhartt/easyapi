@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SidebarItem from './SidebarItem';
 
 const itemsExample = [
@@ -9,10 +10,19 @@ const itemsExample = [
   { name: 'Publish', path: '/service/X/publish' },
 ];
 
-const Sidebar = ({ items = itemsExample, location, onSelect }) => <div>
+const Sidebar = ({ items = itemsExample, onSelect }) => <div>
   {items.map(
     (item, i) => <SidebarItem item={item} key={item.name} onClick={() => onSelect(i, items[i])} />,
   )}
 </div>;
+
+Sidebar.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    path: PropTypes.string,
+    selected: PropTypes.bool,
+  })),
+  onSelect: PropTypes.func,
+};
 
 export default Sidebar;

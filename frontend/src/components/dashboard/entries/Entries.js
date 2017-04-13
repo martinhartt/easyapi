@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TopBar from '../TopBar';
 import Tabs from './Tabs';
 import RowHeader from './RowHeader';
@@ -10,6 +11,7 @@ import { Color } from '../../StyleConstant';
 const style = {
   base: {
     backgroundColor: Color.lighterGrey,
+    overflowX: 'auto',
   },
   main: {
     height: 'calc(100vh - 77px)',
@@ -53,5 +55,16 @@ const Entries = ({ name, entries = [], attributes = [], headers = [], onSelected
       )}
     </div>
   </div>;
+
+Entries.propTypes = {
+  name: PropTypes.string.isRequired,
+  entries: PropTypes.array.isRequired,
+  attributes: PropTypes.array.isRequired,
+  headers: PropTypes.array.isRequired,
+  onSelected: PropTypes.func,
+  onDelete: PropTypes.func,
+  onCreate: PropTypes.func,
+  onUpdate: PropTypes.func,
+};
 
 export default Entries;

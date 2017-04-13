@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 
 const style = {
@@ -34,5 +35,11 @@ const Column = ({ value, isItem, onChange, first = false }) =>
     <input style={[style.base, style.item, first && style.first]} value={value} onChange={onChange} /> :
     <div style={[style.base, first && style.first]}>{value}</div>;
 
+
+Column.propTypes = {
+  value: PropTypes.string.isRequired,
+  isItem: PropTypes.bool.isRequired,
+  onChange: PropTypes.func,
+};
 
 export default Radium(Column);

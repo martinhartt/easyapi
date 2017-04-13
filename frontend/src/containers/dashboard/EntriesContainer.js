@@ -46,7 +46,11 @@ const mapStateToProps = (immutableState) => {
 
     for (const valueObj of values) {
       const value = valueObj.value;
-      obj[state.attributeById[valueObj.Attribute || valueObj.AttributeId].name] = { value, id: valueObj.id };
+
+      const attr = state.attributeById[valueObj.Attribute || valueObj.AttributeId];
+
+      if (!attr) continue;
+      obj[attr.name] = { value, id: valueObj.id };
     }
 
     // for (const attribute of missing) {

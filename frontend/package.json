@@ -13,6 +13,7 @@
   "dependencies": {
     "immutable": "^3.8.1",
     "normalizr": "^3.2.2",
+    "prop-types": "^15.5.8",
     "radium": "^0.18.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

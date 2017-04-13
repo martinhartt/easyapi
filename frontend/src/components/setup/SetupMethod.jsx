@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import MethodButton from '../MethodButton';
 import Button from '../Button';
@@ -7,7 +8,6 @@ import createMethods from '../../utils/createMethods';
 const {
   naturalLanguage,
   spreadsheet,
-  device,
 } = createMethods;
 
 
@@ -34,8 +34,16 @@ const SetupMethod = ({ method, onChange, onDone }) => (
     <div style={styles.field}>
       <p>How do you want to create your API?</p>
       <div style={styles.methods}>
-        <MethodButton method={naturalLanguage} isSelected={method === naturalLanguage} onClick={() => onChange(naturalLanguage)} />
-        <MethodButton method={spreadsheet} isSelected={method === spreadsheet} onClick={() => onChange(spreadsheet)} />
+        <MethodButton
+          method={naturalLanguage}
+          isSelected={method === naturalLanguage}
+          onClick={() => onChange(naturalLanguage)}
+        />
+        <MethodButton
+          method={spreadsheet}
+          isSelected={method === spreadsheet}
+          onClick={() => onChange(spreadsheet)}
+        />
       </div>
     </div>
     <div style={styles.nextButton} >
@@ -44,8 +52,9 @@ const SetupMethod = ({ method, onChange, onDone }) => (
   </div>
 );
 
-SetupMethod.PropTypes = {
+SetupMethod.propTypes = {
   method: PropTypes.string,
+  onChange: PropTypes.func,
   onDone: PropTypes.func,
 };
 

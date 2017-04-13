@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Color, Dimensions } from './StyleConstant';
 import createMethods from '../utils/createMethods';
@@ -51,8 +52,8 @@ const style = {
   inner: {
     textAlign: 'center',
     marginBottom: 20,
-  }
-}
+  },
+};
 
 const MethodButton = ({ method, onClick, isSelected }) => {
   let text;
@@ -74,21 +75,24 @@ const MethodButton = ({ method, onClick, isSelected }) => {
   }
 
   return (
-    <button onClick={onClick} style={[
-      style.base,
-      isSelected ? style.selected : {},
-    ]}>
+    <button
+      onClick={onClick} style={[
+        style.base,
+        isSelected ? style.selected : {},
+      ]}
+    >
       <div style={style.inner}>
         <img src={`/img/${image}.png`} style={style.image[image]} alt={text} />
       </div>
       {text}
     </button>
-  )
+  );
 };
 
 MethodButton.PropTypes = {
   method: PropTypes.string,
   onClick: PropTypes.func,
-}
+  isSelected: PropTypes.bool,
+};
 
 export default Radium(MethodButton);

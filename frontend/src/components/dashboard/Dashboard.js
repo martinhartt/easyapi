@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../Logo';
 import SidebarContainer from '../../containers/dashboard/SidebarContainer';
 import { Color, lightBorder } from '../StyleConstant';
@@ -20,10 +21,10 @@ const style = {
     textAlign: 'center',
     padding: '20px 0',
     borderBottom: lightBorder,
-  }
-}
+  },
+};
 
-const Dashboard = ({ params, children }) => <div style={style.base}>
+const Dashboard = ({ children }) => <div style={style.base}>
   <div style={style.sidebar}>
     <div style={style.logo}>
       <Logo />
@@ -34,5 +35,9 @@ const Dashboard = ({ params, children }) => <div style={style.base}>
     {children}
   </div>
 </div>;
+
+Dashboard.propTypes = {
+  children: PropTypes.node,
+};
 
 export default Dashboard;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Attribute from './Attribute';
 import { Color } from '../../StyleConstant';
@@ -57,15 +58,34 @@ const style = {
   },
 };
 
-const Model = ({ model, onClickAttribute, onDelete, onChange, onAttributeCreate }) => <div style={style.base}>
-  <input style={[style.title]} value={capitalizeString(model.name)} onChange={e => onChange(model.id, e.target.value)} />
+const Model = ({ model, onClickAttribute, onDelete, onChange, onAttributeCreate, enableInteractions = true }) => <div style={style.base}>
+  <input disabled={!enableInteractions} style={[style.title]} value={capitalizeString(model.name)} onChange={e => onChange(model.id, e.target.value)} />
   <div style={style.close}>
-    <RoundButton text="remove" onClick={() => onDelete(model.id)} color={Color.red} small />
+    {enableInteractions && <RoundButton text="remove" onClick={() => onDelete(model.id)} color={Color.red} small />}
   </div>
   <div style={style.attributes}>
-    {model.attributes && model.attributes.map(attribute => <Attribute key={`attr-${attribute.id}`} onClick={() => onClickAttribute(attribute.id)} attribute={attribute} />)}
-    <div key="newAttribute" style={style.newAttribute} onClick={() => onAttributeCreate(model.id)}>+</div>
+    {model.attributes && model.attributes.map(attribute =>
+      <Attribute
+        key={`attr-${attribute.name}-${attribute.id}`}
+        onClick={() => enableInteractions && onClickAttribute(attribute.id)}
+        attribute={attribute}
+        enableInteractions={enableInteractions}
+      />)}
+    {enableInteractions && <div key="newAttribute" style={style.newAttribute} onClick={() => onAttributeCreate(model.id)}>+</div>}
   </div>
 </div>;
+
+Model.propTypes = {
+  model: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number,
+    attributes: PropTypes.array,
+  }).isRequired,
+  onClickAttribute: PropTypes.func,
+  onDelete: PropTypes.func,
+  onChange: PropTypes.func,
+  onAttributeCreate: PropTypes.func,
+  enableInteractions: PropTypes.bool,
+};
 
 export default Radium(Model);
