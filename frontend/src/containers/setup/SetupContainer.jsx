@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
-import ServiceSetup from '../components/ServiceSetup';
+import Setup from '../../components/setup/Setup';
 import 'immutable';
 
 const mapStateToProps = (state, ownProps) => ({
   screen: state.getIn(['setup', 'screen']),
 });
 
-const ServiceSetupContainer = connect(
+const SetupContainer = connect(
   mapStateToProps,
-)(ServiceSetup);
+)(Setup);
 
-export default ServiceSetupContainer;
+export default SetupContainer;

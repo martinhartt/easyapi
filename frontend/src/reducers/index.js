@@ -28,6 +28,8 @@ import {
   RECEIVE_ATTRIBUTE,
   DELETE_MODEL_LOCALLY,
   DELETE_ATTRIBUTE_LOCALLY,
+  UPDATE_ATTRIBUTE_LOCALLY,
+  UPDATE_MODEL_LOCALLY,
 } from '../actions/actionTypes';
 import capitalizeString from '../utils/capitalizeString';
 import formatSentences from '../utils/formatSentences';
@@ -374,6 +376,15 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
     case SELECT_ATTRIBUTE: {
       return state
         .setIn(['dashboard', 'selectedAttribute'], action.id);
+    }
+    case UPDATE_MODEL_LOCALLY: {
+      return state
+        .setIn(['modelById', `${action.id}`, 'name'], action.name);
+    }
+    case UPDATE_ATTRIBUTE_LOCALLY: {
+      const path = ['attributeById', `${action.id}`];
+      return state
+        .setIn(path, state.getIn(path).merge(fromJS(action.changes)));
     }
     default:
       return state;

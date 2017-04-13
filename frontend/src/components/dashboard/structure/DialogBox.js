@@ -102,7 +102,7 @@ function field(attr, object, onChange) {
 const DialogBox = ({ name, object, attributes, onChange, onClose, onDelete }) =>
   <div>
     <div style={style.cover} onClick={onClose} />
-    <div style={style.base} onClick={(e) => { e.preventDefault(); }}>
+    <div style={style.base}>
       <div style={style.close} onClick={onClose} />
       <h3 style={style.title}>{name && capitalizeString(name)}</h3>
       {attributes.map(attr => field(attr, object, onChange))}

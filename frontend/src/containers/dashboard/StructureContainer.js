@@ -7,6 +7,8 @@ import { createModel } from '../../actions/dashboard/createModel';
 import { createAttribute } from '../../actions/dashboard/createAttribute';
 import { deleteModel } from '../../actions/dashboard/deleteModel';
 import { deleteAttribute } from '../../actions/dashboard/deleteAttribute';
+import { updateModel } from '../../actions/dashboard/updateModel';
+import { updateAttribute } from '../../actions/dashboard/updateAttribute';
 
 const mapStateToProps = (immutableState) => {
   const state = immutableState.toJS();
@@ -39,6 +41,8 @@ const mapDispatchToProps = dispatch => ({
   onAttributeCreate: model => dispatch(createAttribute(model)),
   onModelDelete: id => dispatch(deleteModel(id)),
   onAttributeDelete: id => dispatch(deleteAttribute(id)),
+  onModelChange: (id, name) => dispatch(updateModel(id, name)),
+  onAttributeChange: (id, changes) => dispatch(updateAttribute(id, changes)),
 });
 
 

@@ -47,10 +47,10 @@ export const updateService = (id, changes) => curryReq(`/service/${id}`, true, '
 
 export const postModel = curryReq('/model', true, 'POST');
 export const deleteModel = curryReq('/model', true, 'DELETE');
-export const patchModel = curryReq('/model', true, 'PATCH');
+export const patchModel = obj => curryReq(`/model/${obj.id}`, true, 'PATCH')(obj);
 
 export const postAttribute = curryReq('/attribute', true, 'POST');
-export const patchAttribute = curryReq('/attribute', true, 'PATCH');
+export const patchAttribute = obj => curryReq(`/attribute/${obj.id}`, true, 'PATCH')(obj);
 export const deleteAttribute = curryReq('/attribute', true, 'DELETE');
 
 

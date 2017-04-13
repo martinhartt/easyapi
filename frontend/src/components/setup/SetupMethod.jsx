@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import MethodButton from './MethodButton';
-import Button from './Button';
-import createMethods from '../utils/createMethods';
+import MethodButton from '../MethodButton';
+import Button from '../Button';
+import createMethods from '../../utils/createMethods';
 
 const {
   naturalLanguage,
@@ -26,17 +26,16 @@ const styles = {
   methods: {
     display: 'flex',
     justifyContent: 'center',
-  }
-}
+  },
+};
 
-const ServiceSetupMethod = ({ method, onChange, onDone }) => (
+const SetupMethod = ({ method, onChange, onDone }) => (
   <div>
     <div style={styles.field}>
       <p>How do you want to create your API?</p>
       <div style={styles.methods}>
         <MethodButton method={naturalLanguage} isSelected={method === naturalLanguage} onClick={() => onChange(naturalLanguage)} />
         <MethodButton method={spreadsheet} isSelected={method === spreadsheet} onClick={() => onChange(spreadsheet)} />
-        <MethodButton method={device} isSelected={method === device} onClick={() => onChange(device)} />
       </div>
     </div>
     <div style={styles.nextButton} >
@@ -45,10 +44,10 @@ const ServiceSetupMethod = ({ method, onChange, onDone }) => (
   </div>
 );
 
-ServiceSetupMethod.PropTypes = {
+SetupMethod.PropTypes = {
   method: PropTypes.string,
   onDone: PropTypes.func,
 };
 
 /* eslint-disable new-cap */
-export default Radium(ServiceSetupMethod);
+export default Radium(SetupMethod);

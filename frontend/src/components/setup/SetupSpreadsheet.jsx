@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import Button from './Button';
-import TextInput from './TextInput';
-import capitalizeString from '../utils/capitalizeString';
+import Button from '../Button';
+import TextInput from '../TextInput';
+import capitalizeString from '../../utils/capitalizeString';
+import Dropzone from 'react-dropzone';
 
 const styles = {
   nextButton: {
@@ -34,16 +35,14 @@ function formatAnnotations(annotations = []) {
   return { __html: html };
 }
 
-const ServiceSetupNatural = ({ text, onChange, onDone, annotations, nextEnabled }) => (
+const SetupSpreadsheet = ({ text, onChange, onDone, annotations, nextEnabled }) => (
   <div>
     <div style={styles.field}>
       <p>Please describe the various things and entities, <br />along with their properties and relationships</p>
       <div>
-        <TextInput
-          text={text}
-          onChange={onChange}
-          long
-        />
+        <Dropzone onDrop={onChange}>
+          Drop it
+        </Dropzone>
       </div>
       <p dangerouslySetInnerHTML={formatAnnotations(annotations)} />
     </div>
@@ -53,11 +52,11 @@ const ServiceSetupNatural = ({ text, onChange, onDone, annotations, nextEnabled 
   </div>
 );
 
-ServiceSetupNatural.PropTypes = {
+SetupSpreadsheet.PropTypes = {
   text: PropTypes.string,
   onChange: PropTypes.func,
   onDone: PropTypes.func,
 };
 
 /* eslint-disable new-cap */
-export default Radium(ServiceSetupNatural);
+export default Radium(SetupSpreadsheet);

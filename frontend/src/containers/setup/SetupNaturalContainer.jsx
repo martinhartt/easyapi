@@ -1,30 +1,29 @@
 import { connect } from 'react-redux';
 import 'immutable';
 import {
+  analyseNaturalText,
   createService,
-} from '../actions/setup';
-import { analyseSpreadsheet } from '../actions/setup/analyseSpreadsheet';
-import ServiceSetupSpreadsheet from '../components/ServiceSetupSpreadsheet';
+} from '../../actions/setup';
+import SetupNatural from '../../components/setup/SetupNatural';
 
 const mapStateToProps = (state) => {
   const preview = state.getIn(['setup', 'modelDefinitionPreview']);
+  console.log(preview, preview && preview.size);
   return {
-    file: state.getIn(['setup', 'file']),
+    text: state.getIn(['setup', 'naturalText']),
     annotations: preview,
     nextEnabled: preview && !!preview.length,
   };
 };
 
-
 const mapDispatchToProps = dispatch => ({
   onDone: () => dispatch(createService()),
-  onChange: ([file]) => dispatch(analyseSpreadsheet(file)),
-
+  onChange: text => dispatch(analyseNaturalText(text)),
 });
 
-const ServiceSetupSpreadsheetContainer = connect(
+const SetupNaturalContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ServiceSetupSpreadsheet);
+)(SetupNatural);
 
-export default ServiceSetupSpreadsheetContainer;
+export default SetupNaturalContainer;

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import TextInput from './TextInput';
-import Button from './Button';
+import TextInput from '../TextInput';
+import Button from '../Button';
 
 const styles = {
   nextButton: {
@@ -16,7 +16,7 @@ const styles = {
   },
 };
 
-const ServiceSetupName = ({ name, onChange, onDone }) => (
+const SetupMethod = ({ name, onChange, onDone }) => (
   <div>
     <div style={styles.field}>
       <p>What is the name of your API?</p>
@@ -28,10 +28,10 @@ const ServiceSetupName = ({ name, onChange, onDone }) => (
   </div>
 );
 
-ServiceSetupName.PropTypes = {
+SetupMethod.PropTypes = {
   name: PropTypes.string,
   onDone: PropTypes.func,
 };
 
 /* eslint-disable new-cap */
-export default Radium(ServiceSetupName);
+export default Radium(SetupMethod);

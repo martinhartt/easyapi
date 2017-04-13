@@ -3,8 +3,8 @@ import 'immutable';
 import {
   setServiceName,
   nextScreen,
-} from '../actions/setup';
-import ServiceSetupName from '../components/ServiceSetupName';
+} from '../../actions/setup';
+import ServiceSetupName from '../../components/setup/SetupName';
 
 const mapStateToProps = state => ({
   name: state
@@ -18,9 +18,9 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-const ServiceSetupNameContainer = connect(
+const SetupNameContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(ServiceSetupName);
 
-export default ServiceSetupNameContainer;
+export default SetupNameContainer;
