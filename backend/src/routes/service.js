@@ -103,8 +103,8 @@ router.patch('/:id', async (req, res) => {
     if (req.body.isPublic !== undefined) {
       toUpdate.isPublic = req.body.isPublic;
     }
-    if (req.param('handle')) {
-      toUpdate.handle = req.param('handle');
+    if (req.param('shortName')) {
+      toUpdate.shortName = req.param('shortName');
     }
 
     const service = await Service.update(

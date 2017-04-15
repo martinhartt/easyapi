@@ -1,18 +1,25 @@
-let savedToken;
+// let savedToken;
+
+const localStorage = window.localStorage || null;
+
 
 export function saveToken(token) {
-  savedToken = token;
-  // localStorage.setItem('token', token);
+  // savedToken = token;
+  if (!localStorage) return;
+  localStorage.setItem('token', token);
 }
 export function isAuthenticated() {
-  return savedToken != null;
-  // return localStorage.getItem('token') != null;
+  // return savedToken != null;
+  if (!localStorage) return;
+  return localStorage.getItem('token') != null;
 }
 export function removeToken() {
-  savedToken = undefined;
-  // localStorage.removeItem('token');
+  // savedToken = undefined;
+  if (!localStorage) return;
+  localStorage.removeItem('token');
 }
 export function getToken() {
-  return savedToken;
-  // return localStorage.getItem('token');
+  // return savedToken;
+  if (!localStorage) return;
+  return localStorage.getItem('token');
 }

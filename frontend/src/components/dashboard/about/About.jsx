@@ -31,7 +31,7 @@ const metaExample = {
   isPublic: false,
 };
 
-const About = ({ name, meta = metaExample, onChange }) => <div>
+const About = ({ name, meta = metaExample, onChange = () => {} }) => <div>
   <TopBar name={name} />
   <div style={style.base}>
     <h3 style={style.h3}>About</h3>

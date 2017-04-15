@@ -1,5 +1,5 @@
 import databaseModels from '../models';
-import { stringToHandle } from './utils';
+import { stringToShortName } from './utils';
 
 const { Service, Model, Attribute, Entry, Value } = databaseModels;
 
@@ -32,7 +32,7 @@ export async function createService(name, modelDefinitions, userId) {
   let service = await Service.create({
     name,
     isPublic: false,
-    handle: stringToHandle(name),
+    shortName: stringToShortName(name),
     UserId: userId,
   });
 
@@ -41,7 +41,7 @@ export async function createService(name, modelDefinitions, userId) {
   await Model.bulkCreate(modelDefinitions.map(def => ({
     name: def.name,
     ServiceId: service.id,
-    handle: stringToHandle(def.name),
+    shortName: stringToShortName(def.name),
   })));
 
   let models = await Model.findAll({

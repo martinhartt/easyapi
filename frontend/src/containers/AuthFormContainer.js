@@ -4,22 +4,19 @@ import {
   authUser,
 } from '../actions/auth';
 import AuthForm from '../components/AuthForm';
-import 'immutable';
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    username: state
+const mapStateToProps = (state, ownProps) => ({
+  username: state
       .getIn(['user', 'username']),
-    password: state
+  password: state
       .getIn(['user', 'password']),
-    errors: state
+  errors: state
       .getIn(['user', 'errors']),
-  }
-};
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: ({username, password}) => dispatch(authUser(username, password)),
-  onChange: ({username, password}) =>  dispatch(updateUser(username, password)),
+  onSubmit: ({ username, password }) => dispatch(authUser(username, password)),
+  onChange: ({ username, password }) => dispatch(updateUser(username, password)),
 });
 
 const AuthFormContainer = connect(

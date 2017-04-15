@@ -1,6 +1,6 @@
 
 
-export function stringToHandle(string) {
+export function stringToShortName(string) {
   return string.toLowerCase().replace(/\W/g, '');
 }
 

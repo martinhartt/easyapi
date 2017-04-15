@@ -15,8 +15,9 @@ const style = {
   },
 };
 
-const ServiceList = ({ services = [], onSelect, onCreate }) => (
+const ServiceList = ({ services = [], onSelect, onCreate, onReady }) => (
   <div>
+    {onReady()}
     <p style={style.p}>Which API would you like to work on?</p>
     <div style={style.list}>
       {services.map(service => <ServiceListItem key={`si-${service.id}`} onClick={() => onSelect(service.id)} service={service} />)}
@@ -29,6 +30,7 @@ ServiceList.propTypes = {
   services: PropTypes.array,
   onSelect: PropTypes.func,
   onCreate: PropTypes.func,
+  onReady: PropTypes.func,
 };
 
 /* eslint-disable new-cap */

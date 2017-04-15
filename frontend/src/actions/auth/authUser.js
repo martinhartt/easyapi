@@ -1,10 +1,7 @@
 import { authUserResult } from './authUserResult';
-import { getServiceList } from './getServiceList';
-import { push } from 'react-router-redux';
 import { authenticateUser } from '../../utils/API';
 import { saveToken } from '../../utils/Auth';
-
-export const AUTH_USER = 'AUTH_USER';
+import { showError } from '../other/showError';
 
 export function authUser(username, password) {
   return function (dispatch) {
@@ -13,9 +10,8 @@ export function authUser(username, password) {
     .then((result) => {
       if (result.success) {
         saveToken(result.token);
-        dispatch(getServiceList(result));
       }
     })
-    .catch(console.error);
+    .catch(e => showError(e.message));
   };
 }

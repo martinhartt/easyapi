@@ -1,6 +1,4 @@
 import { getToken } from './Auth';
-import store from '../index';
-import { logoutUser } from '../actions/auth';
 
 function curryReq(path, useToken = true, method = 'POST') {
   return async (params) => {
@@ -17,10 +15,6 @@ function curryReq(path, useToken = true, method = 'POST') {
       headers,
       body: JSON.stringify(params),
     });
-
-    if (response.status === 401) {
-      store.dispatch(logoutUser());
-    }
 
     const json = await response.json();
     console.log(`API response ${method} ${path}`, params, json);

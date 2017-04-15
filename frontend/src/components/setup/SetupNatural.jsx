@@ -20,23 +20,8 @@ const styles = {
   },
 };
 
-function formatAnnotations(annotations = []) {
-  let html = '';
-  for (const entity of annotations) {
-    html += `${capitalizeString(entity.name)}(`;
-    const props = [];
-    for (const property of entity.attributes) {
-      const required = (property.required !== true) ? '?' : '';
-      const multiple = property.multiple;
-      props.push(`${property.name}: ${multiple ? '[' : ''}${property.type}${multiple ? ']' : ''}${required}`);
-    }
-    html += props.join(', ');
-    html += ')<br />';
-  }
-  return { __html: html };
-}
 
-const SetupNatural = ({ text, onChange, onDone, annotations, nextEnabled }) => (
+const SetupNatural = ({ text, onChange, onDone, preview, nextEnabled }) => (
   <div>
     <div style={styles.field}>
       <p>Please describe the various things and entities, <br />along with their properties and relationships</p>
@@ -47,8 +32,7 @@ const SetupNatural = ({ text, onChange, onDone, annotations, nextEnabled }) => (
           long
         />
       </div>
-      {annotations && annotations.map(a => <Model enableInteractions={false} model={a} />)}
-      {/* <p dangerouslySetInnerHTML={formatAnnotations(annotations)} /> */}
+      {preview && preview.map(a => <Model enableInteractions={false} model={a} />)}
     </div>
     <div style={styles.nextButton} >
       <Button isDisabled={!nextEnabled} onClick={onDone} text="Next" />
@@ -60,7 +44,7 @@ SetupNatural.PropTypes = {
   text: PropTypes.string,
   onChange: PropTypes.func,
   onDone: PropTypes.func,
-  annotations: PropTypes.array,
+  preview: PropTypes.array,
   nextEnabled: PropTypes.bool,
 };
 

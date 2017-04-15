@@ -15,7 +15,6 @@ const mapStateToProps = (immutableState) => {
 
   const selectedModel = state.dashboard.selectedModel || service.Models[0];
 
-
   if (!service) {
     return {};
   }
@@ -26,7 +25,6 @@ const mapStateToProps = (immutableState) => {
 
   model.attributes = model.Attributes ? model.Attributes.map(i => state.attributeById[i]) : [];
   model.entries = model.Entries ? model.Entries.map(i => state.entryById[i]) : [];
-  console.log('This is ', model);
 
   const headers = service.Models
     .map(i => state.modelById[i])
@@ -53,65 +51,8 @@ const mapStateToProps = (immutableState) => {
       obj[attr.name] = { value, id: valueObj.id };
     }
 
-    // for (const attribute of missing) {
-    //   obj[attribute.name] = { value: '' };
-    // }
     entries.push(obj);
   }
-
-/*
-
-
-const entriesExample = [
-  {
-    id: 1,
-    name: 'Spot',
-    breed: 'Bulldog',
-    owner: 'Martin',
-  },
-  {
-    id: 2,
-    name: 'Max',
-    breed: 'Bulldog',
-    owner: 'Jon Snow',
-  },
-];
-
-valueById: {
-  '1': {
-    id: 1,
-    value: 'Hello',
-    createdAt: '2017-04-05T23:00:00.000Z',
-    updatedAt: '2017-04-05T23:00:00.000Z',
-    EntryId: 1,
-    AttributeId: 1,
-    Attribute: 1
-  },
-  '2': {
-    id: 2,
-    value: 'Breed',
-    createdAt: '2017-04-05T23:00:00.000Z',
-    updatedAt: '2017-04-05T23:00:00.000Z',
-    EntryId: 1,
-    AttributeId: 2,
-    Attribute: 2
-  }
-},
-entryById: {
-  '1': {
-    id: 1,
-    index: 1,
-    createdAt: '2017-04-05T23:00:00.000Z',
-    updatedAt: '2017-04-05T23:00:00.000Z',
-    ModelId: 1,
-    Values: [
-      1,
-      2
-    ]
-  }
-},
-*/
-
 
   return {
     name: service.name,

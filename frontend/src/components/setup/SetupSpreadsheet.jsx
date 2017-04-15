@@ -31,23 +31,7 @@ const styles = {
   },
 };
 
-function formatAnnotations(annotations = []) {
-  let html = '';
-  for (const entity of annotations) {
-    html += `${capitalizeString(entity.name)}(`;
-    const props = [];
-    for (const property of entity.attributes) {
-      const required = (property.required !== true) ? '?' : '';
-      const multiple = property.multiple;
-      props.push(`${property.name}: ${multiple ? '[' : ''}${property.type}${multiple ? ']' : ''}${required}`);
-    }
-    html += props.join(', ');
-    html += ')<br />';
-  }
-  return { __html: html };
-}
-
-const SetupSpreadsheet = ({ text, onChange, onDone, annotations, nextEnabled }) => (
+const SetupSpreadsheet = ({ onChange, onDone, preview, nextEnabled }) => (
   <div>
     <div style={styles.field}>
       <div>
@@ -55,7 +39,7 @@ const SetupSpreadsheet = ({ text, onChange, onDone, annotations, nextEnabled }) 
           Drop a spreadsheet file into this area
         </Dropzone>
       </div>
-      {annotations && annotations.map(a => <Model enableInteractions={false} model={a} />)}
+      {preview && preview.map(a => <Model enableInteractions={false} model={a} />)}
     </div>
     <div style={styles.nextButton} >
       <Button isDisabled={!nextEnabled} onClick={onDone} text="Next" />
@@ -63,11 +47,10 @@ const SetupSpreadsheet = ({ text, onChange, onDone, annotations, nextEnabled }) 
   </div>
 );
 
-SetupSpreadsheet.PropTypes = {
-  text: PropTypes.string,
+SetupSpreadsheet.propTypes = {
   onChange: PropTypes.func,
   onDone: PropTypes.func,
-  annotations: PropTypes.array,
+  preview: PropTypes.array,
   nextEnabled: PropTypes.bool,
 };
 

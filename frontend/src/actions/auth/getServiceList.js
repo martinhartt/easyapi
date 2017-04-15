@@ -1,4 +1,5 @@
 import { receiveServiceList } from './receiveServiceList';
+import { showError } from '../other/showError';
 import * as API from '../../utils/API';
 
 export function getServiceList() {
@@ -7,6 +8,6 @@ export function getServiceList() {
     .then((result) => {
       dispatch(receiveServiceList(result));
     })
-    .catch(console.log);
+    .catch(e => dispatch(showError(e.message)));
   };
 }

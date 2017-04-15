@@ -9,11 +9,6 @@ const mapStateToProps = (immutableState) => {
 
   const service = state.serviceById[state.user.currentServiceId];
 
-  // name: 'Pets',
-  // url: 'pets',
-  // author: 'Martin Hartt',
-  // isPublic
-
   return {
     name: service.name,
     meta: {
@@ -21,8 +16,8 @@ const mapStateToProps = (immutableState) => {
         value: service.name,
         label: 'Name',
       },
-      handle: {
-        value: service.handle,
+      shortName: {
+        value: service.shortName,
         label: 'URL',
       },
       isPublic: {

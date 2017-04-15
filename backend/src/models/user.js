@@ -16,11 +16,16 @@ export default function (sequelize, DataTypes) {
     },
     instanceMethods: {
       generateHash: password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null),
-      validPassword: function(password) {
-        console.log(password,this.passwordHash);
+      validPassword(password) {
+        console.log(password, this.passwordHash);
         return bcrypt.compare(password, this.passwordHash);
       },
-    }
+      toJSON() {
+        const response = this.get();
+        response.passwordHash = undefined;
+        return response;
+      },
+    },
   });
 
   return User;

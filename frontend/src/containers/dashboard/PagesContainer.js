@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { updateService } from '../../actions/dashboard/updateService';
-import { updateServiceLocally } from '../../actions/dashboard/updateServiceLocally';
+import { updateModel } from '../../actions/dashboard/updateModel';
+import { updateModelLocally } from '../../actions/dashboard/updateModelLocally';
 import Pages from '../../components/dashboard/pages/Pages';
 
 
@@ -38,7 +38,7 @@ const mapStateToProps = (immutableState) => {
     },
   ];
 
-  const urlPrefix = `http://easyapi.com/api/${state.user.username}/${service.handle}/`;
+  const urlPrefix = `http://localhost:8000/api/${state.user.username}/${service.shortName}/`;
 
   return {
     name: service.name,
@@ -50,9 +50,8 @@ const mapStateToProps = (immutableState) => {
 
 const mapDispatchToProps = dispatch => ({
   onChange: (changes) => {
-    console.log(changes);
-    // dispatch(updateServiceLocally(changes));
-    // dispatch(updateService(changes));
+    dispatch(updateModelLocally(changes));
+    dispatch(updateModel(changes));
   },
 });
 

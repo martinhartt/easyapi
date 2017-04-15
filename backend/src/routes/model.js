@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import databaseModels from '../models';
-import { stringToHandle } from '../components/utils';
+import { stringToShortName } from '../components/utils';
 
 const { Service, Model, Attribute, Entry, Value } = databaseModels;
 
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
   try {
     const model = await Model.create({
       name,
-      handle: stringToHandle(name),
+      shortName: stringToShortName(name),
       ServiceId: serviceId,
     });
 
@@ -40,7 +40,7 @@ router.patch('/:id', async (req, res) => {
     const model = await Model.update(
       {
         name: newName,
-        handle: stringToHandle(newName),
+        shortName: stringToShortName(newName),
       },
       { where: { id: modelId } },
     );

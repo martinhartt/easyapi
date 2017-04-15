@@ -47,7 +47,7 @@ const Entries = ({ name, entries = [], attributes = [], headers = [], onSelected
           {attributes.map(attr =>
             <Column
               key={`${entry.realId}.${attr.id}`}
-              value={decode(entry[attr.name].value, attr.type)}
+              value={entry[attr.name] ? decode(entry[attr.name].value, attr.type) : ''}
               isItem
               onChange={e => onUpdate(entry.realId, attr.id, e.target.value, entry[attr.name].id)}
             />)}

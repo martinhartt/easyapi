@@ -1,9 +1,9 @@
 
 export const UPDATE_MODEL_PREVIEW = 'UPDATE_MODEL_PREVIEW';
 
-export function updateModelPreview(annotations) {
+export function updateModelPreview(preview) {
   return {
     type: UPDATE_MODEL_PREVIEW,
-    annotations,
+    preview,
   };
 }

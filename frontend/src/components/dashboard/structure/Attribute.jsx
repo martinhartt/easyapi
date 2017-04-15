@@ -38,6 +38,7 @@ const Attribute = ({ attribute, onClick, enableInteractions }) => <div onClick={
 Attribute.propTypes = {
   attribute: PropTypes.shape({
     name: PropTypes.string,
+    multiple: PropTypes.bool,
   }),
   enableInteractions: PropTypes.bool,
 };

@@ -37,7 +37,7 @@ import createMethods from '../utils/createMethods';
 import { isAuthenticated, getToken } from '../utils/Auth';
 import { normalizeServices, normalizeService, normalizeEntry, normalizeModel, normalizeAttribute } from '../utils/normalizr';
 import {
-  LOCATION_CHANGE
+  LOCATION_CHANGE,
 } from 'react-router-redux';
 import {
   SERVICE_SETUP_SCREEN_METHOD,
@@ -63,30 +63,31 @@ const defaultState = fromJS({
     locationBeforeTransitions: null,
   },
   user: {
-    currentServiceId: '1',
+    currentServiceId: null,
     username: '',
     password: '',
     authenticated: isAuthenticated(),
-    services: ['1'],
+    services: [],
     token: getToken(),
   },
   dashboard: {
     items: [
       {
         name: 'Structure',
-        path: '/service/dashboard/structure', selected: true
+        path: '/service/dashboard/structure',
+        selected: true,
       },
       {
         name: 'Entries',
-        path: '/service/dashboard/entries'
+        path: '/service/dashboard/entries',
       },
       {
         name: 'Pages',
-        path: '/service/dashboard/pages'
+        path: '/service/dashboard/pages',
       },
       {
         name: 'About',
-        path: '/service/dashboard/about'
+        path: '/service/dashboard/about',
       },
     ],
     selectedAttribute: null,
@@ -94,7 +95,7 @@ const defaultState = fromJS({
   },
   setup: {
     name: '',
-    screen: SERVICE_SETUP_SCREEN_NAME,
+    screen: 'SERVICE_SETUP_SCREEN_NAME',
     method: 'CREATE_METHOD_NATURAL_LANGUAGE',
   },
   serviceById: {
@@ -108,10 +109,10 @@ const defaultState = fromJS({
   endpointById: {},
 });
 
-function easyAPI(state: any = defaultState, action: {type: string}) {
+function easyAPI(state = defaultState, action) {
   switch (action.type) {
     case LOCATION_CHANGE: {
-      return state.setIn(['routing','locationBeforeTransitions'], action.payload);
+      return state.setIn(['routing', 'locationBeforeTransitions'], action.payload);
     }
     case NEW_SERVICE: {
       return state
@@ -189,7 +190,7 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
     }
     case UPDATE_MODEL_PREVIEW: {
       return state
-        .setIn(['setup', 'modelDefinitionPreview'], action.annotations);
+        .setIn(['setup', 'modelDefinitionPreview'], action.preview);
     }
     case SELECT_DEVICE: {
       return state
@@ -222,10 +223,9 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
       } else if (username) {
         return state
           .setIn(['user', 'username'], username);
-      } else {
-        return state
-          .setIn(['user', 'password'], password);
       }
+      return state
+          .setIn(['user', 'password'], password);
     }
     case AUTH_USER_RESULT: {
       return state
@@ -244,11 +244,11 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
       return state
         .setIn(
           ['dashboard', 'items'],
-          state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index))
-      )
+          state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index)),
+      );
     }
     case RECEIVE_SERVICE_LIST: {
-      let services = action.services;
+      const services = action.services;
 
       const entities = normalizeServices({ services }).entities;
 
@@ -309,7 +309,7 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
 
       const modelById = entities.model || {};
 
-      const modelIdsPath = ['serviceById', `${state.getIn(['user','currentServiceId'])}`, 'Models'];
+      const modelIdsPath = ['serviceById', `${state.getIn(['user', 'currentServiceId'])}`, 'Models'];
 
       return state
         .setIn(modelIdsPath, state.getIn(modelIdsPath).push(action.model.id))
@@ -329,18 +329,18 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
     case SELECT_SERVICE: {
       return state.setIn(
         [
-          'user', 'currentServiceId'
+          'user', 'currentServiceId',
         ],
         action.id,
-      )
+      );
     }
     case CHANGE_SELECTED_MODEL: {
       return state.setIn(
         [
-          'dashboard', 'selectedModel'
+          'dashboard', 'selectedModel',
         ],
-        action.id
-      )
+        action.id,
+      );
     }
     case DELETE_ENTRY_LOCALLY: {
       const entries = ['modelById', `${action.entry.ModelId}`, 'Entries'];
@@ -349,13 +349,13 @@ function easyAPI(state: any = defaultState, action: {type: string}) {
         .setIn(entries, state.getIn(entries).filter(i => i !== action.entry.id));
     }
     case DELETE_MODEL_LOCALLY: {
-      const models = ['serviceById', `${state.getIn(['user','currentServiceId'])}`, 'Models'];
+      const models = ['serviceById', `${state.getIn(['user', 'currentServiceId'])}`, 'Models'];
       return state
         .deleteIn(['modelById', `${action.id}`])
         .setIn(models, state.getIn(models).filter(i => i !== action.id));
     }
     case DELETE_ATTRIBUTE_LOCALLY: {
-      const modelId = state.getIn(['attributeById', `${action.id}`, 'ModelId'])
+      const modelId = state.getIn(['attributeById', `${action.id}`, 'ModelId']);
       const attributes = ['modelById', `${modelId}`, 'Attributes'];
       return state
         .deleteIn(['attributeById', `${action.id}`])

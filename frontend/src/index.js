@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import easyAPI from './reducers';
 import './index.css';
-import ServiceSetupContainer from './containers/setup/SetupContainer';
+import SetupContainer from './containers/setup/SetupContainer';
 import Dashboard from './components/dashboard/Dashboard';
 import StructureContainer from './containers/dashboard/StructureContainer';
 import EntriesContainer from './containers/dashboard/EntriesContainer';
@@ -30,8 +30,8 @@ const history = syncHistoryWithStore(browserHistory, store, {
 });
 
 function requireAuth(nextState, replace) {
-  if (!isAuthenticated()) {
-    replace({
+  if (!isAuthenticated() || !store.getState().getIn(['user', 'currentServiceId'])) {
+    return replace({
       pathname: '/',
     });
   }
@@ -50,7 +50,7 @@ const r = () => render(
       />
       <Route
         path="/service/setup"
-        component={ServiceSetupContainer}
+        component={SetupContainer}
         onEnter={requireAuth}
       />
       <Route

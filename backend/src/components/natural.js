@@ -167,14 +167,13 @@ function propertyType(prop, entities = []) {
     }
   }
 
-
-  const possibleTypes = [];
-
   // Check criteria for date.
   const dateKeywords = [
     'date',
     'day', // TODO Add more keywords
   ];
+
+  // if prop.raw.toLowerCase.includes()
 
   // Check criteria for number.
   const numberKeywords = [
@@ -182,10 +181,11 @@ function propertyType(prop, entities = []) {
     'integer',
     'float',
     'double',
-    '',
   ];
 
   // Check for integer or float
+
+  // TODO
 
   return 'string';
 }
@@ -361,7 +361,7 @@ async function generateModelStructure(text) {
           existingEntity.attributes = existingEntity.attributes.concat(attributesWithTypes);
         } else {
           modelStructure.push({
-            name: buildPhrase(entity, w => capitalizeWord(w), ' '),
+            name: entity.lemma, // buildPhrase(entity, w => capitalizeWord(w), ' '),
             raw: entity.word,
             attributes: attributesWithTypes,
           });

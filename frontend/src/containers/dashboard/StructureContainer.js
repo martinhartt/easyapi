@@ -38,7 +38,7 @@ const mapStateToProps = (immutableState) => {
 const mapDispatchToProps = dispatch => ({
   onSelectAttribute: id => dispatch(selectAttribute(id)),
   onModelCreate: () => dispatch(createModel()),
-  onAttributeCreate: model => dispatch(createAttribute(model)),
+  onAttributeCreate: attribute => dispatch(createAttribute(attribute)),
   onModelDelete: id => dispatch(deleteModel(id)),
   onAttributeDelete: id => dispatch(deleteAttribute(id)),
   onModelChange: (id, name) => dispatch(updateModel(id, name)),

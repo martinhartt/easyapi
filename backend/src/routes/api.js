@@ -11,8 +11,8 @@ const router = Router();
 
 router.all('/:user/:service/:model/:id?', async (req, res) => {
   const username = req.param('user');
-  const serviceHandle = req.param('service');
-  const modelHandle = req.param('model');
+  const serviceShortName = req.param('service');
+  const modelShortName = req.param('model');
   const id = req.param('id');
   const method = req.method;
   const input = req.body;
@@ -28,7 +28,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
 
     const service = await Service.findOne({
       where: {
-        handle: serviceHandle,
+        shortName: serviceShortName,
         UserId: user.id,
       },
     });
@@ -39,7 +39,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
 
     const model = await Model.findOne({
       where: {
-        handle: modelHandle,
+        shortName: modelShortName,
       },
     });
 

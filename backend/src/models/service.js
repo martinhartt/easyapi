@@ -1,7 +1,7 @@
 export default function (sequelize, DataTypes) {
   const Service = sequelize.define('Service', {
     name: DataTypes.STRING,
-    handle: DataTypes.STRING,
+    shortName: DataTypes.STRING,
     isPublic: DataTypes.BOOLEAN,
   }, {
     classMethods: {
@@ -12,7 +12,6 @@ export default function (sequelize, DataTypes) {
             allowNull: false,
           },
         });
-        Service.hasMany(models.Endpoint);
         Service.hasMany(models.Model);
       },
     },

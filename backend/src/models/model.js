@@ -1,7 +1,7 @@
 export default function (sequelize, DataTypes) {
   const Model = sequelize.define('Model', {
     name: DataTypes.STRING,
-    handle: DataTypes.STRING,
+    shortName: DataTypes.STRING,
     isFindEnabled: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

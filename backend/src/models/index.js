@@ -17,28 +17,22 @@ if (config.use_env_variable) {
 }
 
 import attribute from './attribute';
-import device from './device';
-import endpoint from './endpoint';
 import entry from './entry';
-import issue from './issue';
 import model from './model';
 import service from './service';
 import user from './user';
 import value from './value';
 
-let models = {
+const models = {
   attribute,
-  device,
-  endpoint,
   entry,
-  issue,
   model,
   service,
   user,
   value,
-}
+};
 
-const capitalizeString = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalizeString = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 for (const modelName in models) {
   if (!models.hasOwnProperty(modelName)) continue;
