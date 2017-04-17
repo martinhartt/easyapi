@@ -6,7 +6,6 @@ import { postAnalyzeSpreadsheet } from '../../utils/API';
 
 export function analyseSpreadsheet(file) {
   return function (dispatch) {
-    console.log(postAnalyzeSpreadsheet);
     return postAnalyzeSpreadsheet(file)
       .then(result => dispatch(updateModelPreview(result)))
       .catch(showError);

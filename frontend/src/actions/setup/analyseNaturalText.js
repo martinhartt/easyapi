@@ -1,6 +1,7 @@
 import { updateModelPreview } from './updateModelPreview';
 import { updateNaturalText } from './updateNaturalText';
 import { extractModelFromText } from '../../utils/API';
+import { showError } from '../other/showError';
 
 export const ANALYSE_NATURAL_TEXT = 'ANALYSE_NATURAL_TEXT';
 
@@ -11,6 +12,6 @@ export function analyseNaturalText(text) {
 
     return extractModelFromText(text)
       .then(result => dispatch(updateModelPreview(result)))
-      .catch(console.log);
+      .catch(e => dispatch(showError(e.message)));
   };
 }

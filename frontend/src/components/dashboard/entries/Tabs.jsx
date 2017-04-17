@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { Color } from '../../StyleConstant';
+import capitalizeString from '../../../utils/capitalizeString';
 
 const style = {
   base: {
@@ -33,7 +34,7 @@ const Tabs = ({ headers, onSelected }) => <div style={style.base}>
       style={[style.tab, header.selected && style.selected]}
       onClick={() => onSelected(header.id)}
     >
-      {header.text}
+      {capitalizeString(header.text)}
     </div>)}
 </div>;
 

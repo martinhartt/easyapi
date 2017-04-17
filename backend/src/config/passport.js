@@ -20,7 +20,6 @@ passport.use(new LocalStrategy({
       if (foundUser) {
         // User exists
         if (!(await foundUser.validPassword(password))) {
-          console.log('Invalid password');
           return done(null, false, {
             message: 'Incorrect password.',
           });

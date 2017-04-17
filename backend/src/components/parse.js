@@ -25,8 +25,6 @@ export function parseSpreadsheet(file) {
       .map(r => r.split(','))
       .filter(r => r.join('').trim().length > 0);
 
-    console.log(rows);
-
     modelDefinition.name = name;
 
     const attributes = [];
@@ -74,7 +72,7 @@ export function determineType(information) {
         type = 'float';
       }
     } else if (value.type === 'integer') {
-      if (type !== 'float' || type !== 'string') {
+      if (type !== 'float' && type !== 'string') {
         type = 'integer';
       }
     }
@@ -106,7 +104,7 @@ export function findType(raw) {
   if (multiple) {
     type = 'string';
     type = determineType(object.map(findType)).type;
-    console.log(type);
+
     if (type.multiple) {
       throw new Error('Multidimensional arrays are not supported!');
     }
@@ -121,7 +119,6 @@ export function findType(raw) {
     }
   }
 
-  console.log(string, type);
   return {
     type,
     multiple,

@@ -40,8 +40,6 @@ for (const modelName in models) {
   db[capitalizeString(modelName)] = models[modelName](sequelize, Sequelize);
 }
 
-console.log(db);
-
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

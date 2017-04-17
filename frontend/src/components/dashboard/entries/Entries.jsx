@@ -19,18 +19,6 @@ const style = {
   },
 };
 
-
-function decode(string, type) {
-  switch (type) {
-    case 'integer':
-      return parseInt(string, 10);
-    case 'float':
-      return parseFloat(string);
-    default:
-      return string;
-  }
-}
-
 const Entries = ({ name, entries = [], attributes = [], headers = [], onSelected, onDelete, onCreate, onUpdate }) =>
   <div style={style.base}>
     <TopBar name={name} onNew={() => onCreate()} />
@@ -38,18 +26,20 @@ const Entries = ({ name, entries = [], attributes = [], headers = [], onSelected
       <Tabs headers={headers} onSelected={onSelected} />
       <RowHeader>
         <Column key="headerid" value="ID" first />
-        {attributes.map(attr => <Column value={capitalizeString(attr.name)} key={attr.id} />)}
+        {attributes.map(attr => <Column value={capitalizeString(attr.name)} key={`${attr.id}rowheader`} />)}
       </RowHeader>
+
       {entries.map(entry =>
-        <Row key={entry.id} onDelete={() => onDelete(entry.realId)}>
-          <Column key={`${entry.id}.id`} value={entry.id} first />
+        <Row key={`${entry.id}row`} onDelete={() => onDelete(entry.realId)}>
+          <Column key={`${entry.id}column`} value={entry.id} first />
 
           {attributes.map(attr =>
             <Column
-              key={`${entry.realId}.${attr.id}`}
-              value={entry[attr.name] ? decode(entry[attr.name].value, attr.type) : ''}
+              key={`column${entry.realId}x${attr.id}`}
+              type={attr.type}
+              value={entry[attr.name] ? entry[attr.name].value : ''}
               isItem
-              onChange={e => onUpdate(entry.realId, attr.id, e.target.value, entry[attr.name].id)}
+              onChange={e => onUpdate(entry.realId, attr.id, e.target.value, entry[attr.name] && entry[attr.name].id)}
             />)}
         </Row>,
       )}

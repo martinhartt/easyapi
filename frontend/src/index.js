@@ -30,7 +30,9 @@ const history = syncHistoryWithStore(browserHistory, store, {
 });
 
 function requireAuth(nextState, replace) {
-  if (!isAuthenticated() || !store.getState().getIn(['user', 'currentServiceId'])) {
+  const isStuck = !store.getState().getIn(['user', 'currentServiceId']) && (nextState.location.pathname !== '/service/setup');
+
+  if (!isAuthenticated() || isStuck) {
     return replace({
       pathname: '/',
     });

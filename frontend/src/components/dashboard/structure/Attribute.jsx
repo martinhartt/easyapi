@@ -25,7 +25,6 @@ const style = {
 const prettify = string => string && string.replace(/_/g, ' ');
 
 function formatAttribute(attribute) {
-  console.log(attribute);
   const leftPar = attribute.multiple ? '[' : '';
   const rightPar = attribute.multiple ? ']' : '';
   return `${prettify(attribute.name)} (${leftPar}${attribute.type}${rightPar})`;

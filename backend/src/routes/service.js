@@ -17,11 +17,8 @@ router.post('/parseText', (req, res) => {
   .then(result => res.send(result));
 });
 
-router.post('/parseSpreadsheet', upload.single('spreadsheet'), (req, res) => {
-  console.log(req.file);
-  return parseSpreadsheet(req.file)
-  .then(result => res.send(result));
-});
+router.post('/parseSpreadsheet', upload.single('spreadsheet'), (req, res) => parseSpreadsheet(req.file)
+  .then(result => res.send(result)));
 
 /* POST scratch. */
 router.post('/', async (req, res) => {
@@ -41,7 +38,6 @@ router.post('/', async (req, res) => {
     };
     return res.json(response);
   } catch (e) {
-    console.error(e);
     return res.status(501).json({
       error: e,
       success: false,

@@ -1,3 +1,4 @@
+import { intersection } from 'underscore';
 import request from 'request-promise';
 import compromise from 'nlp_compromise';
 
@@ -83,7 +84,6 @@ function findIfPropertyHasMultiple(prop) {
   const numModifiers = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'nummod') : [];
 
   const combined = determiners.concat(adjModifiers).concat(numModifiers);
-  // console.log(prop.lemma, ' findupper ', combined);
 
   // If the noun is plural then it will be multiple
   if (prop.POS_fine === 'NNS') {
@@ -127,7 +127,7 @@ function isContainment(relationship) {
   return containmentWords.find(w => w == relationship.lemma);
 }
 
-function buildPhrase(tree, transform = w => w, space = '_') {
+function buildPhrase(tree, transform = w => w, space = ' ') {
   const othersInPhrase = tree.othersInPhrase;
 
   if (othersInPhrase.length) {
@@ -154,7 +154,7 @@ function propertyName(prop, relationship, multiple) {
 
   const presentVerb = compromise.verb(relationship.word).to_present();
 
-  return `${presentVerb}_${entity}`;
+  return `${presentVerb} ${entity}`;
 }
 
 const capitalizeWord = str => str.charAt(0).toUpperCase() + str.slice(1);
@@ -167,25 +167,32 @@ function propertyType(prop, entities = []) {
     }
   }
 
-  // Check criteria for date.
-  const dateKeywords = [
-    'date',
-    'day', // TODO Add more keywords
-  ];
-
-  // if prop.raw.toLowerCase.includes()
+  const propWords = prop.name.split(' ');
 
   // Check criteria for number.
-  const numberKeywords = [
+  const integerKeywords = [
     'number',
     'integer',
-    'float',
-    'double',
+    'numbers',
+    'integers',
   ];
 
-  // Check for integer or float
+  const floatKeywords = [
+    'float',
+    'double',
+    'floats',
+    'doubles',
+    'decimal',
+    'decimals',
+  ];
 
-  // TODO
+  if (intersection(propWords, integerKeywords).length > 0) {
+    return 'integer';
+  }
+
+  if (intersection(propWords, floatKeywords).length > 0) {
+    return 'float';
+  }
 
   return 'string';
 }
@@ -294,10 +301,6 @@ async function generateModelStructure(text) {
   // Remove oxford comma!
 
   for (const sentenceResult of parseResult.data) {
-    // Find potential entities
-    // const potentialEntities = sentenceResult.parse_list
-      // .filter(word => word.POS_coarse === 'NOUN');
-
     // Find relationships
     const potentialRelationships = sentenceResult.parse_list
       .filter(word => word.POS_fine.startsWith('V'));
@@ -313,9 +316,6 @@ async function generateModelStructure(text) {
       cleanTreeIndex[token.id] = find(cleanTree, obj => obj.id === token.id);
     });
 
-
-    // console.log(cleanTree, cleanTreeIndex)
-
     for (const relationship of potentialRelationships) {
       // First containment
       let inTree = cleanTreeIndex[relationship.id];
@@ -325,7 +325,6 @@ async function generateModelStructure(text) {
 
       if (!nounTree || nounTree.length < 1) continue;
       // Find subject and object
-      // console.log('\n\n\nOK ',inTree, nounTree);
       const [subject] = nounTree.filter(o => o.arc.includes('subj')).sort(compareDepth);
       const [object] = nounTree.filter(o => o.arc.includes('obj')).sort(compareDepth);
 
@@ -361,7 +360,7 @@ async function generateModelStructure(text) {
           existingEntity.attributes = existingEntity.attributes.concat(attributesWithTypes);
         } else {
           modelStructure.push({
-            name: entity.lemma, // buildPhrase(entity, w => capitalizeWord(w), ' '),
+            name: entity.lemma,
             raw: entity.word,
             attributes: attributesWithTypes,
           });

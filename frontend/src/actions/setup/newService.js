@@ -1,7 +1,4 @@
-// @flow
-import { browserHistory } from 'react-router';
 import { push } from 'react-router-redux';
-
 
 export const NEW_SERVICE = 'NEW_SERVICE';
 

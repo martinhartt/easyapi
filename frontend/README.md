@@ -8,12 +8,12 @@ open /Applications/Postgres.app
 
 ===
 
-python3 /Users/martinkubat/Work/easyapi/backend/src/nlp/index.py
+python backend/src/nlp/index.py
 
 ===
 
-cd /Users/martinkubat/Work/easyapi/backend/ && yarn start
+cd backend/ && npm start
 
 ===
 
-cd /Users/martinkubat/Work/easyapi/frontend && yarn start
+cd frontend && npm start

@@ -23,8 +23,27 @@ router.post('/', async (req, res) => {
       ModelId: modelId,
     });
 
+    const entries = await Entry.findAll({
+      where: {
+        ModelId: modelId,
+      },
+    });
+
+    await Value.bulkCreate(entries.map(e => ({
+      EntryId: e.id,
+      AttributeId: attribute.id,
+    })));
+
+    const newEntries = await Entry.findAll({
+      where: {
+        ModelId: modelId,
+      },
+      include: [{ all: true }],
+    });
+
     const response = {
       attribute,
+      entries: newEntries,
       success: true,
     };
     return res.json(response);

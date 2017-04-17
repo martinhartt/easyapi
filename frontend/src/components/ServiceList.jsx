@@ -15,16 +15,23 @@ const style = {
   },
 };
 
-const ServiceList = ({ services = [], onSelect, onCreate, onReady }) => (
-  <div>
-    {onReady()}
-    <p style={style.p}>Which API would you like to work on?</p>
-    <div style={style.list}>
-      {services.map(service => <ServiceListItem key={`si-${service.id}`} onClick={() => onSelect(service.id)} service={service} />)}
-      <RoundButton text="add" onClick={onCreate} />
-    </div>
-  </div>
-);
+class ServiceList extends React.Component {
+  componentDidMount() {
+    this.props.onReady();
+  }
+
+  render() {
+    return (
+      <div>
+        <p style={style.p}>Which API would you like to work on?</p>
+        <div style={style.list}>
+          {this.props.services.map(service => <ServiceListItem key={`si-${service.id}`} onClick={() => this.props.onSelect(service.id)} service={service} />)}
+          <RoundButton text="add" onClick={this.props.onCreate} />
+        </div>
+      </div>
+    );
+  }
+}
 
 ServiceList.propTypes = {
   services: PropTypes.array,

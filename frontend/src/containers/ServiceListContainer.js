@@ -7,6 +7,7 @@ import {
   newService,
 } from '../actions/setup';
 import { getServiceList } from '../actions/auth/getServiceList';
+import { getUser } from '../actions/auth/getUser';
 
 const mapStateToProps = (state) => {
   const services = state.getIn(['user', 'services'])
@@ -20,7 +21,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onReady: () => dispatch(getServiceList()),
+  onReady: () => { dispatch(getServiceList()); dispatch(getUser()); },
   onSelect: id =>
     dispatch(selectService(id)),
   onCreate: () => dispatch(newService()),

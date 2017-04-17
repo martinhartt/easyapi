@@ -4,6 +4,7 @@ import TopBar from '../TopBar';
 import { Color } from '../../StyleConstant';
 import TextInput from '../../TextInput';
 import Button from '../../Button';
+import capitalizeString from '../../../utils/capitalizeString';
 
 const style = {
   base: {
@@ -54,27 +55,21 @@ const pagesExamples = [
   },
 ];
 
-function bind(model, action, onChange) {
-  const name = `${model.name}`;
-  const prop = `${action.prop}`;
-  console.log('bind', name, prop);
-  return console.log.bind(console, name, prop);// onChange(name, { [prop]: !!e.target.checked });
-}
 
 const Pages = ({ name, models = [], actions = [], onChange, urlPrefix }) => <div style={style.base}>
   <TopBar name={name} />
-  {models.map((model, modelIndex) => <div style={style.page}>
-    <h3 style={style.title}>{model.name}</h3>
+  {models.map((model, modelIndex) => <div style={style.page} key={`${modelIndex}model`}>
+    <h3 style={style.title}>{capitalizeString(model.name)}</h3>
     {actions.map(action => (
-      <div>
+      <div key={`${action.label} ${model.id}`}>
         <input
-          id={action}
+          id={`${action.label}-${model.id}`}
           type="checkbox"
-          checked={model[action.prop].value === true}
-          onChange={bind(model, action)}
+          checked={model[action.prop]}
+          onChange={e => onChange(model.id, { [action.prop]: e.target.checked })}
         />
         <label
-          htmlFor={action}
+          htmlFor={`${action.label}-${model.id}`}
           style={style.label}
         >
           {action.label} ({action.method} {urlPrefix}{model.name})

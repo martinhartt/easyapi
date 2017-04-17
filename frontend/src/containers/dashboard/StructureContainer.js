@@ -41,7 +41,7 @@ const mapDispatchToProps = dispatch => ({
   onAttributeCreate: attribute => dispatch(createAttribute(attribute)),
   onModelDelete: id => dispatch(deleteModel(id)),
   onAttributeDelete: id => dispatch(deleteAttribute(id)),
-  onModelChange: (id, name) => dispatch(updateModel(id, name)),
+  onModelChange: (id, name) => dispatch(updateModel(id, { name })),
   onAttributeChange: (id, changes) => dispatch(updateAttribute(id, changes)),
 });
 

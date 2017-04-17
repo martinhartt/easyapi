@@ -54,6 +54,9 @@ const mapStateToProps = (immutableState) => {
     entries.push(obj);
   }
 
+  entries.sort((a, b) => a.realId - b.realId);
+  attributes.sort((a, b) => a.id - b.id);
+
   return {
     name: service.name,
     headers,
@@ -70,7 +73,7 @@ const mapDispatchToProps = (dispatch) => {
     onCreate: () => dispatch(createEntry()),
     onDelete: id => dispatch(deleteEntry(id)),
     onUpdate: (id, attr, value, valueId) => {
-      dispatch(updateValueLocally(id, valueId, value));
+      valueId && dispatch(updateValueLocally(id, valueId, value));
       update(id, attr, value);
     },
   };

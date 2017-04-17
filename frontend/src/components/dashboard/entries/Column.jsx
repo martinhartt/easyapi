@@ -30,15 +30,14 @@ const style = {
   },
 };
 
-const Column = ({ value, isItem, onChange, first = false }) =>
+const Column = ({ value, type, isItem, onChange, first = false }) =>
   isItem ?
-    <input style={[style.base, style.item, first && style.first]} value={value} onChange={onChange} /> :
+    <input style={[style.base, style.item, first && style.first]} type={(type === 'string' ? 'text' : 'number')} value={value || ''} onChange={onChange} /> :
     <div style={[style.base, first && style.first]}>{value}</div>;
 
 
 Column.propTypes = {
-  value: PropTypes.string.isRequired,
-  isItem: PropTypes.bool.isRequired,
+  value: PropTypes.any,
   onChange: PropTypes.func,
 };
 

@@ -8,10 +8,9 @@ import SetupNatural from '../../components/setup/SetupNatural';
 
 const mapStateToProps = (state) => {
   const preview = state.getIn(['setup', 'modelDefinitionPreview']);
-  console.log(preview, preview && preview.size);
   return {
     text: state.getIn(['setup', 'naturalText']),
-    preview: preview,
+    preview,
     nextEnabled: preview && !!preview.length,
   };
 };

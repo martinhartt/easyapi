@@ -81,8 +81,8 @@ export async function createService(name, modelDefinitions, userId) {
         index,
         ModelId: model.id,
       });
-      index++;
       entryByIndex[index] = entriesDefinition;
+      index++;
     }
     entryByIndexByModel[modelDefinition.name] = entryByIndex;
   }
@@ -100,13 +100,9 @@ export async function createService(name, modelDefinitions, userId) {
   const valuesToCreate = [];
 
   // Index: model > entry > attribute > value
-
-  console.log(entryByIndexByModel);
-
   for (const model of models) {
     for (const entry of model.Entries) {
       for (const attribute of model.Attributes) {
-        console.log(model.name, entry.index, attribute.name);
         const entryDefinition = entryByIndexByModel[model.name][entry.index];
         valuesToCreate.push({
           AttributeId: attribute.id,

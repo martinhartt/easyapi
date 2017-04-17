@@ -38,7 +38,7 @@ const mapStateToProps = (immutableState) => {
     },
   ];
 
-  const urlPrefix = `http://localhost:8000/api/${state.user.username}/${service.shortName}/`;
+  const urlPrefix = `http://localhost:9001/api/api/${state.user.username}/${service.shortName}/`;
 
   return {
     name: service.name,
@@ -49,9 +49,8 @@ const mapStateToProps = (immutableState) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onChange: (changes) => {
-    dispatch(updateModelLocally(changes));
-    dispatch(updateModel(changes));
+  onChange: (id, changes) => {
+    dispatch(updateModel(id, changes));
   },
 });
 

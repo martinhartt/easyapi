@@ -36,7 +36,7 @@ const SetupSpreadsheet = ({ onChange, onDone, preview, nextEnabled }) => (
     <div style={styles.field}>
       <div>
         <Dropzone onDrop={onChange} style={styles.sheet}>
-          Drop a spreadsheet file into this area
+          Drop a spreadsheet into this area
         </Dropzone>
       </div>
       {preview && preview.map(a => <Model enableInteractions={false} model={a} />)}

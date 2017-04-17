@@ -33,15 +33,26 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
       },
     });
 
+    console.log(service);
+
+    if (!service) {
+      return res.status(404).send({ success: false, message: `This service (${modelShortName}) was not found!` });
+    }
+
     if (!service.isPublic) {
-      return res.status(403).send({ success: false });
+      return res.status(403).send({ success: false, message: 'This service is not public!' });
     }
 
     const model = await Model.findOne({
       where: {
         shortName: modelShortName,
+        ServiceId: service.id,
       },
     });
+
+    if (!model) {
+      return res.status(404).send({ success: false, message: `This model (${modelShortName}) was not found!` });
+    }
 
     const attributes = await Attribute.findAll({
       where: {
@@ -51,12 +62,14 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
 
     data = { user, service, model };
 
+    const forbiddenResponse = { success: false, message: 'This action is not public!' };
+
     switch (method) {
       case 'GET': {
         if (id) {
           // Find One
           if (!model.isFindOneEnabled) {
-            return res.status(403).send({ success: false });
+            return res.status(403).send(forbiddenResponse);
           }
 
           const entry = await Entry.findOne({
@@ -65,6 +78,11 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
               ModelId: model.id,
             },
           });
+
+          if (!entry) {
+            return res.status(404).send({ success: false, message: 'This resource doesn\'t exist!' });
+          }
+
           const values = await Value.findAll({
             where: {
               EntryId: entry.id,
@@ -84,7 +102,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
         } else {
           // Find All
           if (!model.isFindEnabled) {
-            return res.status(403).send({ success: false });
+            return res.status(403).send(forbiddenResponse);
           }
 
           const entries = await Entry.findAll({
@@ -122,7 +140,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
       case 'POST': {
         // Create
         if (!model.isCreateEnabled) {
-          return res.status(403).send({ success: false });
+          return res.status(403).send(forbiddenResponse);
         }
         const newestEntry = await Entry.findOne({
           where: {
@@ -159,7 +177,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
       case 'PATCH': {
         // Update
         if (!model.isUpdateEnabled) {
-          return res.status(403).send({ success: false });
+          return res.status(403).send(forbiddenResponse);
         }
 
         const entry = await Entry.findOne({
@@ -168,6 +186,12 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
             ModelId: model.id,
           },
         });
+
+
+        if (!entry) {
+          return res.status(404).send({ success: false, message: 'This resource doesn\'t exist!' });
+        }
+
         const values = await Value.findAll({
           where: {
             EntryId: entry.id,
@@ -218,7 +242,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
       case 'DELETE': {
         // Delete
         if (!model.isDeleteEnabled) {
-          return res.status(403).send({ success: false });
+          return res.status(403).send(forbiddenResponse);
         }
 
         const entry = await Entry.findOne({
@@ -227,6 +251,11 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
             ModelId: model.id,
           },
         });
+
+
+        if (!entry) {
+          return res.status(404).send({ success: false, message: 'This resource doesn\'t exist!' });
+        }
 
         await Value.destroy({
           where: {
@@ -245,7 +274,7 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
         break;
       }
       default: {
-        return res.status(400).send({ success: false });
+        return res.status(400).send({ success: false, message: 'This action is not supported by EasyAPI!' });
       }
     }
   } catch (e) {

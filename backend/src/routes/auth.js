@@ -39,7 +39,6 @@ router.post('/login', (req, res, next) => {
   }
 
   return passport.authenticate('local', (err, user) => {
-    console.log(err, user);
     if (err || !user) {
       return res.status(400).json({
         success: false,
@@ -52,6 +51,14 @@ router.post('/login', (req, res, next) => {
       errors: {},
     }, user));
   })(req, res, next);
+});
+
+router.post('/info', (req, res) => {
+  res.status(200).json(Object.assign({
+    success: true,
+    errors: {},
+    username: req.user.username,
+  }));
 });
 
 

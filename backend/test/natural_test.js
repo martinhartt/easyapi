@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import Natural from '../src/services/natural';
+import Natural from '../src/components/natural';
 
 describe('Natural Service', () => {
   it('should exist', () => {
@@ -49,21 +49,21 @@ describe('Natural Service', () => {
                 lemma: 'yellow',
                 pos: 'ADJ',
                 modifiers: [],
-              }
+              },
             ],
-          }
-        ]
+          },
+        ],
       };
 
       const expected = {
         lemma: 'yellow',
         pos: 'ADJ',
         modifiers: [],
-      }
+      };
 
       const result = Natural._find(tree, o => o.lemma === 'yellow');
       expect(result).to.deep.equal(expected);
-    })
+    });
   });
 
   describe('filterTree', () => {
@@ -76,20 +76,20 @@ describe('Natural Service', () => {
           },
           {
             pos: 'NN',
-          }
-        ]
+          },
+        ],
       };
 
       const result = Natural._filterTree(tree, o => o.pos != 'JJ');
-      console.log(result);
+
       const expected = {
         pos: 'VBZ',
         modifiers: [
           {
             modifiers: undefined,
             pos: 'NN',
-          }
-        ]
+          },
+        ],
       };
       expect(result).to.deep.equal(expected);
     });
@@ -106,14 +106,14 @@ describe('Natural Service', () => {
               {
                 pos: 'NN',
                 word: 'movies',
-              }
-            ]
+              },
+            ],
           },
           {
             pos: 'NN',
             word: 'information',
-          }
-        ]
+          },
+        ],
       };
 
       const result = Natural._filterTree(tree, o => o.pos != 'IN');
@@ -130,8 +130,8 @@ describe('Natural Service', () => {
             pos: 'NN',
             word: 'information',
             modifiers: undefined,
-          }
-        ]
+          },
+        ],
       };
       expect(result).to.deep.equal(expected);
     });
@@ -148,22 +148,20 @@ describe('Natural Service', () => {
               {
                 pos: 'NN',
                 word: 'movies',
-              }
-            ]
+              },
+            ],
           },
           {
             pos: 'NN',
             word: 'information',
-          }
-        ]
+          },
+        ],
       };
 
       const copy = JSON.parse(JSON.stringify(tree));
       const result = Natural._filterTree(tree, o => o.pos != 'IN');
       expect(tree).to.deep.equal(copy);
     });
-
-
   });
 
   describe('findAll', () => {
@@ -187,8 +185,8 @@ describe('Natural Service', () => {
                 modifiers: [],
               },
             ],
-          }
-        ]
+          },
+        ],
       };
 
       const expected = [
@@ -202,11 +200,11 @@ describe('Natural Service', () => {
           pos: 'ADJ',
           modifiers: [],
         },
-      ]
+      ];
 
       const result = Natural._findAll(tree, o => o.pos === 'ADJ');
       expect(result).to.deep.equal(expected);
-    })
+    });
   });
 
   describe('findIfPropertyIsRequired', () => {
@@ -219,7 +217,7 @@ describe('Natural Service', () => {
       const context = {
         lemma: 'play',
         modifiers: [],
-      }
+      };
 
       const result = Natural._findIfPropertyIsRequired(prop, context);
       expect(result).to.equal(false);
@@ -236,7 +234,7 @@ describe('Natural Service', () => {
         modifiers: [
           { lemma: 'must', arc: 'aux' },
         ],
-      }
+      };
 
       const result = Natural._findIfPropertyIsRequired(prop, context);
       expect(result).to.equal(true);
@@ -253,7 +251,7 @@ describe('Natural Service', () => {
         modifiers: [
           { lemma: 'might', arc: 'aux' },
         ],
-      }
+      };
 
       const result = Natural._findIfPropertyIsRequired(prop, context);
       expect(result).to.equal(false);
@@ -272,7 +270,7 @@ describe('Natural Service', () => {
           { lemma: 'needs', arc: 'aux' },
           { lemma: 'must', arc: 'aux' },
         ],
-      }
+      };
 
       const result = Natural._findIfPropertyIsRequired(prop, context);
       expect(result).to.equal(true);
@@ -293,7 +291,7 @@ describe('Natural Service', () => {
           { lemma: 'needs', arc: 'aux' },
           { lemma: 'must', arc: 'aux' },
         ],
-      }
+      };
 
       const result = Natural._findIfPropertyIsRequired(prop, context);
       expect(result).to.equal(false);
@@ -323,7 +321,7 @@ describe('Natural Service', () => {
     });
 
     it('should determine its multiple if prop has modifiers with plural keywords', () => {
-      ['det', 'amod'].forEach(arc => {
+      ['det', 'amod'].forEach((arc) => {
         const prop = {
           lemma: 'cats',
           POS_fine: 'NN',
@@ -334,11 +332,11 @@ describe('Natural Service', () => {
 
         const result = Natural._findIfPropertyHasMultiple(prop);
         expect(result).to.equal(true);
-      })
+      });
     });
 
     it('should determine its singular if prop has modifiers with singular keywords', () => {
-      ['det', 'amod'].forEach(arc => {
+      ['det', 'amod'].forEach((arc) => {
         const prop = {
           lemma: 'cats',
           POS_fine: 'NN',
@@ -349,11 +347,11 @@ describe('Natural Service', () => {
 
         const result = Natural._findIfPropertyHasMultiple(prop);
         expect(result).to.equal(false);
-      })
+      });
     });
 
     it('should determine its singular if prop has modifiers with singular keywords', () => {
-      ['det', 'amod'].forEach(arc => {
+      ['det', 'amod'].forEach((arc) => {
         const prop = {
           lemma: 'cats',
           POS_fine: 'NN',
@@ -364,11 +362,11 @@ describe('Natural Service', () => {
 
         const result = Natural._findIfPropertyHasMultiple(prop);
         expect(result).to.equal(false);
-      })
+      });
     });
 
     it('should determine its singular if prop has singular number', () => {
-      ['zero', 'one'].forEach(lemma => {
+      ['zero', 'one'].forEach((lemma) => {
         const prop = {
           lemma: 'cats',
           POS_fine: 'NN',
@@ -379,11 +377,11 @@ describe('Natural Service', () => {
 
         const result = Natural._findIfPropertyHasMultiple(prop);
         expect(result).to.equal(false);
-      })
+      });
     });
 
     it('should determine its singular if prop has singular number', () => {
-      ['twenty two', 'nine', 'fifty', 'ten thousand'].forEach(lemma => {
+      ['twenty two', 'nine', 'fifty', 'ten thousand'].forEach((lemma) => {
         const prop = {
           lemma: 'cats',
           POS_fine: 'NN',
@@ -394,91 +392,91 @@ describe('Natural Service', () => {
 
         const result = Natural._findIfPropertyHasMultiple(prop);
         expect(result).to.equal(true);
-      })
+      });
     });
   });
 
   describe('generateModelStructure', () => {
     it('should correctly analyse basic Pet model structure', async () => {
-      const text = `A pet has a name, breed and owner. The Owner has a name. The owner owns a pet. Toy has a name. Pet likes a toy.`;
+      const text = 'A pet has a name, breed and owner. The Owner has a name. The owner owns a pet. Toy has a name. Pet likes a toy.';
 
       const modelStructure = await Natural.generateModelStructure(text);
 
       const expected = [
         {
-          "name": "pet",
-          "raw": "pet",
-          "properties": [
+          name: 'pet',
+          raw: 'pet',
+          attributes: [
             {
-              "type": "string",
-              "name": "name",
-              "raw": "name",
-              "lemma": "name",
-              "required": false,
-              "multiple": false
+              type: 'string',
+              name: 'name',
+              raw: 'name',
+              lemma: 'name',
+              required: false,
+              multiple: false,
             },
             {
-              "type": "string",
-              "name": "breed",
-              "raw": "breed",
-              "lemma": "breed",
-              "required": false,
-              "multiple": false
+              type: 'string',
+              name: 'breed',
+              raw: 'breed',
+              lemma: 'breed',
+              required: false,
+              multiple: false,
             },
             {
-              "type": "Owner",
-              "name": "owner",
-              "raw": "owner",
-              "lemma": "owner",
-              "required": false,
-              "multiple": false
+              type: 'Owner',
+              name: 'owner',
+              raw: 'owner',
+              lemma: 'owner',
+              required: false,
+              multiple: false,
             },
             {
-              "type": "Toy",
-              "name": "likes_toy",
-              "raw": "toy",
-              "lemma": "toy",
-              "required": false,
-              "multiple": false
-            }
-          ]
+              type: 'Toy',
+              name: 'likes toy',
+              raw: 'toy',
+              lemma: 'toy',
+              required: false,
+              multiple: false,
+            },
+          ],
         },
         {
-          "name": "owner",
-          "raw": "Owner",
-          "properties": [
+          name: 'owner',
+          raw: 'Owner',
+          attributes: [
             {
-              "type": "string",
-              "name": "name",
-              "raw": "name",
-              "lemma": "name",
-              "required": false,
-              "multiple": false
+              type: 'string',
+              name: 'name',
+              raw: 'name',
+              lemma: 'name',
+              required: false,
+              multiple: false,
             },
             {
-              "type": "Pet",
-              "name": "owns_pet",
-              "raw": "pet",
-              "lemma": "pet",
-              "required": false,
-              "multiple": false
-            }
-          ]
+              type: 'Pet',
+              name: 'owns pet',
+              raw: 'pet',
+              lemma: 'pet',
+              required: false,
+              multiple: false,
+            },
+          ],
         },
         {
-          "name": "toy",
-          "raw": "Toy",
-          "properties": [
+          name: 'toy',
+          raw: 'Toy',
+          attributes: [
             {
-              "type": "string",
-              "name": "name",
-              "raw": "name",
-              "lemma": "name",
-              "required": false,
-              "multiple": false
-            }
-          ]
-        }
+              type: 'string',
+              name: 'name',
+              raw: 'name',
+              lemma: 'name',
+              required: false,
+              multiple: false,
+            },
+          ],
+        },
       ];
 
       expect(modelStructure).to.deep.equal(expected);

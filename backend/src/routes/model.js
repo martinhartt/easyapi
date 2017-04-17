@@ -33,15 +33,38 @@ router.post('/', async (req, res) => {
 });
 
 router.patch('/:id', async (req, res) => {
-  const newName = req.param('name');
   const modelId = req.param('id');
+
+  const toUpdate = {};
+
+  if (req.param('name')) {
+    toUpdate.name = req.param('name');
+    toUpdate.shortName = stringToShortName(toUpdate.name);
+  }
+
+  if (req.param('isFindEnabled')) {
+    toUpdate.isFindEnabled = req.param('isFindEnabled');
+  }
+
+  if (req.param('isFindOneEnabled')) {
+    toUpdate.isFindOneEnabled = req.param('isFindOneEnabled');
+  }
+
+  if (req.param('isCreateEnabled')) {
+    toUpdate.isCreateEnabled = req.param('isCreateEnabled');
+  }
+
+  if (req.param('isUpdateEnabled')) {
+    toUpdate.isUpdateEnabled = req.param('isUpdateEnabled');
+  }
+
+  if (req.param('isDeleteEnabled')) {
+    toUpdate.isDeleteEnabled = req.param('isDeleteEnabled');
+  }
 
   try {
     const model = await Model.update(
-      {
-        name: newName,
-        shortName: stringToShortName(newName),
-      },
+      toUpdate,
       { where: { id: modelId } },
     );
 

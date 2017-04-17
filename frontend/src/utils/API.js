@@ -1,4 +1,4 @@
-import { getToken } from './Auth';
+import { getToken, removeToken } from './Auth';
 
 function curryReq(path, useToken = true, method = 'POST') {
   return async (params) => {
@@ -16,8 +16,8 @@ function curryReq(path, useToken = true, method = 'POST') {
       body: JSON.stringify(params),
     });
 
+
     const json = await response.json();
-    console.log(`API response ${method} ${path}`, params, json);
     return json;
   };
 }
@@ -27,6 +27,7 @@ export const req = (path, params) => curryReq(path)(params);
 export const extractModelFromText = text => curryReq('/service/parseText')({ text });
 
 export const authenticateUser = (username, password) => curryReq('/auth/login', false)({ username, password });
+export const getUserInfo = () => curryReq('/auth/info', true)();
 
 export const getService = id => curryReq(`/service/${id}`, true, 'GET')({});
 
@@ -41,7 +42,7 @@ export const updateService = (id, changes) => curryReq(`/service/${id}`, true, '
 
 export const postModel = curryReq('/model', true, 'POST');
 export const deleteModel = curryReq('/model', true, 'DELETE');
-export const patchModel = obj => curryReq(`/model/${obj.id}`, true, 'PATCH')(obj);
+export const patchModel = (id, obj) => curryReq(`/model/${id}`, true, 'PATCH')(obj);
 
 export const postAttribute = curryReq('/attribute', true, 'POST');
 export const patchAttribute = obj => curryReq(`/attribute/${obj.id}`, true, 'PATCH')(obj);
@@ -64,6 +65,6 @@ export async function postAnalyzeSpreadsheet(file) {
   });
 
   const json = await response.json();
-  console.log('FILE API response', json);
+
   return json;
 }

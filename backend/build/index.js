@@ -1,4 +1,3 @@
-require('/Users/martinkubat/Work/easyapi/backend/node_modules/source-map-support/source-map-support.js').install();
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -8,9 +7,9 @@ module.exports =
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -128,8 +127,6 @@ for (const modelName in models) {
   db[capitalizeString(modelName)] = models[modelName](sequelize, __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a);
 }
 
-console.log(db);
-
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
@@ -139,7 +136,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a;
 
-/* harmony default export */ __webpack_exports__["a"] = db;
+/* harmony default export */ __webpack_exports__["a"] = (db);
 
 /***/ }),
 /* 1 */
@@ -178,6 +175,12 @@ function decode(string, type) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("underscore");
+
+/***/ }),
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -186,7 +189,7 @@ function decode(string, type) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport_local___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport_local__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -212,7 +215,6 @@ __WEBPACK_IMPORTED_MODULE_0_passport___default.a.use(new __WEBPACK_IMPORTED_MODU
     if (foundUser) {
       // User exists
       if (!(yield foundUser.validPassword(password))) {
-        console.log('Invalid password');
         return done(null, false, {
           message: 'Incorrect password.'
         });
@@ -257,19 +259,13 @@ __WEBPACK_IMPORTED_MODULE_0_passport___default.a.deserializeUser((id, done) => {
   });
 });
 
-/* harmony default export */ __webpack_exports__["a"] = __WEBPACK_IMPORTED_MODULE_0_passport___default.a;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("jsonwebtoken");
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_passport___default.a);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("underscore");
+module.exports = require("jsonwebtoken");
 
 /***/ }),
 /* 6 */
@@ -281,7 +277,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_body_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_passport__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes_index__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_auth__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_service__ = __webpack_require__(25);
@@ -359,12 +355,14 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__config_bootstrap__["a" /* de
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_request_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sbd__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_underscore__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_underscore__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_request_promise__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_request_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_request_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nlp_compromise__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nlp_compromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nlp_compromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sbd__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sbd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sbd__);
 let generateModelStructure = (() => {
   var _ref = _asyncToGenerator(function* (text) {
     // Annotate raw text with POS and get dependency structure
@@ -376,10 +374,6 @@ let generateModelStructure = (() => {
     // Remove oxford comma!
 
     for (const sentenceResult of parseResult.data) {
-      // Find potential entities
-      // const potentialEntities = sentenceResult.parse_list
-      // .filter(word => word.POS_coarse === 'NOUN');
-
       // Find relationships
       const potentialRelationships = sentenceResult.parse_list.filter(function (word) {
         return word.POS_fine.startsWith('V');
@@ -402,8 +396,6 @@ let generateModelStructure = (() => {
         });
       });
 
-      // console.log(cleanTree, cleanTreeIndex)
-
       for (const relationship of potentialRelationships) {
         // First containment
         let inTree = cleanTreeIndex[relationship.id];
@@ -417,7 +409,6 @@ let generateModelStructure = (() => {
 
         if (!nounTree || nounTree.length < 1) continue;
         // Find subject and object
-        // console.log('\n\n\nOK ',inTree, nounTree);
         const [subject] = nounTree.filter(function (o) {
           return o.arc.includes('subj');
         }).sort(compareDepth);
@@ -458,7 +449,7 @@ let generateModelStructure = (() => {
             existingEntity.attributes = existingEntity.attributes.concat(attributesWithTypes);
           } else {
             modelStructure.push({
-              name: entity.lemma, // buildPhrase(entity, w => capitalizeWord(w), ' '),
+              name: entity.lemma,
               raw: entity.word,
               attributes: attributesWithTypes
             });
@@ -481,6 +472,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+
 /**
  * Natural Service: A service for extracting information from natural speech.
  */
@@ -488,9 +480,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 // Uses spacy to deconstruct text into a dependancy parse tree
 function parse(text) {
-  return __WEBPACK_IMPORTED_MODULE_0_request_promise___default.a.post('http://localhost:5000/parse', {
+  return __WEBPACK_IMPORTED_MODULE_1_request_promise___default.a.post('http://localhost:5000/parse', {
     form: {
-      text: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_sbd__["sentences"])(text).join('<#SENT_SEPERATOR#>')
+      text: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_sbd__["sentences"])(text).join('<#SENT_SEPERATOR#>')
     }
   }).then(res => JSON.parse(res));
 }
@@ -562,7 +554,6 @@ function findIfPropertyHasMultiple(prop) {
   const numModifiers = prop.modifiers ? prop.modifiers.filter(o => o.arc === 'nummod') : [];
 
   const combined = determiners.concat(adjModifiers).concat(numModifiers);
-  // console.log(prop.lemma, ' findupper ', combined);
 
   // If the noun is plural then it will be multiple
   if (prop.POS_fine === 'NNS') {
@@ -580,7 +571,7 @@ function findIfPropertyHasMultiple(prop) {
 
     if (modifier.arc === 'nummod') {
       // Parse value of number
-      allCardinalityInfo.push(__WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default.a.value(modifier.lemma).number > 1);
+      allCardinalityInfo.push(__WEBPACK_IMPORTED_MODULE_2_nlp_compromise___default.a.value(modifier.lemma).number > 1);
     }
 
     if (singleKeywords.find(k => k === modifier.lemma)) {
@@ -599,7 +590,7 @@ function isContainment(relationship) {
   return containmentWords.find(w => w == relationship.lemma);
 }
 
-function buildPhrase(tree, transform = w => w, space = '_') {
+function buildPhrase(tree, transform = w => w, space = ' ') {
   const othersInPhrase = tree.othersInPhrase;
 
   if (othersInPhrase.length) {
@@ -611,7 +602,7 @@ function buildPhrase(tree, transform = w => w, space = '_') {
 function propertyName(prop, relationship, multiple) {
   let entity = '';
 
-  const correctedNoun = multiple ? __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default.a.noun(prop.lemma).pluralize() : __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default.a.noun(prop.lemma).singularize();
+  const correctedNoun = multiple ? __WEBPACK_IMPORTED_MODULE_2_nlp_compromise___default.a.noun(prop.lemma).pluralize() : __WEBPACK_IMPORTED_MODULE_2_nlp_compromise___default.a.noun(prop.lemma).singularize();
 
   const othersInPhrase = prop.othersInPhrase;
 
@@ -621,9 +612,9 @@ function propertyName(prop, relationship, multiple) {
     return entity;
   }
 
-  const presentVerb = __WEBPACK_IMPORTED_MODULE_1_nlp_compromise___default.a.verb(relationship.word).to_present();
+  const presentVerb = __WEBPACK_IMPORTED_MODULE_2_nlp_compromise___default.a.verb(relationship.word).to_present();
 
-  return `${presentVerb}_${entity}`;
+  return `${presentVerb} ${entity}`;
 }
 
 const capitalizeWord = str => str.charAt(0).toUpperCase() + str.slice(1);
@@ -635,17 +626,20 @@ function propertyType(prop, entities = []) {
     }
   }
 
-  // Check criteria for date.
-  const dateKeywords = ['date', 'day'];
-
-  // if prop.raw.toLowerCase.includes()
+  const propWords = prop.name.split(' ');
 
   // Check criteria for number.
-  const numberKeywords = ['number', 'integer', 'float', 'double'];
+  const integerKeywords = ['number', 'integer'];
 
-  // Check for integer or float
+  const floatKeywords = ['float', 'double'];
 
-  // TODO
+  if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_underscore__["intersection"])(propWords, integerKeywords).length > 0) {
+    return 'integer';
+  }
+
+  if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_underscore__["intersection"])(propWords, floatKeywords).length > 0) {
+    return 'float';
+  }
 
   return 'string';
 }
@@ -742,12 +736,12 @@ const Natural = {
   _findIfPropertyIsRequired: findIfPropertyIsRequired,
   _findIfPropertyHasMultiple: findIfPropertyHasMultiple,
   _filterTree: filterTree,
-  seperateSentences: __WEBPACK_IMPORTED_MODULE_2_sbd__["sentences"],
+  seperateSentences: __WEBPACK_IMPORTED_MODULE_3_sbd__["sentences"],
   generateModelStructure,
   parse
 };
 
-/* harmony default export */ __webpack_exports__["a"] = Natural;
+/* harmony default export */ __webpack_exports__["a"] = (Natural);
 
 /***/ }),
 /* 8 */
@@ -757,7 +751,7 @@ const Natural = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xlsx__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xlsx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xlsx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_natural__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_underscore__);
 /* harmony export (immutable) */ __webpack_exports__["b"] = parseSpreadsheet;
 /* unused harmony export determineType */
@@ -785,8 +779,6 @@ function parseSpreadsheet(file) {
     const [headingLine, ...rowLines] = csv.split('\n');
     const headings = headingLine.split(',');
     const rows = rowLines.map(r => r.split(',')).filter(r => r.join('').trim().length > 0);
-
-    console.log(rows);
 
     modelDefinition.name = name;
 
@@ -835,7 +827,7 @@ function determineType(information) {
         type = 'float';
       }
     } else if (value.type === 'integer') {
-      if (type !== 'float' || type !== 'string') {
+      if (type !== 'float' && type !== 'string') {
         type = 'integer';
       }
     }
@@ -867,7 +859,7 @@ function findType(raw) {
   if (multiple) {
     type = 'string';
     type = determineType(object.map(findType)).type;
-    console.log(type);
+
     if (type.multiple) {
       throw new Error('Multidimensional arrays are not supported!');
     }
@@ -882,7 +874,6 @@ function findType(raw) {
     }
   }
 
-  console.log(string, type);
   return {
     type,
     multiple,
@@ -998,8 +989,8 @@ let createService = (() => {
           index,
           ModelId: model.id
         });
-        index++;
         entryByIndex[index] = entriesDefinition;
+        index++;
       }
       entryByIndexByModel[modelDefinition.name] = entryByIndex;
     }
@@ -1017,13 +1008,9 @@ let createService = (() => {
     const valuesToCreate = [];
 
     // Index: model > entry > attribute > value
-
-    console.log(entryByIndexByModel);
-
     for (const model of models) {
       for (const entry of model.Entries) {
         for (const attribute of model.Attributes) {
-          console.log(model.name, entry.index, attribute.name);
           const entryDefinition = entryByIndexByModel[model.name][entry.index];
           valuesToCreate.push({
             AttributeId: attribute.id,
@@ -1094,14 +1081,14 @@ const connections = {
   }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = connections;
+/* harmony default export */ __webpack_exports__["a"] = (connections);
 
 /***/ }),
 /* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jsonwebtoken__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models__ = __webpack_require__(0);
 
@@ -1109,8 +1096,8 @@ const connections = {
 
 const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 
-/* harmony default export */ __webpack_exports__["a"] = function (req, res, next) {
-  if (req.originalUrl.startsWith('/api/auth/')) {
+/* harmony default export */ __webpack_exports__["a"] = (function (req, res, next) {
+  if (req.originalUrl.startsWith('/api/auth/login')) {
     return next();
   }
 
@@ -1132,14 +1119,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
       return res.status(401).end();
     }).catch(err => res.status(401).end());
   });
-};;
+});
 
 /***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
   const Attribute = sequelize.define('Attribute', {
     name: DataTypes.STRING,
     type: DataTypes.STRING,
@@ -1159,14 +1146,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Attribute;
-};
+});
 
 /***/ }),
 /* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
   const Entry = sequelize.define('Entry', {
     index: DataTypes.INTEGER
   }, {
@@ -1184,14 +1171,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Entry;
-};
+});
 
 /***/ }),
 /* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
   const Model = sequelize.define('Model', {
     name: DataTypes.STRING,
     shortName: DataTypes.STRING,
@@ -1231,14 +1218,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Model;
-};
+});
 
 /***/ }),
 /* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
   const Service = sequelize.define('Service', {
     name: DataTypes.STRING,
     shortName: DataTypes.STRING,
@@ -1258,7 +1245,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Service;
-};
+});
 
 /***/ }),
 /* 17 */
@@ -1269,7 +1256,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
 
 
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
@@ -1286,26 +1273,20 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
     instanceMethods: {
       generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null),
       validPassword(password) {
-        console.log(password, this.passwordHash);
         return __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.compare(password, this.passwordHash);
-      },
-      toJSON() {
-        const response = this.get();
-        response.passwordHash = undefined;
-        return response;
       }
     }
   });
 
   return User;
-};
+});
 
 /***/ }),
 /* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
   const Value = sequelize.define('Value', {
     value: DataTypes.STRING
   }, {
@@ -1323,7 +1304,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Value;
-};
+});
 
 /***/ }),
 /* 19 */
@@ -1332,7 +1313,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_underscore__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_utils__ = __webpack_require__(2);
@@ -1373,15 +1354,26 @@ router.all('/:user/:service/:model/:id?', (() => {
         }
       });
 
+      console.log(service);
+
+      if (!service) {
+        return res.status(404).send({ success: false, message: `This service (${modelShortName}) was not found!` });
+      }
+
       if (!service.isPublic) {
-        return res.status(403).send({ success: false });
+        return res.status(403).send({ success: false, message: 'This service is not public!' });
       }
 
       const model = yield Model.findOne({
         where: {
-          shortName: modelShortName
+          shortName: modelShortName,
+          ServiceId: service.id
         }
       });
+
+      if (!model) {
+        return res.status(404).send({ success: false, message: `This model (${modelShortName}) was not found!` });
+      }
 
       const attributes = yield Attribute.findAll({
         where: {
@@ -1391,13 +1383,15 @@ router.all('/:user/:service/:model/:id?', (() => {
 
       data = { user, service, model };
 
+      const forbiddenResponse = { success: false, message: 'This action is not public!' };
+
       switch (method) {
         case 'GET':
           {
             if (id) {
               // Find One
               if (!model.isFindOneEnabled) {
-                return res.status(403).send({ success: false });
+                return res.status(403).send(forbiddenResponse);
               }
 
               const entry = yield Entry.findOne({
@@ -1406,6 +1400,11 @@ router.all('/:user/:service/:model/:id?', (() => {
                   ModelId: model.id
                 }
               });
+
+              if (!entry) {
+                return res.status(404).send({ success: false, message: 'This resource doesn\'t exist!' });
+              }
+
               const values = yield Value.findAll({
                 where: {
                   EntryId: entry.id
@@ -1426,8 +1425,9 @@ router.all('/:user/:service/:model/:id?', (() => {
               data = obj;
             } else {
               // Find All
+              console.log(model);
               if (!model.isFindEnabled) {
-                return res.status(403).send({ success: false });
+                return res.status(403).send(forbiddenResponse);
               }
 
               const entries = yield Entry.findAll({
@@ -1472,7 +1472,7 @@ router.all('/:user/:service/:model/:id?', (() => {
           {
             // Create
             if (!model.isCreateEnabled) {
-              return res.status(403).send({ success: false });
+              return res.status(403).send(forbiddenResponse);
             }
             const newestEntry = yield Entry.findOne({
               where: {
@@ -1508,7 +1508,7 @@ router.all('/:user/:service/:model/:id?', (() => {
           {
             // Update
             if (!model.isUpdateEnabled) {
-              return res.status(403).send({ success: false });
+              return res.status(403).send(forbiddenResponse);
             }
 
             const entry = yield Entry.findOne({
@@ -1517,6 +1517,11 @@ router.all('/:user/:service/:model/:id?', (() => {
                 ModelId: model.id
               }
             });
+
+            if (!entry) {
+              return res.status(404).send({ success: false, message: 'This resource doesn\'t exist!' });
+            }
+
             const values = yield Value.findAll({
               where: {
                 EntryId: entry.id
@@ -1564,7 +1569,7 @@ router.all('/:user/:service/:model/:id?', (() => {
           {
             // Delete
             if (!model.isDeleteEnabled) {
-              return res.status(403).send({ success: false });
+              return res.status(403).send(forbiddenResponse);
             }
 
             const entry = yield Entry.findOne({
@@ -1573,6 +1578,10 @@ router.all('/:user/:service/:model/:id?', (() => {
                 ModelId: model.id
               }
             });
+
+            if (!entry) {
+              return res.status(404).send({ success: false, message: 'This resource doesn\'t exist!' });
+            }
 
             yield Value.destroy({
               where: {
@@ -1592,7 +1601,7 @@ router.all('/:user/:service/:model/:id?', (() => {
           }
         default:
           {
-            return res.status(400).send({ success: false });
+            return res.status(400).send({ success: false, message: 'This action is not supported by EasyAPI!' });
           }
       }
     } catch (e) {
@@ -1607,7 +1616,7 @@ router.all('/:user/:service/:model/:id?', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 20 */
@@ -1645,8 +1654,29 @@ router.post('/', (() => {
         ModelId: modelId
       });
 
+      const entries = yield Entry.findAll({
+        where: {
+          ModelId: modelId
+        }
+      });
+
+      yield Value.bulkCreate(entries.map(function (e) {
+        return {
+          EntryId: e.id,
+          AttributeId: attribute.id
+        };
+      }));
+
+      const newEntries = yield Entry.findAll({
+        where: {
+          ModelId: modelId
+        },
+        include: [{ all: true }]
+      });
+
       const response = {
         attribute,
+        entries: newEntries,
         success: true
       };
       return res.json(response);
@@ -1749,7 +1779,7 @@ router.delete('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 21 */
@@ -1758,7 +1788,7 @@ router.delete('/', (() => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_passport__ = __webpack_require__(4);
 
 
 
@@ -1800,7 +1830,6 @@ router.post('/login', (req, res, next) => {
   }
 
   return __WEBPACK_IMPORTED_MODULE_1__config_passport__["a" /* default */].authenticate('local', (err, user) => {
-    console.log(err, user);
     if (err || !user) {
       return res.status(400).json({
         success: false,
@@ -1815,7 +1844,15 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+router.post('/info', (req, res) => {
+  res.status(200).json(Object.assign({
+    success: true,
+    errors: {},
+    username: req.user.username
+  }));
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 22 */
@@ -1956,7 +1993,7 @@ router.delete('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 23 */
@@ -1980,7 +2017,7 @@ router.get('/models', (req, res) => {
   });
 });
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 24 */
@@ -2035,14 +2072,37 @@ router.post('/', (() => {
 
 router.patch('/:id', (() => {
   var _ref2 = _asyncToGenerator(function* (req, res) {
-    const newName = req.param('name');
     const modelId = req.param('id');
 
+    const toUpdate = {};
+
+    if (req.param('name')) {
+      toUpdate.name = req.param('name');
+      toUpdate.shortName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["b" /* stringToShortName */])(toUpdate.name);
+    }
+
+    if (req.param('isFindEnabled')) {
+      toUpdate.isFindEnabled = req.param('isFindEnabled');
+    }
+
+    if (req.param('isFindOneEnabled')) {
+      toUpdate.isFindOneEnabled = req.param('isFindOneEnabled');
+    }
+
+    if (req.param('isCreateEnabled')) {
+      toUpdate.isCreateEnabled = req.param('isCreateEnabled');
+    }
+
+    if (req.param('isUpdateEnabled')) {
+      toUpdate.isUpdateEnabled = req.param('isUpdateEnabled');
+    }
+
+    if (req.param('isDeleteEnabled')) {
+      toUpdate.isDeleteEnabled = req.param('isDeleteEnabled');
+    }
+
     try {
-      const model = yield Model.update({
-        name: newName,
-        shortName: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_utils__["b" /* stringToShortName */])(newName)
-      }, { where: { id: modelId } });
+      const model = yield Model.update(toUpdate, { where: { id: modelId } });
 
       return res.json({
         model,
@@ -2114,7 +2174,7 @@ router.delete('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 25 */
@@ -2148,10 +2208,7 @@ router.post('/parseText', (req, res) => {
   return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_parse__["a" /* parseNaturalLanguage */])(text).then(result => res.send(result));
 });
 
-router.post('/parseSpreadsheet', upload.single('spreadsheet'), (req, res) => {
-  console.log(req.file);
-  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_parse__["b" /* parseSpreadsheet */])(req.file).then(result => res.send(result));
-});
+router.post('/parseSpreadsheet', upload.single('spreadsheet'), (req, res) => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_parse__["b" /* parseSpreadsheet */])(req.file).then(result => res.send(result)));
 
 /* POST scratch. */
 router.post('/', (() => {
@@ -2168,7 +2225,6 @@ router.post('/', (() => {
       };
       return res.json(response);
     } catch (e) {
-      console.error(e);
       return res.status(501).json({
         error: e,
         success: false
@@ -2269,7 +2325,7 @@ router.patch('/:id', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 26 */
@@ -2326,7 +2382,7 @@ router.patch('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 27 */

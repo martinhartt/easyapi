@@ -151,7 +151,6 @@ function easyAPI(state = defaultState, action) {
       return state;
     }
     case SET_SERVICE_NAME: {
-      console.log('capitalizeString', capitalizeString('ok'));
       return state
         .setIn([
           'setup',
@@ -240,7 +239,6 @@ function easyAPI(state = defaultState, action) {
         .setIn(['user', 'token'], null);
     }
     case CHANGE_SIDEBAR_ITEM: {
-      // console.log('CHANGE_SIDEBAR_ITEM', state.getIn(['dashboard', 'items']).map((item, i) => item.set('selected', i === action.index)).toJS());
       return state
         .setIn(
           ['dashboard', 'items'],
@@ -269,12 +267,8 @@ function easyAPI(state = defaultState, action) {
         .set('valueById', fromJS(valueById).merge(state.get('valueById')));
     }
     case RECEIVE_SERVICE: {
-      // TODO
-      console.log(JSON.stringify(action.service));
-
       const entities = normalizeService(action.service).entities;
 
-      console.log(entities);
       const serviceById = entities.service || {};
       const modelById = entities.model || {};
       const attributeById = entities.attribute || {};
@@ -299,10 +293,16 @@ function easyAPI(state = defaultState, action) {
 
       const entryIdsPath = ['modelById', `${model}`, 'Entries'];
 
+      const newEntries = state
+        .getIn(entryIdsPath)
+        .toSet()
+        .union(fromJS([action.entry.id]).toSet())
+        .toList();
+
       return state
-        .setIn(entryIdsPath, state.getIn(entryIdsPath).push(action.entry.id))
-        .set('entryById', fromJS(entryById).merge(state.get('entryById')))
-        .set('valueById', fromJS(valueById).merge(state.get('valueById')));
+        .setIn(entryIdsPath, newEntries)
+        .set('entryById', fromJS(state.get('entryById')).merge(entryById))
+        .set('valueById', fromJS(state.get('valueById').merge(valueById)));
     }
     case RECEIVE_MODEL: {
       const entities = normalizeModel(action.model).entities;
@@ -378,8 +378,9 @@ function easyAPI(state = defaultState, action) {
         .setIn(['dashboard', 'selectedAttribute'], action.id);
     }
     case UPDATE_MODEL_LOCALLY: {
+      const modelPath = ['modelById', `${action.id}`];
       return state
-        .setIn(['modelById', `${action.id}`, 'name'], action.name);
+        .setIn(modelPath, state.getIn(modelPath).merge(fromJS(action.changes)));
     }
     case UPDATE_ATTRIBUTE_LOCALLY: {
       const path = ['attributeById', `${action.id}`];
