@@ -21,7 +21,7 @@ const style = {
 
 const Entries = ({ name, entries = [], attributes = [], headers = [], onSelected, onDelete, onCreate, onUpdate }) =>
   <div style={style.base}>
-    <TopBar name={name} onNew={() => onCreate()} />
+    <TopBar name={name} enableNew onNew={onCreate} />
     <div style={style.main}>
       <Tabs headers={headers} onSelected={onSelected} />
       <RowHeader>

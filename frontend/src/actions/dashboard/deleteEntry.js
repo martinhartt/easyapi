@@ -1,5 +1,3 @@
-import { push } from 'react-router-redux';
-import { changeSidebarItem } from './changeSidebarItem';
 import * as API from '../../utils/API';
 import { showError } from '../other/showError';
 import { deleteEntryLocally } from './deleteEntryLocally';

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Button from '../Button';
 import TextInput from '../TextInput';
-import capitalizeString from '../../utils/capitalizeString';
 import Model from '../dashboard/structure/Model';
 
 const styles = {
@@ -12,11 +11,17 @@ const styles = {
     float: 'right',
   },
   field: {
-    width: 700,
+    width: 850,
     marginLeft: 'auto',
     marginRight: 'auto',
     textAlign: 'center',
     marginTop: 100,
+  },
+  preview: {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    alignItems: 'flex-start',
+    marginTop: 10,
   },
 };
 
@@ -32,7 +37,9 @@ const SetupNatural = ({ text, onChange, onDone, preview, nextEnabled }) => (
           long
         />
       </div>
-      {preview && preview.map(a => <Model enableInteractions={false} model={a} />)}
+      <div style={styles.preview}>
+        {preview && preview.map(a => <Model enableInteractions={false} model={a} />)}
+      </div>
     </div>
     <div style={styles.nextButton} >
       <Button isDisabled={!nextEnabled} onClick={onDone} text="Next" />

@@ -1,4 +1,4 @@
-// @flow
+
 
 export const RECEIVE_SERVICE = 'RECEIVE_SERVICE';
 

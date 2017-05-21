@@ -26,17 +26,18 @@ router.all('/:user/:service/:model/:id?', async (req, res) => {
       },
     });
 
+    if (!user) {
+      return res.status(404).send({ success: false, message: `This user (${username}) was not found!` });
+    }
+
     const service = await Service.findOne({
       where: {
         shortName: serviceShortName,
         UserId: user.id,
       },
     });
-
-    console.log(service);
-
     if (!service) {
-      return res.status(404).send({ success: false, message: `This service (${modelShortName}) was not found!` });
+      return res.status(404).send({ success: false, message: `This service (${serviceShortName}) was not found!` });
     }
 
     if (!service.isPublic) {

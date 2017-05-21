@@ -1,7 +1,5 @@
-import ServiceList from '../components/ServiceList';
-import 'immutable';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import ServiceList from '../components/ServiceList';
 import {
   selectService,
   newService,

@@ -13,7 +13,7 @@ const styles = {
     float: 'right',
   },
   field: {
-    width: 700,
+    width: 850,
     marginLeft: 'auto',
     marginRight: 'auto',
     textAlign: 'center',
@@ -29,6 +29,12 @@ const styles = {
     justifyContent: 'center',
     display: 'flex',
   },
+  preview: {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    alignItems: 'flex-start',
+    marginTop: 10,
+  },
 };
 
 const SetupSpreadsheet = ({ onChange, onDone, preview, nextEnabled }) => (
@@ -39,7 +45,9 @@ const SetupSpreadsheet = ({ onChange, onDone, preview, nextEnabled }) => (
           Drop a spreadsheet into this area
         </Dropzone>
       </div>
-      {preview && preview.map(a => <Model enableInteractions={false} model={a} />)}
+      <div style={styles.preview}>
+        {preview && preview.map(a => <Model enableInteractions={false} model={a} />)}
+      </div>
     </div>
     <div style={styles.nextButton} >
       <Button isDisabled={!nextEnabled} onClick={onDone} text="Next" />

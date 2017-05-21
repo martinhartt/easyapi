@@ -37,23 +37,10 @@ const style = {
     marginBottom: 10,
     marginTop: 4,
   },
+  action: {
+    marginTop: 5,
+  },
 };
-
-
-const pagesExamples = [
-  {
-    method: 'GET',
-    path: '/owners',
-    operation: 'find',
-    model: 'owners',
-  },
-  {
-    method: 'GET',
-    path: '/pets/{id}',
-    operation: 'findById',
-    model: 'pets',
-  },
-];
 
 
 const Pages = ({ name, models = [], actions = [], onChange, urlPrefix }) => <div style={style.base}>
@@ -61,7 +48,7 @@ const Pages = ({ name, models = [], actions = [], onChange, urlPrefix }) => <div
   {models.map((model, modelIndex) => <div style={style.page} key={`${modelIndex}model`}>
     <h3 style={style.title}>{capitalizeString(model.name)}</h3>
     {actions.map(action => (
-      <div key={`${action.label} ${model.id}`}>
+      <div key={`${action.label} ${model.id}`} style={style.action}>
         <input
           id={`${action.label}-${model.id}`}
           type="checkbox"
@@ -72,8 +59,9 @@ const Pages = ({ name, models = [], actions = [], onChange, urlPrefix }) => <div
           htmlFor={`${action.label}-${model.id}`}
           style={style.label}
         >
-          {action.label} ({action.method} {urlPrefix}{model.name})
+          {action.label}
         </label>
+        {model[action.prop] && <p><b style={style.method}>{action.method}</b> {urlPrefix}{model.shortName}{action.suffix}</p>}
       </div>
     ))}
   </div>)}

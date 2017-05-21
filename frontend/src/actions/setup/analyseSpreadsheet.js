@@ -1,4 +1,4 @@
-// @flow
+
 
 import { updateModelPreview } from './updateModelPreview';
 import { showError } from '../other/showError';

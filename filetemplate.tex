@@ -1,7 +1,11 @@
-\documentclass[a4paper,landscape]{report}
+\documentclass[11pt]{informatics-report}
 \usepackage{listings}
 \usepackage[usenames,dvipsnames]{color}
-\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage[]{hyperref}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{csquotes}
+
 \usepackage{geometry}
 \lstdefinestyle{customasm}{
 	belowcaptionskip=1\baselineskip,
@@ -16,676 +20,537 @@
 
 \tableofcontents
 
+\appendix
+\include{Appendices/Appendix}
+\include{Appendices/UserGuide}
+\include{Appendices/SourceCode}
 
-\chapter{Source Code}
+\chapter{Source code}
+
+
+\textbf{NOTE}: Import statements from absolute paths (e.g. "import redux from 'redux'") indicate the use of an external library. A list of all libraries used is in the section A.1. This does not apply to relative paths (e.g. "import getUser from './getUser'").
 
 \newpage
-\section{index.html}
-\lstinputlisting[style=customasm]{./frontend/public/index.html}
-
-\newpage
-\section{actionTypes.js}
+\section{./frontend/src/actions/actionTypes.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/actionTypes.js}
 
 \newpage
-\section{authUser.js}
+\section{./frontend/src/actions/auth/authUser.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/authUser.js}
 
 \newpage
-\section{authUserResult.js}
+\section{./frontend/src/actions/auth/authUserResult.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/authUserResult.js}
 
 \newpage
-\section{getServiceList.js}
+\section{./frontend/src/actions/auth/getServiceList.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/getServiceList.js}
 
 \newpage
-\section{index.js}
+\section{./frontend/src/actions/auth/getUser.js}
+\lstinputlisting[style=customasm]{./frontend/src/actions/auth/getUser.js}
+
+\newpage
+\section{./frontend/src/actions/auth/index.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/index.js}
 
 \newpage
-\section{logoutUser.js}
+\section{./frontend/src/actions/auth/logoutUser.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/logoutUser.js}
 
 \newpage
-\section{receiveService.js}
+\section{./frontend/src/actions/auth/receiveService.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/receiveService.js}
 
 \newpage
-\section{receiveServiceList.js}
+\section{./frontend/src/actions/auth/receiveServiceList.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/receiveServiceList.js}
 
 \newpage
-\section{updateUser.js}
+\section{./frontend/src/actions/auth/updateUser.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/auth/updateUser.js}
 
 \newpage
-\section{changeDashboardPage.js}
+\section{./frontend/src/actions/dashboard/changeDashboardPage.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/changeDashboardPage.js}
 
 \newpage
-\section{changeSelectedModel.js}
+\section{./frontend/src/actions/dashboard/changeSelectedModel.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/changeSelectedModel.js}
 
 \newpage
-\section{changeSidebarItem.js}
+\section{./frontend/src/actions/dashboard/changeSidebarItem.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/changeSidebarItem.js}
 
 \newpage
-\section{createAttribute.js}
+\section{./frontend/src/actions/dashboard/createAttribute.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/createAttribute.js}
 
 \newpage
-\section{createEntry.js}
+\section{./frontend/src/actions/dashboard/createEntry.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/createEntry.js}
 
 \newpage
-\section{createModel.js}
+\section{./frontend/src/actions/dashboard/createModel.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/createModel.js}
 
 \newpage
-\section{deleteAttribute.js}
+\section{./frontend/src/actions/dashboard/deleteAttribute.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/deleteAttribute.js}
 
 \newpage
-\section{deleteAttributeLocally.js}
+\section{./frontend/src/actions/dashboard/deleteAttributeLocally.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/deleteAttributeLocally.js}
 
 \newpage
-\section{deleteEntry.js}
+\section{./frontend/src/actions/dashboard/deleteEntry.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/deleteEntry.js}
 
 \newpage
-\section{deleteEntryLocally.js}
+\section{./frontend/src/actions/dashboard/deleteEntryLocally.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/deleteEntryLocally.js}
 
 \newpage
-\section{deleteModel.js}
+\section{./frontend/src/actions/dashboard/deleteModel.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/deleteModel.js}
 
 \newpage
-\section{deleteModelLocally.js}
+\section{./frontend/src/actions/dashboard/deleteModelLocally.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/deleteModelLocally.js}
 
 \newpage
-\section{receiveAttribute.js}
+\section{./frontend/src/actions/dashboard/receiveAttribute.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/receiveAttribute.js}
 
 \newpage
-\section{receiveEntry.js}
+\section{./frontend/src/actions/dashboard/receiveEntry.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/receiveEntry.js}
 
 \newpage
-\section{receiveModel.js}
+\section{./frontend/src/actions/dashboard/receiveModel.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/receiveModel.js}
 
 \newpage
-\section{selectAttribute.js}
+\section{./frontend/src/actions/dashboard/selectAttribute.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/selectAttribute.js}
 
 \newpage
-\section{updateAttribute.js}
+\section{./frontend/src/actions/dashboard/updateAttribute.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateAttribute.js}
 
 \newpage
-\section{updateAttributeLocally.js}
+\section{./frontend/src/actions/dashboard/updateAttributeLocally.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateAttributeLocally.js}
 
 \newpage
-\section{updateModel.js}
+\section{./frontend/src/actions/dashboard/updateModel.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateModel.js}
 
 \newpage
-\section{updateModelLocally.js}
+\section{./frontend/src/actions/dashboard/updateModelLocally.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateModelLocally.js}
 
 \newpage
-\section{updateService.js}
+\section{./frontend/src/actions/dashboard/updateService.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateService.js}
 
 \newpage
-\section{updateServiceLocally.js}
+\section{./frontend/src/actions/dashboard/updateServiceLocally.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateServiceLocally.js}
 
 \newpage
-\section{updateValue.js}
+\section{./frontend/src/actions/dashboard/updateValue.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateValue.js}
 
 \newpage
-\section{updateValueLocally.js}
+\section{./frontend/src/actions/dashboard/updateValueLocally.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/dashboard/updateValueLocally.js}
 
 \newpage
-\section{showError.js}
+\section{./frontend/src/actions/other/showError.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/other/showError.js}
 
 \newpage
-\section{analyseNaturalText.js}
+\section{./frontend/src/actions/setup/analyseNaturalText.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/analyseNaturalText.js}
 
 \newpage
-\section{analyseSpreadsheet.js}
+\section{./frontend/src/actions/setup/analyseSpreadsheet.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/analyseSpreadsheet.js}
 
 \newpage
-\section{createService.js}
+\section{./frontend/src/actions/setup/createService.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/createService.js}
 
 \newpage
-\section{generateWebhookURL.js}
-\lstinputlisting[style=customasm]{./frontend/src/actions/setup/generateWebhookURL.js}
-
-\newpage
-\section{index.js}
+\section{./frontend/src/actions/setup/index.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/index.js}
 
 \newpage
-\section{newService.js}
+\section{./frontend/src/actions/setup/newService.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/newService.js}
 
 \newpage
-\section{nextScreen.js}
+\section{./frontend/src/actions/setup/nextScreen.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/nextScreen.js}
 
 \newpage
-\section{receiveService.js}
+\section{./frontend/src/actions/setup/receiveService.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/receiveService.js}
 
 \newpage
-\section{receiveWebhookURL.js}
-\lstinputlisting[style=customasm]{./frontend/src/actions/setup/receiveWebhookURL.js}
-
-\newpage
-\section{selectDevice.js}
-\lstinputlisting[style=customasm]{./frontend/src/actions/setup/selectDevice.js}
-
-\newpage
-\section{selectService.js}
+\section{./frontend/src/actions/setup/selectService.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/selectService.js}
 
 \newpage
-\section{setDeviceFlowDirection.js}
-\lstinputlisting[style=customasm]{./frontend/src/actions/setup/setDeviceFlowDirection.js}
-
-\newpage
-\section{setServiceCreateMethod.js}
+\section{./frontend/src/actions/setup/setServiceCreateMethod.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/setServiceCreateMethod.js}
 
 \newpage
-\section{setServiceName.js}
+\section{./frontend/src/actions/setup/setServiceName.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/setServiceName.js}
 
 \newpage
-\section{setupDeviceQuery.js}
-\lstinputlisting[style=customasm]{./frontend/src/actions/setup/setupDeviceQuery.js}
-
-\newpage
-\section{updateModelPreview.js}
+\section{./frontend/src/actions/setup/updateModelPreview.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/updateModelPreview.js}
 
 \newpage
-\section{updateNaturalText.js}
+\section{./frontend/src/actions/setup/updateNaturalText.js}
 \lstinputlisting[style=customasm]{./frontend/src/actions/setup/updateNaturalText.js}
 
 \newpage
-\section{AuthForm.jsx}
+\section{./frontend/src/components/AuthForm.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/AuthForm.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/AuthForm.test.js}
-
-\newpage
-\section{Button.jsx}
+\section{./frontend/src/components/Button.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/Button.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/Button.test.js}
-
-\newpage
-\section{About.jsx}
+\section{./frontend/src/components/dashboard/about/About.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/about/About.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/about/About.test.js}
-
-\newpage
-\section{Dashboard.jsx}
+\section{./frontend/src/components/dashboard/Dashboard.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/Dashboard.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/Dashboard.test.js}
-
-\newpage
-\section{Column.jsx}
+\section{./frontend/src/components/dashboard/entries/Column.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Column.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Column.test.js}
-
-\newpage
-\section{Entries.jsx}
+\section{./frontend/src/components/dashboard/entries/Entries.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Entries.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Entries.test.js}
-
-\newpage
-\section{Row.jsx}
+\section{./frontend/src/components/dashboard/entries/Row.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Row.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Row.test.js}
-
-\newpage
-\section{RowHeader.jsx}
+\section{./frontend/src/components/dashboard/entries/RowHeader.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/RowHeader.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/RowHeader.test.js}
-
-\newpage
-\section{rowStyle.js}
+\section{./frontend/src/components/dashboard/entries/rowStyle.js}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/rowStyle.js}
 
 \newpage
-\section{Tabs.jsx}
+\section{./frontend/src/components/dashboard/entries/Tabs.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Tabs.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/entries/Tabs.test.js}
-
-\newpage
-\section{Pages.jsx}
+\section{./frontend/src/components/dashboard/pages/Pages.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/pages/Pages.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/pages/Pages.test.js}
-
-\newpage
-\section{Sidebar.jsx}
+\section{./frontend/src/components/dashboard/Sidebar.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/Sidebar.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/Sidebar.test.js}
-
-\newpage
-\section{SidebarItem.jsx}
+\section{./frontend/src/components/dashboard/SidebarItem.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/SidebarItem.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/SidebarItem.test.js}
-
-\newpage
-\section{Attribute.jsx}
+\section{./frontend/src/components/dashboard/structure/Attribute.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/Attribute.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/Attribute.test.js}
-
-\newpage
-\section{DialogBox.jsx}
+\section{./frontend/src/components/dashboard/structure/DialogBox.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/DialogBox.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/DialogBox.test.js}
-
-\newpage
-\section{Model.jsx}
+\section{./frontend/src/components/dashboard/structure/Model.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/Model.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/Model.test.js}
-
-\newpage
-\section{Structure.jsx}
+\section{./frontend/src/components/dashboard/structure/Structure.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/Structure.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/structure/Structure.test.js}
-
-\newpage
-\section{TopBar.jsx}
+\section{./frontend/src/components/dashboard/TopBar.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/dashboard/TopBar.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/dashboard/TopBar.test.js}
-
-\newpage
-\section{Frame.jsx}
+\section{./frontend/src/components/Frame.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/Frame.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/Frame.test.js}
-
-\newpage
-\section{HomePage.jsx}
+\section{./frontend/src/components/HomePage.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/HomePage.jsx}
 
 \newpage
-\section{Logo.jsx}
+\section{./frontend/src/components/Logo.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/Logo.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/Logo.test.js}
-
-\newpage
-\section{MethodButton.jsx}
+\section{./frontend/src/components/MethodButton.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/MethodButton.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/MethodButton.test.js}
-
-\newpage
-\section{RoundButton.jsx}
+\section{./frontend/src/components/RoundButton.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/RoundButton.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/RoundButton.test.js}
-
-\newpage
-\section{ServiceList.jsx}
+\section{./frontend/src/components/ServiceList.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/ServiceList.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/ServiceList.test.js}
-
-\newpage
-\section{ServiceListItem.jsx}
+\section{./frontend/src/components/ServiceListItem.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/ServiceListItem.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/ServiceListItem.test.js}
-
-\newpage
-\section{Setup.jsx}
+\section{./frontend/src/components/setup/Setup.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/setup/Setup.jsx}
 
 \newpage
-\section{SetupMethod.jsx}
+\section{./frontend/src/components/setup/SetupMethod.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupMethod.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupMethod.test.js}
-
-\newpage
-\section{SetupName.jsx}
+\section{./frontend/src/components/setup/SetupName.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupName.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupName.test.js}
-
-\newpage
-\section{SetupNatural.jsx}
+\section{./frontend/src/components/setup/SetupNatural.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupNatural.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupNatural.test.js}
-
-\newpage
-\section{SetupSpreadsheet.jsx}
+\section{./frontend/src/components/setup/SetupSpreadsheet.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupSpreadsheet.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/setup/SetupSpreadsheet.test.js}
-
-\newpage
-\section{StyleConstant.js}
+\section{./frontend/src/components/StyleConstant.js}
 \lstinputlisting[style=customasm]{./frontend/src/components/StyleConstant.js}
 
 \newpage
-\section{TextInput.jsx}
+\section{./frontend/src/components/TextInput.jsx}
 \lstinputlisting[style=customasm]{./frontend/src/components/TextInput.jsx}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/components/TextInput.test.js}
-
-\newpage
-\section{AuthFormContainer.js}
+\section{./frontend/src/containers/AuthFormContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/AuthFormContainer.js}
 
 \newpage
-\section{AboutContainer.js}
+\section{./frontend/src/containers/dashboard/AboutContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/dashboard/AboutContainer.js}
 
 \newpage
-\section{EntriesContainer.js}
+\section{./frontend/src/containers/dashboard/EntriesContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/dashboard/EntriesContainer.js}
 
 \newpage
-\section{PagesContainer.js}
+\section{./frontend/src/containers/dashboard/PagesContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/dashboard/PagesContainer.js}
 
 \newpage
-\section{SidebarContainer.js}
+\section{./frontend/src/containers/dashboard/SidebarContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/dashboard/SidebarContainer.js}
 
 \newpage
-\section{StructureContainer.js}
+\section{./frontend/src/containers/dashboard/StructureContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/dashboard/StructureContainer.js}
 
 \newpage
-\section{HomePageContainer.js}
+\section{./frontend/src/containers/HomePageContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/HomePageContainer.js}
 
 \newpage
-\section{NameInput.js}
-\lstinputlisting[style=customasm]{./frontend/src/containers/NameInput.js}
-
-\newpage
-\section{ServiceListContainer.js}
+\section{./frontend/src/containers/ServiceListContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/ServiceListContainer.js}
 
 \newpage
-\section{SetupContainer.js}
+\section{./frontend/src/containers/setup/SetupContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/setup/SetupContainer.js}
 
 \newpage
-\section{SetupMethodContainer.js}
+\section{./frontend/src/containers/setup/SetupMethodContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/setup/SetupMethodContainer.js}
 
 \newpage
-\section{SetupNameContainer.js}
+\section{./frontend/src/containers/setup/SetupNameContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/setup/SetupNameContainer.js}
 
 \newpage
-\section{SetupNaturalContainer.js}
+\section{./frontend/src/containers/setup/SetupNaturalContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/setup/SetupNaturalContainer.js}
 
 \newpage
-\section{SetupSpreadsheetContainer.js}
+\section{./frontend/src/containers/setup/SetupSpreadsheetContainer.js}
 \lstinputlisting[style=customasm]{./frontend/src/containers/setup/SetupSpreadsheetContainer.js}
 
 \newpage
-\section{index.css}
-\lstinputlisting[style=customasm]{./frontend/src/index.css}
-
-\newpage
-\section{index.js}
+\section{./frontend/src/index.js}
 \lstinputlisting[style=customasm]{./frontend/src/index.js}
 
 \newpage
-\section{index.js}
+\section{./frontend/src/reducers/index.js}
 \lstinputlisting[style=customasm]{./frontend/src/reducers/index.js}
 
 \newpage
-\section{test.js}
-\lstinputlisting[style=customasm]{./frontend/src/reducers/index.test.js}
-
-\newpage
-\section{annotateText.js}
-\lstinputlisting[style=customasm]{./frontend/src/utils/annotateText.js}
-
-\newpage
-\section{API.js}
+\section{./frontend/src/utils/API.js}
 \lstinputlisting[style=customasm]{./frontend/src/utils/API.js}
 
 \newpage
-\section{Auth.js}
+\section{./frontend/src/utils/Auth.js}
 \lstinputlisting[style=customasm]{./frontend/src/utils/Auth.js}
 
 \newpage
-\section{capitalizeString.js}
+\section{./frontend/src/utils/capitalizeString.js}
 \lstinputlisting[style=customasm]{./frontend/src/utils/capitalizeString.js}
 
 \newpage
-\section{createMethods.js}
+\section{./frontend/src/utils/createMethods.js}
 \lstinputlisting[style=customasm]{./frontend/src/utils/createMethods.js}
 
 \newpage
-\section{formatSentences.js}
-\lstinputlisting[style=customasm]{./frontend/src/utils/formatSentences.js}
-
-\newpage
-\section{normalizr.js}
+\section{./frontend/src/utils/normalizr.js}
 \lstinputlisting[style=customasm]{./frontend/src/utils/normalizr.js}
 
 \newpage
-\section{setupScreens.js}
+\section{./frontend/src/utils/setupScreens.js}
 \lstinputlisting[style=customasm]{./frontend/src/utils/setupScreens.js}
 
 \newpage
-\section{natural.js}
+\section{./frontend/src/index.css}
+\lstinputlisting[style=customasm]{./frontend/src/index.css}
+
+\newpage
+\section{./frontend/package.json}
+\lstinputlisting[style=customasm]{./frontend/package.json}
+
+\newpage
+\section{./backend/package.json}
+\lstinputlisting[style=customasm]{./backend/package.json}
+
+\newpage
+\section{./backend/src/components/natural.js}
 \lstinputlisting[style=customasm]{./backend/src/components/natural.js}
 
 \newpage
-\section{parse.js}
+\section{./backend/src/components/parse.js}
 \lstinputlisting[style=customasm]{./backend/src/components/parse.js}
 
 \newpage
-\section{service.js}
+\section{./backend/src/components/service.js}
 \lstinputlisting[style=customasm]{./backend/src/components/service.js}
 
 \newpage
-\section{utils.js}
+\section{./backend/src/components/utils.js}
 \lstinputlisting[style=customasm]{./backend/src/components/utils.js}
 
 \newpage
-\section{bootstrap.js}
+\section{./backend/src/config/bootstrap.js}
 \lstinputlisting[style=customasm]{./backend/src/config/bootstrap.js}
 
 \newpage
-\section{connections.js}
+\section{./backend/src/config/connections.js}
 \lstinputlisting[style=customasm]{./backend/src/config/connections.js}
 
 \newpage
-\section{passport.js}
+\section{./backend/src/config/passport.js}
 \lstinputlisting[style=customasm]{./backend/src/config/passport.js}
 
 \newpage
-\section{index.js}
-\lstinputlisting[style=customasm]{./backend/src/index.js}
-
-\newpage
-\section{authentication.js}
-\lstinputlisting[style=customasm]{./backend/src/middleware/authentication.js}
-
-\newpage
-\section{attribute.js}
-\lstinputlisting[style=customasm]{./backend/src/models/attribute.js}
-
-\newpage
-\section{entry.js}
-\lstinputlisting[style=customasm]{./backend/src/models/entry.js}
-
-\newpage
-\section{index.js}
-\lstinputlisting[style=customasm]{./backend/src/models/index.js}
-
-\newpage
-\section{model.js}
-\lstinputlisting[style=customasm]{./backend/src/models/model.js}
-
-\newpage
-\section{service.js}
-\lstinputlisting[style=customasm]{./backend/src/models/service.js}
-
-\newpage
-\section{user.js}
-\lstinputlisting[style=customasm]{./backend/src/models/user.js}
-
-\newpage
-\section{value.js}
-\lstinputlisting[style=customasm]{./backend/src/models/value.js}
-
-\newpage
-\section{index.py}
+\section{./backend/src/nlp/index.py}
 \lstinputlisting[style=customasm]{./backend/src/nlp/index.py}
 
 \newpage
-\section{spacyparse.py}
+\section{./backend/src/nlp/spacyparse.py}
+\textbf{NOTE}: This file is copied from https://github.com/kengz/spacy-nlp/blob/master/src/py/nlp.py.
+
 \lstinputlisting[style=customasm]{./backend/src/nlp/spacyparse.py}
 
 \newpage
-\section{api.js}
+\section{./backend/src/index.js}
+\lstinputlisting[style=customasm]{./backend/src/index.js}
+
+\newpage
+\section{./backend/src/middleware/authentication.js}
+\lstinputlisting[style=customasm]{./backend/src/middleware/authentication.js}
+
+\newpage
+\section{./backend/src/models/attribute.js}
+\lstinputlisting[style=customasm]{./backend/src/models/attribute.js}
+
+\newpage
+\section{./backend/src/models/entry.js}
+\lstinputlisting[style=customasm]{./backend/src/models/entry.js}
+
+\newpage
+\section{./backend/src/models/index.js}
+\lstinputlisting[style=customasm]{./backend/src/models/index.js}
+
+\newpage
+\section{./backend/src/models/model.js}
+\lstinputlisting[style=customasm]{./backend/src/models/model.js}
+
+\newpage
+\section{./backend/src/models/service.js}
+\lstinputlisting[style=customasm]{./backend/src/models/service.js}
+
+\newpage
+\section{./backend/src/models/user.js}
+\lstinputlisting[style=customasm]{./backend/src/models/user.js}
+
+\newpage
+\section{./backend/src/models/value.js}
+\lstinputlisting[style=customasm]{./backend/src/models/value.js}
+
+\newpage
+\section{./backend/src/routes/api.js}
 \lstinputlisting[style=customasm]{./backend/src/routes/api.js}
 
 \newpage
-\section{attribute.js}
+\section{./backend/src/routes/attribute.js}
 \lstinputlisting[style=customasm]{./backend/src/routes/attribute.js}
 
 \newpage
-\section{auth.js}
+\section{./backend/src/routes/auth.js}
 \lstinputlisting[style=customasm]{./backend/src/routes/auth.js}
 
 \newpage
-\section{entry.js}
+\section{./backend/src/routes/entry.js}
 \lstinputlisting[style=customasm]{./backend/src/routes/entry.js}
 
 \newpage
-\section{index.js}
-\lstinputlisting[style=customasm]{./backend/src/routes/index.js}
-
-\newpage
-\section{model.js}
+\section{./backend/src/routes/model.js}
 \lstinputlisting[style=customasm]{./backend/src/routes/model.js}
 
 \newpage
-\section{service.js}
+\section{./backend/src/routes/service.js}
 \lstinputlisting[style=customasm]{./backend/src/routes/service.js}
 
 \newpage
-\section{value.js}
+\section{./backend/src/routes/value.js}
 \lstinputlisting[style=customasm]{./backend/src/routes/value.js}
 
 \newpage
-\section{natural\_test.js}
+\section{./backend/test/natural\_test.js}
 \lstinputlisting[style=customasm]{./backend/test/natural_test.js}
 
 \newpage
-\section{parse\_test.js}
+\section{./backend/test/parse\_test.js}
 \lstinputlisting[style=customasm]{./backend/test/parse_test.js}
-
-\newpage
-\section{service\_test.js}
-\lstinputlisting[style=customasm]{./backend/test/service_test.js}
 
 
 \end{document}

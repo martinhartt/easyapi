@@ -6,8 +6,8 @@ import { showError } from '../other/showError';
 export function authUser(username, password) {
   return function (dispatch) {
     authenticateUser(username, password)
-    .then(result => dispatch(authUserResult(result)))
     .then((result) => {
+      dispatch(authUserResult(result));
       if (result.success) {
         saveToken(result.token);
       }

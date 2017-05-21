@@ -1,4 +1,4 @@
-import { getToken, removeToken } from './Auth';
+import { getToken, saveToken } from './Auth';
 
 function curryReq(path, useToken = true, method = 'POST') {
   return async (params) => {
@@ -16,8 +16,12 @@ function curryReq(path, useToken = true, method = 'POST') {
       body: JSON.stringify(params),
     });
 
-
     const json = await response.json();
+
+    if (json.token) {
+      saveToken(json.token);
+    }
+
     return json;
   };
 }
@@ -27,7 +31,7 @@ export const req = (path, params) => curryReq(path)(params);
 export const extractModelFromText = text => curryReq('/service/parseText')({ text });
 
 export const authenticateUser = (username, password) => curryReq('/auth/login', false)({ username, password });
-export const getUserInfo = () => curryReq('/auth/info', true)();
+export const getUserInfo = () => curryReq('/auth/profile', true)();
 
 export const getService = id => curryReq(`/service/${id}`, true, 'GET')({});
 

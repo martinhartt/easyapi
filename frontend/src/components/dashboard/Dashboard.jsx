@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../Logo';
 import SidebarContainer from '../../containers/dashboard/SidebarContainer';
-import { Color, lightBorder } from '../StyleConstant';
+import { lightBorder } from '../StyleConstant';
 
 
 const style = {
@@ -10,7 +10,7 @@ const style = {
     display: 'flex',
   },
   sidebar: {
-    width: 230,
+    minWidth: 230,
     borderRight: lightBorder,
     height: '100vh',
   },

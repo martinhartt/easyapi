@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import databaseModels from '../models';
 
-const { Service, Model, Attribute, Entry, Value } = databaseModels;
+const { Value } = databaseModels;
 
 /* eslint-disable new-cap */
 const router = Router();

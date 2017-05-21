@@ -82,10 +82,6 @@ def parse_list(doc, light=False):
     merge_ents(doc)  # merge the entities into single tokens first
     return [format_POS(token, light=light, flat=True) for token in doc]
 
-# s = "find me flights from New York to London next month"
-# doc = nlp(s)
-# parse_list(doc)
-
 
 # Primary methods
 ##########################################
@@ -105,8 +101,6 @@ def parse_sentence(sentence):
         ("parse_list", parse_list(doc))
     ])
     return reply
-
-# res = parse_sentence("find me flights from New York to London next month.")
 
 
 def parse(input):

@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import models from '../models';
 import jwt from 'jsonwebtoken';
+import models from '../models';
 
 const { User } = models;
 
@@ -37,6 +37,7 @@ passport.use(new LocalStrategy({
         user: user.id,
       };
 
+      // Change secret in production
       const token = jwt.sign(payload, 'secret');
 
       return done(null, {

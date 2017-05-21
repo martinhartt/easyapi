@@ -21,14 +21,15 @@ const style = {
   },
 };
 
-const TopBar = ({ name, onNew }) =>
+const TopBar = ({ name, onNew, enableNew }) =>
   <div style={style.base}>
     <h2 style={style.h2}>{name}</h2>
-    <RoundButton text="add" onClick={onNew} />
+    {enableNew && <RoundButton text="add" onClick={onNew} />}
   </div>;
 
 TopBar.propTypes = {
   name: PropTypes.string,
+  enableNew: PropTypes.bool,
   onNew: PropTypes.func,
 };
 

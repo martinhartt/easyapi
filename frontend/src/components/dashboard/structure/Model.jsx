@@ -17,6 +17,7 @@ const style = {
     padding: 5,
     position: 'relative',
     zIndex: 0,
+    marginRight: 10,
   },
   title: {
     margin: 0,

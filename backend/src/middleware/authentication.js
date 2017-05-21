@@ -7,6 +7,9 @@ export default function (req, res, next) {
   if (req.originalUrl.startsWith('/api/auth/login')) {
     return next();
   }
+  if (req.originalUrl.startsWith('/api/api')) {
+    return next();
+  }
 
   if (!req.headers.authorization) {
     return res.status(401).end();
@@ -26,6 +29,6 @@ export default function (req, res, next) {
         }
         return res.status(401).end();
       })
-      .catch(err => res.status(401).end());
+      .catch(() => res.status(401).end());
   });
 }

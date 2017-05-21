@@ -6,6 +6,6 @@ const createMethods = {
   naturalLanguage,
   spreadsheet,
   device,
-}
+};
 
 export default createMethods;

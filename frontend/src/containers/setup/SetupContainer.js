@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import Setup from '../../components/setup/Setup';
-import 'immutable';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   screen: state.getIn(['setup', 'screen']),
 });
 

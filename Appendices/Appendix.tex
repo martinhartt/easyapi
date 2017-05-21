@@ -1,0 +1,113 @@
+\chapter{Extra Information}
+
+\section{List of third party libraries and tools}
+\label{thirdparty}
+
+\begin{itemize}
+\item \href{http://eslint.org/}{\textbf{ESLint}}: A linting utility for Javascript
+\item \href{https://github.com/59naga/eslint-plugin-async-await}{\textbf{eslint-plugin-async-await}}: ESLint plugin which enables async/await functionality
+\item \href{https://github.com/yannickcr/eslint-plugin-react}{\textbf{eslint-plugin-react}}: React linting rules for ESLint
+\item \href{https://github.com/mozilla-neutrino/neutrino-dev}{\textbf{neutrino}}: A companion tool for setting up the development  environment
+  \item \href{https://github.com/kelektiv/node.bcrypt.js}{\textbf{bcrypt}}: A library for hashing passwords
+  \item \href{https://github.com/expressjs/body-parser}{\textbf{body-parser}}:A Node.js body parsing middle for Express.js
+  \item \href{http://chaijs.com/}{\textbf{chai}}: A test assertion library for Node.js
+  \item \href{https://github.com/nlp-compromise/compromise}{\textbf{compromise}}: A Natural Language Processing module
+  \item \href{https://expressjs.com/}{\textbf{express}}: Minimalistic web framework for Node.js
+  \item \href{https://facebook.github.io/immutable-js/}{\textbf{immutable}}:  A library which provides immutable data structures
+  \item \href{https://github.com/matthew-andrews/isomorphic-fetch}{\textbf{isomorphic-fetch}}: A Javascript polyfill for fetch
+  \item \href{https://jwt.io/}{\textbf{jsonwebtoken}}: Support for JSON Web Tokens
+  \item \href{https://github.com/expressjs/multer}{\textbf{multer}}: Node.js middleware for multipart uploads
+  \item \href{https://github.com/NaturalNode/natural}{\textbf{natural}}: Natural language facilities for node
+  \item \href{http://passportjs.org/}{\textbf{passport}}: Authentication middleware for Node.js
+  \item \href{https://github.com/jaredhanson/passport-local}{\textbf{passport-local}}: A username and password strategy for passport
+  \item \href{https://github.com/brianc/node-postgres}{\textbf{pg}}: PostgreSQL client for Node.js
+  \item \href{https://github.com/FormidableLabs/radium}{\textbf{radium}}: A toolchain for React styling
+  \item \href{https://facebook.github.io/react/}{\textbf{react}}: A Javascript for building user interfaces
+  \item \href{https://facebook.github.io/react/docs/react-dom.html}{\textbf{react-dom}}: React bindings for the browser
+  \item \href{https://github.com/reactjs/react-redux}{\textbf{react-redux}}: React bindings for Redux
+  \item \href{http://redux.js.org/}{\textbf{redux}}: State container for Javascript applications
+  \item \href{https://github.com/gajus/redux-immutable}{\textbf{redux-immutable}}: Support for Immutable in Redux
+  \item \href{https://github.com/request/request-promise}{\textbf{request-promise}}: A HTTP request client with Promise support
+  \item \href{https://github.com/Tessmore/sbd}{\textbf{sbd}}: Sentence boundary detection
+  \item \href{http://docs.sequelizejs.com/en/v3/}{\textbf{sequelize}}: A promise-based ORM
+  \item \href{https://github.com/sequelize/cli}{\textbf{sequelize-cli}}: A Sequelize command line interface
+  \item \href{https://spacy.io/}{\textbf{spacy}}: NLP processing library with dependency parsing
+  \item \href{https://github.com/SheetJS/js-xlsx}{\textbf{xlsx}}: Spreadsheet parser and writer in Javasript
+  \item \href{https://github.com/paularmstrong/normalizr}{\textbf{normalizr}}: Library for normalizing nested JSON according to a schema
+  \item \href{https://github.com/reactjs/prop-types}{\textbf{prop-types}}: Runtime type checking for React
+  \item \href{https://github.com/okonet/react-dropzone}{\textbf{react-dropzone}}: A HTML5 drag-drop zone for React
+  \item \href{https://github.com/ReactTraining/react-router}{\textbf{react-router}}: Declarative routing for React
+  \item \href{https://github.com/reactjs/react-router-redux}{\textbf{react-router-redux}}: Bindings for react-router and Redux
+  \item \href{https://github.com/facebookincubator/create-react-app}{\textbf{react-scripts}}: A development environment setup tool
+\item \href{http://underscorejs.org/}{\textbf{underscore}}: A library with utility functions
+\item \href{https://mochajs.org/}{\textbf{mocha}}: Test framework for Javascript
+  \item \href{https://github.com/gaearon/redux-thunk}{\textbf{redux-thunk}}: Thunk middleware for Redux
+  \item \href{https://github.com/kengz/spacy-nlp/blob/master/src/py/nlp.py}{\textbf{spacy-nlp}}: Exposes main Spacy functionality
+\end{itemize}
+
+
+\section{Example of a model definition}
+\label{modeldef}
+
+`\begin{lstlisting}
+[
+  {
+    "name": "pet",
+    "properties": [
+      {
+        "type": "string",
+        "name": "name",
+        "required": false,
+        "multiple": false
+      },
+      {
+        "type": "string",
+        "name": "breed",
+        "required": false,
+        "multiple": false
+      },
+      {
+        "type": "Owner",
+        "name": "owner",
+        "required": false,
+        "multiple": false
+      },
+      {
+        "type": "Toy",
+        "name": "likes_toy",
+        "required": false,
+        "multiple": false
+      }
+    ]
+  },
+  {
+    "name": "owner",
+    "properties": [
+      {
+        "type": "string",
+        "name": "name",
+        "required": false,
+        "multiple": false
+      },
+      {
+        "type": "Pet",
+        "name": "owns_pet",
+        "required": false,
+        "multiple": false
+      }
+    ]
+  },
+  {
+    "name": "toy",
+    "properties": [
+      {
+        "type": "string",
+        "name": "name",
+        "required": false,
+        "multiple": false
+      }
+    ]
+  }
+];
+
+\end{lstlisting}

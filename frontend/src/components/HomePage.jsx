@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
-import { Router, Route, browserHistory } from 'react-router';
 import AuthFormContainer from '../containers/AuthFormContainer';
 import ServiceListContainer from '../containers/ServiceListContainer';
 import Frame from './Frame';

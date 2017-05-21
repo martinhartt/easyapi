@@ -1,10 +1,6 @@
 import { intersection } from 'underscore';
 import request from 'request-promise';
 import compromise from 'nlp_compromise';
-
-/**
- * Natural Service: A service for extracting information from natural speech.
- */
 import { sentences as seperateSentences } from 'sbd';
 
 // Uses spacy to deconstruct text into a dependancy parse tree
@@ -97,7 +93,6 @@ function findIfPropertyHasMultiple(prop) {
   for (const modifier of combined) {
     const singleKeywords = ['a', 'single', 'one'];
     const multipleKeywords = ['many', 'multiple', 'several'];
-    // const singleNumbers = ['one', 'zero'];
 
     if (modifier.arc === 'nummod') {
       // Parse value of number
@@ -136,15 +131,8 @@ function buildPhrase(tree, transform = w => w, space = ' ') {
   return tree.word;
 }
 
-function propertyName(prop, relationship, multiple) {
+function propertyName(prop, relationship) {
   let entity = '';
-
-  const correctedNoun = multiple ?
-    compromise.noun(prop.lemma).pluralize() :
-    compromise.noun(prop.lemma).singularize();
-
-
-  const othersInPhrase = prop.othersInPhrase;
 
   entity = buildPhrase(prop);
 
@@ -167,12 +155,18 @@ function propertyType(prop, entities = []) {
     }
   }
 
+  if (!prop || !prop.name) {
+    return 'string';
+  }
+
   const propWords = prop.name.split(' ');
 
   // Check criteria for number.
   const integerKeywords = [
     'number',
     'integer',
+    'digit',
+    'digits',
     'numbers',
     'integers',
   ];
@@ -184,6 +178,7 @@ function propertyType(prop, entities = []) {
     'doubles',
     'decimal',
     'decimals',
+    'amount',
   ];
 
   if (intersection(propWords, integerKeywords).length > 0) {
@@ -214,10 +209,6 @@ function categoriseProp(prop, context, relationship, entities) {
   };
 }
 
-function getConjuctions(object) {
-  return followModifiers(object, o => o.arc === 'conj');
-}
-
 function followModifiers(tree, condition) {
   if (!tree || !tree.modifiers || tree.modifiers.length === 0) return [];
 
@@ -234,6 +225,10 @@ function followModifiers(tree, condition) {
     return [modifier];
   }
   return [];
+}
+
+function getConjuctions(object) {
+  return followModifiers(object, o => o.arc === 'conj');
 }
 
 function postprocess(modelStructure, entities) {
@@ -296,9 +291,6 @@ async function generateModelStructure(text) {
   const parseResult = await parse(text);
   const modelStructure = [];
   let allEntities = [];
-
-  // Useful transformations
-  // Remove oxford comma!
 
   for (const sentenceResult of parseResult.data) {
     // Find relationships

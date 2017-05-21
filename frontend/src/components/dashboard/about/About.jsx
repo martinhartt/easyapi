@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TopBar from '../TopBar';
-import { Color } from '../../StyleConstant';
 import TextInput from '../../TextInput';
-import Button from '../../Button';
 
 const style = {
   base: {
@@ -24,14 +22,7 @@ const style = {
   },
 };
 
-const metaExample = {
-  name: 'Pets',
-  url: 'pets',
-  author: 'Martin Hartt',
-  isPublic: false,
-};
-
-const About = ({ name, meta = metaExample, onChange = () => {} }) => <div>
+const About = ({ name, meta, onChange = () => {} }) => <div>
   <TopBar name={name} />
   <div style={style.base}>
     <h3 style={style.h3}>About</h3>
@@ -40,7 +31,7 @@ const About = ({ name, meta = metaExample, onChange = () => {} }) => <div>
         (typeof (meta[key].value) === 'boolean') ?
           <div>
             <input id={key} type="checkbox" checked={meta[key].value === true} onChange={e => onChange({ [key]: !!e.target.checked })} />
-            <label htmlFor={key} style={style.label}>{key}</label>
+            <label htmlFor={key} style={style.label}>{meta[key].label}</label>
           </div>
                  :
           <div>

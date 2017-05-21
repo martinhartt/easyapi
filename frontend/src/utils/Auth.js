@@ -1,5 +1,3 @@
-// let savedToken;
-
 const localStorage = window.localStorage || null;
 
 

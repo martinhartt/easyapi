@@ -2,7 +2,7 @@ import { Router } from 'express';
 import databaseModels from '../models';
 import { stringToShortName } from '../components/utils';
 
-const { Service, Model, Attribute, Entry, Value } = databaseModels;
+const { Model } = databaseModels;
 
 /* eslint-disable new-cap */
 const router = Router();

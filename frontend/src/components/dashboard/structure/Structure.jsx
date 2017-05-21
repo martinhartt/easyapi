@@ -12,6 +12,9 @@ const style = {
     height: 'calc(100vh - 97px)',
     padding: 10,
     overflowY: 'auto',
+    display: 'flex',
+    flexFlow: 'row wrap',
+    alignItems: 'flex-start',
   },
   model: {
 
@@ -70,7 +73,7 @@ const Structure = ({
   onAttributeDelete,
   onAttributeChange,
 }) => <div style={style.base}>
-  <TopBar name={name} onNew={() => onModelCreate()} />
+  <TopBar name={name} onNew={() => onModelCreate()} enableNew />
   {selectedAttribute && <DialogBox
     name={selectedAttribute.name}
     object={selectedAttribute}

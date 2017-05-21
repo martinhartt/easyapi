@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { updateModel } from '../../actions/dashboard/updateModel';
-import { updateModelLocally } from '../../actions/dashboard/updateModelLocally';
 import Pages from '../../components/dashboard/pages/Pages';
 
 
@@ -15,26 +14,31 @@ const mapStateToProps = (immutableState) => {
       label: 'Find',
       prop: 'isFindEnabled',
       method: 'GET',
+      suffix: '',
     },
     {
       label: 'Find One',
       prop: 'isFindOneEnabled',
       method: 'GET',
+      suffix: '/:id',
     },
     {
       label: 'Create',
       prop: 'isCreateEnabled',
       method: 'POST',
+      suffix: '',
     },
     {
       label: 'Update',
       prop: 'isUpdateEnabled',
       method: 'PATCH',
+      suffix: '/:id',
     },
     {
       label: 'Delete',
       prop: 'isDeleteEnabled',
       method: 'DELETE',
+      suffix: '/:id',
     },
   ];
 

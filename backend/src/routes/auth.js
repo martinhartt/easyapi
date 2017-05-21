@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import passport from '../config/passport';
 
-/* eslint-disable new-cap */
 const router = Router();
 
 function validate(form) {
@@ -24,7 +23,6 @@ function validate(form) {
   };
 }
 
-/* GET index. */
 router.post('/login', (req, res, next) => {
   const validation = validate({
     username: req.param('username'),
@@ -53,7 +51,7 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.post('/info', (req, res) => {
+router.post('/profile', (req, res) => {
   res.status(200).json(Object.assign({
     success: true,
     errors: {},

@@ -5,7 +5,6 @@ import Radium from 'radium';
 const style = {
   base: {
     minWidth: 70,
-    // height: '80%',
     marginLeft: 0,
     textAlign: 'center',
     marginRight: 5,
@@ -38,6 +37,9 @@ const Column = ({ value, type, isItem, onChange, first = false }) =>
 
 Column.propTypes = {
   value: PropTypes.any,
+  type: PropTypes.string,
+  isItem: PropTypes.bool,
+  first: PropTypes.bool,
   onChange: PropTypes.func,
 };
 

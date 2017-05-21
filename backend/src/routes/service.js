@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { parseSpreadsheet, parseNaturalLanguage } from '../components/parse';
-import { createService, findServices } from '../components/service';
+import { createService } from '../components/service';
 import databaseModels from '../models';
 
-const { Service, Model, Attribute, Entry, Value } = databaseModels;
+const { Service } = databaseModels;
 
 const upload = multer({ dest: 'upload/' });
 
@@ -14,7 +14,8 @@ const router = Router();
 router.post('/parseText', (req, res) => {
   const text = req.param('text');
   return parseNaturalLanguage(text)
-  .then(result => res.send(result));
+  .then(result => res.send(result))
+  .catch(e => console.log(e));
 });
 
 router.post('/parseSpreadsheet', upload.single('spreadsheet'), (req, res) => parseSpreadsheet(req.file)

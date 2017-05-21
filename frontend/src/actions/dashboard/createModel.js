@@ -1,4 +1,3 @@
-import { push } from 'react-router-redux';
 import { postModel } from '../../utils/API';
 import { showError } from '../other/showError';
 import { receiveModel } from './receiveModel';
@@ -12,7 +11,7 @@ export function createModel() {
 
     postModel({
       service: state.user.currentServiceId,
-      name: `Model ${newId && `#${newId}`}`,
+      name: `Model ${newId}`,
     })
     .then((result) => {
       if (result.success) {

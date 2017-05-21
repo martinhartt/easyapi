@@ -1,6 +1,5 @@
 import { push } from 'react-router-redux';
 import { postService } from '../../utils/API';
-import { nextScreen } from './nextScreen';
 import { showError } from '../other/showError';
 import { receiveService } from './receiveService';
 

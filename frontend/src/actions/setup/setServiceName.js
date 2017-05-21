@@ -1,4 +1,4 @@
-// @flow
+
 
 export const SET_SERVICE_NAME = 'SET_SERVICE_NAME';
 

@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
   const preview = state.getIn(['setup', 'modelDefinitionPreview']);
   return {
     file: state.getIn(['setup', 'file']),
-    preview: preview,
+    preview,
     nextEnabled: preview && !!preview.length,
   };
 };

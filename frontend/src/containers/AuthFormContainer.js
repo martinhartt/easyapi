@@ -5,7 +5,7 @@ import {
 } from '../actions/auth';
 import AuthForm from '../components/AuthForm';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   username: state
       .getIn(['user', 'username']),
   password: state

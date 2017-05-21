@@ -27,7 +27,7 @@ const prettify = string => string && string.replace(/_/g, ' ');
 function formatAttribute(attribute) {
   const leftPar = attribute.multiple ? '[' : '';
   const rightPar = attribute.multiple ? ']' : '';
-  return `${prettify(attribute.name)} (${leftPar}${attribute.type}${rightPar})`;
+  return `${prettify(attribute.name)}${attribute.required ? '*' : ''} (${leftPar}${attribute.type}${rightPar})`;
 }
 
 const Attribute = ({ attribute, onClick, enableInteractions }) => <div onClick={onClick} style={[style.base, !enableInteractions && style.noInteraction]}>
@@ -38,6 +38,7 @@ Attribute.propTypes = {
   attribute: PropTypes.shape({
     name: PropTypes.string,
     multiple: PropTypes.bool,
+    required: PropTypes.bool,
   }),
   enableInteractions: PropTypes.bool,
 };

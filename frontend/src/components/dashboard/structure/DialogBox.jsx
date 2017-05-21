@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Color, lightBorder } from '../../StyleConstant';
+import { Color } from '../../StyleConstant';
 import TextInput from '../../TextInput';
 import capitalizeString from '../../../utils/capitalizeString';
 
 const style = {
   base: {
-    width: 400,
-    height: 400,
+    width: 210,
+    height: 310,
     position: 'absolute',
     backgroundColor: Color.whiteText,
     top: '50%',
@@ -37,6 +37,7 @@ const style = {
     display: 'block',
     marginTop: 10,
     marginBottom: 5,
+    marginRight: 5,
   },
   cover: {
     position: 'fixed',
@@ -58,6 +59,9 @@ const style = {
     marginTop: 30,
     cursor: 'pointer',
   },
+  field: {
+    marginTop: 10,
+  },
 };
 
 function field(attr, object, onChange) {
@@ -72,7 +76,7 @@ function field(attr, object, onChange) {
     }
     case 'integer': {
       return (
-        <div key={attr.value}>
+        <div key={attr.value} style={style.field}>
           <label style={style.label} htmlFor={attr.value}>{attr.label}</label>
           <TextInput id={attr.value} type="number" text={object[attr.value]} onChange={val => onChange({ [attr.value]: val })} />
         </div>
@@ -80,7 +84,7 @@ function field(attr, object, onChange) {
     }
     case 'enum': {
       return (
-        <div key={attr.value}>
+        <div key={attr.value} style={style.field}>
           <label style={style.label} htmlFor={attr.value}>{attr.label}</label>
           <select value={object[attr.value]} onChange={e => onChange({ [attr.value]: e.target.value })}>
             {attr.options.map(option =>
@@ -92,12 +96,13 @@ function field(attr, object, onChange) {
     }
     case 'boolean': {
       return (
-        <div key={attr.value}>
+        <div key={attr.value} style={style.field}>
           <label style={[style.label]} htmlFor={attr.value}><input type="checkbox" checked={object[attr.value]} onChange={e => onChange({ [attr.value]: e.target.checked })} />{attr.label}</label>
         </div>
       );
     }
   }
+  return null;
 }
 
 const DialogBox = ({ name, object, attributes, onChange, onClose, onDelete }) =>

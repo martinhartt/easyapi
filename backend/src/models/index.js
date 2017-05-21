@@ -1,9 +1,13 @@
-import fs from 'fs';
-import path from 'path';
 import Sequelize from 'sequelize';
 import connections from '../config/connections';
 
-const basename = path.basename(__filename);
+import attribute from './attribute';
+import entry from './entry';
+import model from './model';
+import service from './service';
+import user from './user';
+import value from './value';
+
 const env = process.env.NODE_ENV || 'development';
 const db = {};
 
@@ -15,13 +19,6 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-
-import attribute from './attribute';
-import entry from './entry';
-import model from './model';
-import service from './service';
-import user from './user';
-import value from './value';
 
 const models = {
   attribute,

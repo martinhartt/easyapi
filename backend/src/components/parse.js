@@ -1,9 +1,8 @@
 import XLSX from 'xlsx';
-import Natural from '../components/natural';
 import { object } from 'underscore';
+import Natural from '../components/natural';
 
 export function parseSpreadsheet(file) {
-  // Assume spreadsheet is array of csv's
   const workbook = XLSX.readFile(file.path);
 
   const sheetNames = workbook.SheetNames;
@@ -33,7 +32,7 @@ export function parseSpreadsheet(file) {
     for (let i = 0; i < headings.length; i++) {
       const headingName = headings[i].toLowerCase();
 
-       // Get first 20 rows for sample data
+       // Use first 20 rows for sample data
       const types = determineType(new Set(rows.slice(0, 20).map(row => findType(row[i]))));
       attributes.push(Object.assign({ name: headingName }, types));
     }
@@ -77,7 +76,7 @@ export function determineType(information) {
       }
     }
 
-    if (value.multiple == true) {
+    if (value.multiple === true) {
       multiple = true;
     }
   }

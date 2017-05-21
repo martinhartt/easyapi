@@ -1,4 +1,4 @@
-// @flow
+
 
 export const NEXT_SCREEN = 'NEXT_SCREEN';
 

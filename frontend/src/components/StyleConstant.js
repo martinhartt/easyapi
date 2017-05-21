@@ -23,7 +23,7 @@ export const Dimensions = {
   },
   transitionTime: {
     normal: '0.25s',
-  }
-}
+  },
+};
 
 export const lightBorder = `2px solid ${Color.lightGrey}`;
