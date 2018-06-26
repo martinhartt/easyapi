@@ -13,11 +13,11 @@ Currently the process of developing APIs requires extensive programming and tech
 The following dependencies are required:
 
 - Postgres database (configurable in `backend/src/config/connections.js`)
-- Yarn
-- Pipenv
+- [Yarn](https://yarnpkg.com/lang/en/)
+- [Pipenv](https://github.com/pypa/pipenv)
 
 
-### Setup NLP dependencies
+Setup NLP dependencies:
 
 ```bash
 cd backend/src/nlp
@@ -26,14 +26,14 @@ pipenv shell
 python -m spacy download en
 ```
 
-### Setup backend server dependencies
+Setup backend server dependencies:
 
 ```bash
 cd backend
 yarn install
 ```
 
-### Setup frontend dependencies
+Setup frontend dependencies:
 
 ```bash
 cd frontend
@@ -42,21 +42,21 @@ yarn install
 
 ## Run
 
-The the following processes separately:
+Start the following processes separately:
 
-### Run NLP server
+Run NLP server:
 ```bash
 python3 backend/src/nlp/index.py
 ```
 
-### Run backend server
+Run backend server:
 ```bash
 cd backend && yarn start
 ```
 
-### Run frontend application
+Run frontend application:
 ```bash
 cd frontend && yarn start
 ```
 
-Open <http://localhost:3000/>
+Open <http://localhost:3000>
