@@ -1,8 +1,8 @@
 const connections = {
   development: {
-    username: 'martinkubat',
+    username: 'martinhartt',
     password: '',
-    database: 'martinkubat',
+    database: 'martinhartt',
     host: 'localhost',
     dialect: 'postgres',
   },

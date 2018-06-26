@@ -2,18 +2,56 @@
 API generator for humans
 
 
-# Setup
+## Setup
 
-open /Applications/Postgres.app
+The following dependencies need to be installed first:
 
-===
+- Postgres database (configurable in `backend/src/config/connections.js`)
+- Yarn
+- Pipenv
 
-python3 /Users/martinkubat/Work/easyapi/backend/src/nlp/index.py
 
-===
 
-cd /Users/martinkubat/Work/easyapi/backend/ && yarn start
+### Setup NLP dependencies
 
-===
+```bash
+cd backend/src/nlp
+pipenv install
+pipenv shell
+python -m spacy download en
+```
 
-cd /Users/martinkubat/Work/easyapi/frontend && yarn start
+### Setup backend server dependencies
+
+```bash
+cd backend
+yarn install
+```
+
+### Setup frontend dependencies
+
+```bash
+cd frontend
+yarn install
+```
+
+## Run
+
+The the following processes separately:
+
+### Run NLP server
+```bash
+python3 backend/src/nlp/index.py
+```
+
+### Run backend server
+```bash
+cd backend && yarn start
+```
+
+### Run frontend application
+```bash
+cd frontend && yarn start
+```
+
+Open <http://localhost:3000/>

@@ -1,3 +1,4 @@
+require('/Users/martinhartt/Work/easyapi/backend/node_modules/source-map-support/source-map-support.js').install();
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -7,9 +8,9 @@ module.exports =
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
+/******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/ 		}
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -129,7 +130,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a;
 
-/* harmony default export */ __webpack_exports__["a"] = (db);
+/* harmony default export */ __webpack_exports__["a"] = db;
 
 /***/ }),
 /* 1 */
@@ -253,7 +254,7 @@ __WEBPACK_IMPORTED_MODULE_0_passport___default.a.deserializeUser((id, done) => {
   });
 });
 
-/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_passport___default.a);
+/* harmony default export */ __webpack_exports__["a"] = __WEBPACK_IMPORTED_MODULE_0_passport___default.a;
 
 /***/ }),
 /* 5 */
@@ -722,7 +723,7 @@ const Natural = {
   parse
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Natural);
+/* harmony default export */ __webpack_exports__["a"] = Natural;
 
 /***/ }),
 /* 8 */
@@ -1039,9 +1040,9 @@ function bootstrap() {
 "use strict";
 const connections = {
   development: {
-    username: 'martinkubat',
+    username: 'martinhartt',
     password: '',
-    database: 'martinkubat',
+    database: 'martinhartt',
     host: 'localhost',
     dialect: 'postgres'
   },
@@ -1061,7 +1062,7 @@ const connections = {
   }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (connections);
+/* harmony default export */ __webpack_exports__["a"] = connections;
 
 /***/ }),
 /* 12 */
@@ -1076,7 +1077,7 @@ const connections = {
 
 const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
 
-/* harmony default export */ __webpack_exports__["a"] = (function (req, res, next) {
+/* harmony default export */ __webpack_exports__["a"] = function (req, res, next) {
   if (req.originalUrl.startsWith('/api/auth/login')) {
     return next();
   }
@@ -1102,14 +1103,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
       return res.status(401).end();
     }).catch(() => res.status(401).end());
   });
-});
+};
 
 /***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Attribute = sequelize.define('Attribute', {
     name: DataTypes.STRING,
     type: DataTypes.STRING,
@@ -1129,14 +1130,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Attribute;
-});
+};
 
 /***/ }),
 /* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Entry = sequelize.define('Entry', {
     index: DataTypes.INTEGER
   }, {
@@ -1154,14 +1155,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Entry;
-});
+};
 
 /***/ }),
 /* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Model = sequelize.define('Model', {
     name: DataTypes.STRING,
     shortName: DataTypes.STRING,
@@ -1201,14 +1202,14 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Model;
-});
+};
 
 /***/ }),
 /* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Service = sequelize.define('Service', {
     name: DataTypes.STRING,
     shortName: DataTypes.STRING,
@@ -1228,18 +1229,18 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Service;
-});
+};
 
 /***/ }),
 /* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcryptjs__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcryptjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcryptjs__);
 
 
-/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
@@ -1251,25 +1252,25 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
       associate(models) {
         User.hasMany(models.Service);
       },
-      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null)
+      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcryptjs___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcryptjs___default.a.genSaltSync(8), null)
     },
     instanceMethods: {
-      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(8), null),
+      generateHash: password => __WEBPACK_IMPORTED_MODULE_0_bcryptjs___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcryptjs___default.a.genSaltSync(8), null),
       validPassword(password) {
-        return __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.compare(password, this.passwordHash);
+        return __WEBPACK_IMPORTED_MODULE_0_bcryptjs___default.a.compare(password, this.passwordHash);
       }
     }
   });
 
   return User;
-});
+};
 
 /***/ }),
 /* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (sequelize, DataTypes) {
+/* harmony default export */ __webpack_exports__["a"] = function (sequelize, DataTypes) {
   const Value = sequelize.define('Value', {
     value: DataTypes.STRING
   }, {
@@ -1287,7 +1288,7 @@ const { User } = __WEBPACK_IMPORTED_MODULE_1__models__["a" /* default */];
   });
 
   return Value;
-});
+};
 
 /***/ }),
 /* 19 */
@@ -1599,7 +1600,7 @@ router.all('/:user/:service/:model/:id?', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 20 */
@@ -1762,7 +1763,7 @@ router.delete('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 21 */
@@ -1833,7 +1834,7 @@ router.post('/profile', (req, res) => {
   }));
 });
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 22 */
@@ -1974,7 +1975,7 @@ router.delete('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 23 */
@@ -2131,7 +2132,7 @@ router.delete('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 24 */
@@ -2282,7 +2283,7 @@ router.patch('/:id', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 25 */
@@ -2339,13 +2340,13 @@ router.patch('/', (() => {
   };
 })());
 
-/* harmony default export */ __webpack_exports__["a"] = (router);
+/* harmony default export */ __webpack_exports__["a"] = router;
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = require("bcrypt");
+module.exports = require("bcryptjs");
 
 /***/ }),
 /* 27 */
