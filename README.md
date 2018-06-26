@@ -1,7 +1,12 @@
 # EasyAPI
 
-Currently the process of developing APIs requires extensive programming and technical experience. This project consists of a web application which simplifies the process through the use of several methods accessible to anyone. The first method is by building a database from a user’s domain description. The second method is by extracting the database schema and data from a spreadsheet and building an API for it. ([Demo](https://gfycat.com/TestyFlakyChevrotain))
+This repository contains the implementation of my final year project conducted as part of my Computer Science BSc degree at King's College London.
 
+The process of developing APIs requires extensive programming and technical experience. This web application simplifies this through more accessible methods. Firstly, you can build a database from a description of a domain written in natural language. A database schema is extracted by utilising dependency parsing with [SpaCy](https://spacy.io/) and tree traversing to extract entities and relationships. Alternatively, the database schema can be extracted from a spreadsheet. ([Demo](https://gfycat.com/TestyFlakyChevrotain))
+
+
+
+![Parsing of domain description into entity-relationship structures](screenshots/natural.png?raw=true)
 
 ## Setup
 
