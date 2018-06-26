@@ -1,15 +1,20 @@
 # EasyAPI
-API generator for humans
+
+A proof-of-concept API generator which requires no technical knowledge.
+
+Currently the process of developing APIs requires extensive programming and technical experience. This project consists of a web application which simplifies the process through the use of several methods accessible to anyone. The first method is by building a database from a user’s domain description. The second method is by extracting the database schema and data from a spreadsheet and building an API for it. The application will also support setting up an API from a device’s JSON response.
+
+## Demo
+
 
 
 ## Setup
 
-The following dependencies need to be installed first:
+The following dependencies are required:
 
 - Postgres database (configurable in `backend/src/config/connections.js`)
 - Yarn
 - Pipenv
-
 
 
 ### Setup NLP dependencies
