@@ -17,7 +17,14 @@ The following dependencies are required:
 - [Pipenv](https://github.com/pypa/pipenv)
 
 
-Setup NLP dependencies:
+Clone this repository:
+
+```bash
+git clone https://github.com/martinhartt/easyapi
+cd easyapi
+```
+
+Install NLP dependencies:
 
 ```bash
 cd backend/src/nlp
@@ -26,14 +33,14 @@ pipenv shell
 python -m spacy download en
 ```
 
-Setup backend server dependencies:
+Install backend server dependencies:
 
 ```bash
 cd backend
 yarn install
 ```
 
-Setup frontend dependencies:
+Install frontend dependencies:
 
 ```bash
 cd frontend
